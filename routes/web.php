@@ -6,10 +6,6 @@ Route::get('/', function () {
     return view('user.pages.home');
 })->name('home');
 
-Route::get('/gallery', function () {
-    return view('user.pages.gallery');
-})->name('gallery');
-
 Route::get('/about', function () {
     return view('user.pages.about');
 })->name('about');
