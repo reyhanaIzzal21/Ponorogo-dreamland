@@ -9,8 +9,31 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    /* Font Families */
+    --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-serif: 'Playfair Display', serif;
+    --font-heritage: 'Playfair Display', serif;
+    --font-modern: 'Lato', sans-serif;
 
+    /* ============================== */
+    /* Main Theme Colors (Landing Page) */
+    /* ============================== */
+    --color-primary: #2D7D32;
+    --color-secondary: #FFEB3B;
+    --color-accent: #0288D1;
+    --color-earth: #795548;
+    --color-dark: #1a1a1a;
+    --color-light: #f8f9fa;
+
+    /* ============================== */
+    /* Restaurant Theme Colors */
+    /* ============================== */
+    --color-heritage-red: #B71C1C;
+    --color-forest-green: #1B5E20;
+    --color-golden-cokro: #FBC02D;
+    --color-parchment: #FFF8E1;
+
+    /* Zinc Colors */
     --color-zinc-50: #fafafa;
     --color-zinc-100: #f5f5f5;
     --color-zinc-200: #e5e5e5;
@@ -23,7 +46,6 @@
     --color-zinc-900: #171717;
     --color-zinc-950: #0a0a0a;
 
-    --color-accent: var(--color-neutral-800);
     --color-accent-content: var(--color-neutral-800);
     --color-accent-foreground: var(--color-white);
 }
@@ -52,7 +74,7 @@
 }
 
 [data-flux-label] {
-    @apply  !mb-0 !leading-tight;
+    @apply !mb-0 !leading-tight;
 }
 
 input:focus[data-flux-control],
@@ -61,6 +83,92 @@ select:focus[data-flux-control] {
     @apply outline-hidden ring-2 ring-accent ring-offset-2 ring-offset-accent-foreground;
 }
 
-/* \[:where(&)\]:size-4 {
-    @apply size-4;
-} */
+/* ============================== */
+/* Custom Utilities */
+/* ============================== */
+@layer utilities {
+    .text-shadow {
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    .glass-nav {
+        @apply bg-white/90 backdrop-blur-md shadow-sm;
+    }
+}
+
+/* ============================== */
+/* Scroll Animation Classes */
+/* ============================== */
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s ease-out;
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.fade-up {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s ease-out;
+}
+
+.fade-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ============================== */
+/* Dropdown Animation */
+/* ============================== */
+.group:hover .group-hover\:block {
+    display: block;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fade-in-up {
+    animation: fadeInUp 0.8s ease-out forwards;
+}
+
+/* ============================== */
+/* Restaurant Page Custom Styles */
+/* ============================== */
+.font-heritage {
+    font-family: 'Playfair Display', serif;
+}
+
+.font-modern {
+    font-family: 'Lato', sans-serif;
+}
+
+/* Tab Transition */
+.tab-content {
+    transition: opacity 0.3s ease-in-out;
+}
