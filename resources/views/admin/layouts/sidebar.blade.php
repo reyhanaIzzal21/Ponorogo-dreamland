@@ -94,6 +94,48 @@
                         <span class="font-medium">Landing Page</span>
                     </a>
                 </li>
+
+                @php
+                    $isCoursesActive = request()->routeIs('categories.*') || request()->routeIs('courses.*');
+                @endphp
+                <li>
+                    <button type="button" data-accordion-toggle="destinasi-accordion-content"
+                        class="flex items-center justify-between w-full py-2.5 px-3 rounded-lg transition-all duration-200 cursor-pointer {{ $isCoursesActive ? 'bg-green-50 text-green-600' : 'text-gray-600 hover:bg-green-50 hover:text-green-600' }}">
+                        <span class="flex items-center gap-3">
+                            <i class="ti ti-book text-xl"></i>
+                            <span class="font-medium">Destinasi</span>
+                        </span>
+                        <i
+                            class="ti ti-chevron-down text-sm transition-transform duration-200 accordion-icon {{ $isCoursesActive ? 'rotate-180' : '' }}"></i>
+                    </button>
+
+                    <div id="destinasi-accordion-content"
+                        class="w-full overflow-hidden transition-all duration-300 {{ $isCoursesActive ? '' : 'hidden' }}">
+                        <ul class="mt-1 ml-4 pl-4 border-l-2 border-gray-200 space-y-1">
+                            <li>
+                                <a class="flex items-center gap-2 py-2 px-3 rounded-lg text-sm transition-all duration-200 hover:bg-green-50 hover:text-green-600 {{ request()->routeIs('categories.*') ? 'text-green-600 bg-green-50 font-medium' : 'text-gray-500' }}"
+                                    href="#">
+                                    <i class="ti ti-point text-xs"></i>
+                                    <span>Dam Cokro Resto</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="flex items-center gap-2 py-2 px-3 rounded-lg text-sm transition-all duration-200 hover:bg-green-50 hover:text-green-600 {{ request()->routeIs('courses.*') ? 'text-green-600 bg-green-50 font-medium' : 'text-gray-500' }}"
+                                    href="#">
+                                    <i class="ti ti-point text-xs"></i>
+                                    <span>Pendopo</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="flex items-center gap-2 py-2 px-3 rounded-lg text-sm transition-all duration-200 hover:bg-green-50 hover:text-green-600 {{ request()->routeIs('courses.*') ? 'text-green-600 bg-green-50 font-medium' : 'text-gray-500' }}"
+                                    href="#">
+                                    <i class="ti ti-point text-xs"></i>
+                                    <span>Kolam Renang</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
             </ul>
         </nav>
     </div>
