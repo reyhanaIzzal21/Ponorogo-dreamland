@@ -53,7 +53,7 @@
             <h1 class="font-heritage text-5xl md:text-7xl lg:text-8xl text-zinc-900 font-bold leading-[0.95] mb-8 reveal">
                 Lebih dari <br>
                 Sekadar <span
-                    class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-emerald-400">Destinasi.</span>
+                    class="text-transparent bg-clip-text bg-linear-to-r from-primary to-emerald-400">Destinasi.</span>
             </h1>
             <div class="w-24 h-2 bg-secondary mb-8 reveal"></div>
             <p class="font-modern text-lg md:text-xl text-zinc-600 leading-relaxed max-w-xl reveal">
@@ -105,7 +105,7 @@
                 </div>
                 <div class="w-full md:w-1/2 md:pr-10 text-right md:text-left">
                     <div class="flex flex-col md:items-end">
-                        <span class="text-zinc-400 font-bold text-6xl opacity-20 -mr-4 md:-mr-0 md:-ml-4">02</span>
+                        <span class="text-zinc-400 font-bold text-6xl opacity-20 -mr-4 md:mr-0 md:-ml-4">02</span>
                         <h2 class="font-heritage text-4xl font-bold text-zinc-900 mb-6 -mt-8">Filosofi "Dreamland"</h2>
                     </div>
                     <p class="font-modern text-lg text-zinc-600 leading-loose">
@@ -167,7 +167,7 @@
                     <div class="absolute right-0 top-0 w-full h-full bg-accent/5 transition group-hover:bg-accent/10"></div>
                     <div class="relative z-10 flex flex-col md:flex-row items-start md:items-center gap-6">
                         <div
-                            class="w-16 h-16 bg-accent/20 text-accent rounded-2xl flex items-center justify-center text-3xl flex-shrink-0">
+                            class="w-16 h-16 bg-accent/20 text-accent rounded-2xl flex items-center justify-center text-3xl shrink-0">
                             🚀</div>
                         <div>
                             <h3 class="font-heritage text-2xl font-bold text-zinc-800 mb-2">Inovatif</h3>
@@ -187,7 +187,7 @@
                     </div>
                     <div class="relative z-10 flex flex-col md:flex-row items-start md:items-center gap-6 w-full">
                         <div
-                            class="w-16 h-16 bg-secondary text-zinc-900 rounded-2xl flex items-center justify-center text-3xl flex-shrink-0 shadow-[0_0_15px_rgba(255,235,59,0.5)]">
+                            class="w-16 h-16 bg-secondary text-zinc-900 rounded-2xl flex items-center justify-center text-3xl shrink-0 shadow-[0_0_15px_rgba(255,235,59,0.5)]">
                             🤝</div>
                         <div>
                             <h3 class="font-heritage text-2xl font-bold text-white mb-2">Kehangatan Keluarga</h3>

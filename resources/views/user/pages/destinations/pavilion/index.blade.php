@@ -130,8 +130,8 @@
                 <div class="lg:w-1/2 relative reveal">
                     <img src="https://images.unsplash.com/photo-1505236858219-8359eb29e329?q=80&w=900&auto=format&fit=crop"
                         class="rounded-lg shadow-xl w-full object-cover h-[500px] z-10 relative">
-                    <div class="absolute -bottom-6 -right-6 w-2/3 h-64 bg-zinc-100 rounded-lg -z-0"></div>
-                    <div class="absolute -top-6 -left-6 w-32 h-32 bg-primary/10 rounded-full -z-0 blur-2xl"></div>
+                    <div class="absolute -bottom-6 -right-6 w-2/3 h-64 bg-zinc-100 rounded-lg z-0"></div>
+                    <div class="absolute -top-6 -left-6 w-32 h-32 bg-primary/10 rounded-full z-0 blur-2xl"></div>
                 </div>
 
                 <div class="lg:w-1/2 reveal" style="transition-delay: 200ms;">
@@ -145,7 +145,7 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
                         <div class="flex items-start gap-3">
                             <div
-                                class="flex-shrink-0 w-8 h-8 rounded-full bg-green-50 flex items-center justify-center text-primary mt-1">
+                                class="shrink-0 w-8 h-8 rounded-full bg-green-50 flex items-center justify-center text-primary mt-1">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z">
@@ -160,7 +160,7 @@
 
                         <div class="flex items-start gap-3">
                             <div
-                                class="flex-shrink-0 w-8 h-8 rounded-full bg-yellow-50 flex items-center justify-center text-earth mt-1">
+                                class="shrink-0 w-8 h-8 rounded-full bg-yellow-50 flex items-center justify-center text-earth mt-1">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z">
@@ -175,7 +175,7 @@
 
                         <div class="flex items-start gap-3">
                             <div
-                                class="flex-shrink-0 w-8 h-8 rounded-full bg-blue-50 flex items-center justify-center text-accent mt-1">
+                                class="shrink-0 w-8 h-8 rounded-full bg-blue-50 flex items-center justify-center text-accent mt-1">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4">
@@ -190,7 +190,7 @@
 
                         <div class="flex items-start gap-3">
                             <div
-                                class="flex-shrink-0 w-8 h-8 rounded-full bg-zinc-100 flex items-center justify-center text-zinc-600 mt-1">
+                                class="shrink-0 w-8 h-8 rounded-full bg-zinc-100 flex items-center justify-center text-zinc-600 mt-1">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M5 13l4 4L19 7"></path>

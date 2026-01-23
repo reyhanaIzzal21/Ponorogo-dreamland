@@ -9,7 +9,7 @@
             <div class="hero-slide absolute inset-0 bg-cover bg-center transition-opacity duration-1000 ease-in-out opacity-0"
                 style="background-image: url('https://images.unsplash.com/photo-1552566626-52f8b828add9?q=80&w=2070&auto=format&fit=crop');">
             </div>
-            <div class="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/60"></div>
+            <div class="absolute inset-0 bg-linear-to-b from-black/40 via-black/20 to-black/60"></div>
         </div>
 
         <div class="relative z-10 text-center px-4 max-w-4xl mx-auto reveal active">
@@ -222,7 +222,7 @@
                     <img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?q=80&w=1000&auto=format&fit=crop"
                         class="w-full h-full object-cover transition duration-700 group-hover:scale-110">
                     <div
-                        class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-6">
+                        class="absolute inset-0 bg-linear-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-6">
                         <p class="text-white font-serif text-xl">"Wedding di Pendopo sangat magis!" - Siti A.</p>
                     </div>
                 </div>
@@ -245,7 +245,7 @@
                     <img src="https://images.unsplash.com/photo-1566737236500-c8ac43014a67?q=80&w=1000&auto=format&fit=crop"
                         class="w-full h-full object-cover transition duration-700 group-hover:scale-110">
                     <div
-                        class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-6">
+                        class="absolute inset-0 bg-linear-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-6">
                         <p class="text-white font-medium">Suasana malam yang syahdu</p>
                     </div>
                 </div>
