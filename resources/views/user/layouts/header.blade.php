@@ -1,13 +1,9 @@
 <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-4 bg-transparent">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2">
         <div class="flex justify-between items-center h-12">
 
             <div class="shrink-0 flex items-center gap-2 cursor-pointer">
-                <div
-                    class="w-8 h-8 bg-primary rounded-tl-xl rounded-br-xl flex items-center justify-center text-white font-bold text-xl">
-                    P</div>
-                <span class="font-serif font-bold text-xl text-primary tracking-wide">Ponorogo <span
-                        class="text-earth">Dreamland</span></span>
+                <img src="{{ asset('assets/images/logo-nobg.png') }}" alt="logo" class="w-28">
             </div>
 
             <div class="hidden md:flex space-x-8 items-center">
