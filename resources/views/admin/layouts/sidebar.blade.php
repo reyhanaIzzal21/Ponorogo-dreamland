@@ -87,39 +87,12 @@
                 <li class="text-xs font-semibold text-gray-400 uppercase tracking-wider px-3 pb-2 pt-6">
                     <span>CMS</span>
                 </li>
-                @php
-                    $isCoursesActive = request()->routeIs('categories.*') || request()->routeIs('courses.*');
-                @endphp
                 <li>
-                    <button type="button" data-accordion-toggle="courses-accordion-content"
-                        class="flex items-center justify-between w-full py-2.5 px-3 rounded-lg transition-all duration-200 cursor-pointer {{ $isCoursesActive ? 'bg-green-50 text-green-600' : 'text-gray-600 hover:bg-green-50 hover:text-green-600' }}">
-                        <span class="flex items-center gap-3">
-                            <i class="ti ti-book text-xl"></i>
-                            <span class="font-medium">Courses</span>
-                        </span>
-                        <i
-                            class="ti ti-chevron-down text-sm transition-transform duration-200 accordion-icon {{ $isCoursesActive ? 'rotate-180' : '' }}"></i>
-                    </button>
-
-                    <div id="courses-accordion-content"
-                        class="w-full overflow-hidden transition-all duration-300 {{ $isCoursesActive ? '' : 'hidden' }}">
-                        <ul class="mt-1 ml-4 pl-4 border-l-2 border-gray-200 space-y-1">
-                            <li>
-                                <a class="flex items-center gap-2 py-2 px-3 rounded-lg text-sm transition-all duration-200 hover:bg-green-50 hover:text-green-600 {{ request()->routeIs('categories.*') ? 'text-green-600 bg-green-50 font-medium' : 'text-gray-500' }}"
-                                    href="#">
-                                    <i class="ti ti-point text-xs"></i>
-                                    <span>Category</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="flex items-center gap-2 py-2 px-3 rounded-lg text-sm transition-all duration-200 hover:bg-green-50 hover:text-green-600 {{ request()->routeIs('courses.*') ? 'text-green-600 bg-green-50 font-medium' : 'text-gray-500' }}"
-                                    href="#">
-                                    <i class="ti ti-point text-xs"></i>
-                                    <span>Course List</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
+                    <a class="flex items-center gap-3 py-2.5 px-3 rounded-lg w-full transition-all duration-200 hover:bg-green-50 hover:text-green-600 {{ request()->routeIs('admin.landing-page') ? 'bg-green-500 text-white shadow-md shadow-green-500/30' : 'text-gray-600' }}"
+                        href="{{ route('admin.landing-page') }}">
+                        <i class="ti ti-layout-dashboard text-xl"></i>
+                        <span class="font-medium">Landing Page</span>
+                    </a>
                 </li>
             </ul>
         </nav>
