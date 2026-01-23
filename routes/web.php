@@ -34,6 +34,7 @@ Route::prefix('admin')->middleware('role:admin')->name('admin.')->group(function
     Route::view('dashboard', 'admin.pages.dashboard')->name('dashboard');
 
     Route::view('landing-page', 'admin.pages.landing-page.index')->name('landing-page');
+    Route::view('restaurant', 'admin.pages.restaurant.index')->name('restaurant');
 });
 
 require __DIR__ . '/settings.php';
