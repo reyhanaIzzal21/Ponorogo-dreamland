@@ -13,6 +13,9 @@ Route::get('/about', function () {
 Route::get('/dam-cokro-resto', function () {
     return view('user.pages.destinations.restaurant.index');
 })->name('dam-cokro-resto');
+Route::get('/menu', function () {
+    return view('user.pages.destinations.restaurant.menu');
+})->name('menu');
 Route::get('/pavilion', function () {
     return view('user.pages.destinations.pavilion.index');
 })->name('pavilion');
