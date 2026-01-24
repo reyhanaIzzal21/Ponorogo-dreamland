@@ -139,6 +139,14 @@
                         </ul>
                     </div>
                 </li>
+
+                <li>
+                    <a class="flex items-center gap-3 py-2.5 px-3 rounded-lg w-full transition-all duration-200 hover:bg-green-50 hover:text-green-600 {{ request()->routeIs('admin.about') ? 'bg-green-500 text-white shadow-md shadow-green-500/30' : 'text-gray-600' }}"
+                        href="{{ route('admin.about') }}">
+                        <i class="ti ti-layout-dashboard text-xl"></i>
+                        <span class="font-medium">About</span>
+                    </a>
+                </li>
             </ul>
         </nav>
     </div>

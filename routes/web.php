@@ -37,6 +37,7 @@ Route::prefix('admin')->middleware('role:admin')->name('admin.')->group(function
     Route::view('restaurant', 'admin.pages.restaurant.index')->name('restaurant');
     Route::view('pavilion', 'admin.pages.pavilion.index')->name('pavilion');
     Route::view('pool', 'admin.pages.pool.index')->name('pool');
+    Route::view('about', 'admin.pages.about.index')->name('about');
 });
 
 require __DIR__ . '/settings.php';
