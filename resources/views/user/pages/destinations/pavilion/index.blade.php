@@ -142,7 +142,7 @@
                         termasuk:
                     </p>
 
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">   
                         <div class="flex items-start gap-3">
                             <div
                                 class="shrink-0 w-8 h-8 rounded-full bg-green-50 flex items-center justify-center text-primary mt-1">
@@ -212,14 +212,6 @@
             <div class="text-center mb-12 reveal">
                 <h2 class="font-serif text-3xl md:text-4xl text-earth font-bold mb-4">Fleksibilitas Ruang</h2>
                 <p class="text-zinc-500">Inspirasi layout untuk berbagai jenis acara Anda.</p>
-            </div>
-
-            <div class="flex justify-center gap-4 mb-8 reveal">
-                <span class="px-4 py-2 bg-primary text-white rounded-full text-sm font-semibold">Semua</span>
-                <span
-                    class="px-4 py-2 bg-white text-zinc-600 border border-zinc-200 rounded-full text-sm font-semibold hover:border-primary cursor-pointer transition">Wedding</span>
-                <span
-                    class="px-4 py-2 bg-white text-zinc-600 border border-zinc-200 rounded-full text-sm font-semibold hover:border-primary cursor-pointer transition">Corporate</span>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 reveal">
