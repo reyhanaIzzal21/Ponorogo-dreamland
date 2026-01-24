@@ -157,10 +157,6 @@
                         <h3 class="text-xl font-bold text-white mb-2">Fasilitas Modern & Bersih</h3>
                         <p class="text-zinc-400 text-sm mb-4">Ruang ganti premium, shower air hangat, dan locker room dengan
                             keamanan digital.</p>
-                        <div class="flex gap-2">
-                            <span class="text-xs bg-zinc-800 px-2 py-1 rounded text-zinc-300">Smart Locker</span>
-                            <span class="text-xs bg-zinc-800 px-2 py-1 rounded text-zinc-300">Clean Shower</span>
-                        </div>
                     </div>
                 </div>
             </div>
