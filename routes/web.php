@@ -72,6 +72,7 @@ Route::prefix('admin')->middleware('role:admin')->name('admin.')->group(function
         Route::post('price-groups/reorder', [MenuPriceGroupController::class, 'reorder'])->name('price-groups.reorder');
     });
 
+    Route::view('destinations', 'admin.pages.destinations.index')->name('destinations');
     Route::view('landing-page', 'admin.pages.landing-page.index')->name('landing-page');
     Route::view('restaurant', 'admin.pages.restaurant.index')->name('restaurant');
     Route::view('pavilion', 'admin.pages.pavilion.index')->name('pavilion');
