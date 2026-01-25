@@ -2,6 +2,12 @@
 
 namespace App\Providers;
 
+use App\Contracts\Interfaces\MenuCategoryRepositoryInterface;
+use App\Contracts\Interfaces\MenuItemRepositoryInterface;
+use App\Contracts\Interfaces\MenuPriceGroupRepositoryInterface;
+use App\Contracts\Repositories\MenuCategoryRepository;
+use App\Contracts\Repositories\MenuItemRepository;
+use App\Contracts\Repositories\MenuPriceGroupRepository;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
@@ -15,7 +21,21 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        // Menu Repository Bindings
+        $this->app->bind(
+            MenuCategoryRepositoryInterface::class,
+            MenuCategoryRepository::class
+        );
+
+        $this->app->bind(
+            MenuItemRepositoryInterface::class,
+            MenuItemRepository::class
+        );
+
+        $this->app->bind(
+            MenuPriceGroupRepositoryInterface::class,
+            MenuPriceGroupRepository::class
+        );
     }
 
     /**
@@ -34,14 +54,15 @@ class AppServiceProvider extends ServiceProvider
             app()->isProduction(),
         );
 
-        Password::defaults(fn (): ?Password => app()->isProduction()
-            ? Password::min(12)
+        Password::defaults(
+            fn(): ?Password => app()->isProduction()
+                ? Password::min(12)
                 ->mixedCase()
                 ->letters()
                 ->numbers()
                 ->symbols()
                 ->uncompromised()
-            : null
+                : null
         );
     }
 }
