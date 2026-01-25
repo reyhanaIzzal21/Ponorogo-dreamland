@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\DestinationController;
+use App\Http\Controllers\Admin\LandingPageController;
 use App\Http\Controllers\Admin\MenuCategoryController;
 use App\Http\Controllers\Admin\MenuItemController;
 use App\Http\Controllers\Admin\MenuPriceGroupController;
@@ -80,7 +81,17 @@ Route::prefix('admin')->middleware('role:admin')->name('admin.')->group(function
         Route::delete('/{id}', [DestinationController::class, 'destroy'])->name('destroy');
     });
 
-    Route::view('landing-page', 'admin.pages.landing-page.index')->name('landing-page');
+    // Landing Page Management Routes
+    Route::prefix('landing-page')->name('landing-page.')->group(function () {
+        Route::get('/', [LandingPageController::class, 'index'])->name('index');
+        Route::put('/hero', [LandingPageController::class, 'updateHero'])->name('hero.update');
+        Route::put('/about', [LandingPageController::class, 'updateAbout'])->name('about.update');
+        Route::put('/why', [LandingPageController::class, 'updateWhy'])->name('why.update');
+        Route::put('/moment', [LandingPageController::class, 'updateMoment'])->name('moment.update');
+        Route::post('/images', [LandingPageController::class, 'storeImage'])->name('images.store');
+        Route::delete('/images/{id}', [LandingPageController::class, 'destroyImage'])->name('images.destroy');
+    });
+
     Route::view('restaurant', 'admin.pages.restaurant.index')->name('restaurant');
     Route::view('pavilion', 'admin.pages.pavilion.index')->name('pavilion');
     Route::view('pool', 'admin.pages.pool.index')->name('pool');

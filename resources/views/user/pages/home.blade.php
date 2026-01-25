@@ -1,14 +1,24 @@
 @extends('user.layouts.app')
 
 @section('content')
+    {{-- HERO SECTION --}}
     <section id="home" class="relative h-screen flex items-center justify-center overflow-hidden">
         <div id="hero-carousel" class="absolute inset-0 z-0">
-            <div class="hero-slide absolute inset-0 bg-cover bg-center transition-opacity duration-1000 ease-in-out opacity-100"
-                style="background-image: url('https://images.unsplash.com/photo-1469334031218-e382a71b716b?q=80&w=2070&auto=format&fit=crop');">
-            </div>
-            <div class="hero-slide absolute inset-0 bg-cover bg-center transition-opacity duration-1000 ease-in-out opacity-0"
-                style="background-image: url('https://images.unsplash.com/photo-1552566626-52f8b828add9?q=80&w=2070&auto=format&fit=crop');">
-            </div>
+            @if ($heroSection && $heroSection->images->count() > 0)
+                @foreach ($heroSection->images as $index => $image)
+                    <div class="hero-slide absolute inset-0 bg-cover bg-center transition-opacity duration-1000 ease-in-out {{ $index === 0 ? 'opacity-100' : 'opacity-0' }}"
+                        style="background-image: url('{{ $image->image_url }}');">
+                    </div>
+                @endforeach
+            @else
+                {{-- Default images if no carousel images --}}
+                <div class="hero-slide absolute inset-0 bg-cover bg-center transition-opacity duration-1000 ease-in-out opacity-100"
+                    style="background-image: url('https://images.unsplash.com/photo-1469334031218-e382a71b716b?q=80&w=2070&auto=format&fit=crop');">
+                </div>
+                <div class="hero-slide absolute inset-0 bg-cover bg-center transition-opacity duration-1000 ease-in-out opacity-0"
+                    style="background-image: url('https://images.unsplash.com/photo-1552566626-52f8b828add9?q=80&w=2070&auto=format&fit=crop');">
+                </div>
+            @endif
             <div class="absolute inset-0 bg-linear-to-b from-black/40 via-black/20 to-black/60"></div>
         </div>
 
@@ -17,10 +27,11 @@
                 class="inline-block py-1 px-3 rounded-full bg-secondary/90 text-earth text-sm font-bold tracking-wider mb-4 uppercase shadow-lg">Welcome
                 to Ponorogo</span>
             <h1 class="font-serif text-4xl md:text-6xl lg:text-7xl text-white font-bold leading-tight mb-6 text-shadow">
-                Destinasi Terpadu untuk <br /><span class="text-secondary italic">Kuliner, Tradisi & Rekreasi</span>
+                {{ $heroSection->title ?? 'Destinasi Terpadu untuk' }} <br /><span
+                    class="text-secondary italic">{{ $heroSection->extra_data['highlight_text'] ?? 'Kuliner, Tradisi & Rekreasi' }}</span>
             </h1>
             <p class="text-lg md:text-xl text-gray-200 mb-10 max-w-2xl mx-auto font-light">
-                Nikmati pengalaman tak terlupakan bersama keluarga di pusat kenyamanan dan kehangatan kota Ponorogo.
+                {{ $heroSection->description ?? 'Nikmati pengalaman tak terlupakan bersama keluarga di pusat kenyamanan dan kehangatan kota Ponorogo.' }}
             </p>
             <div class="flex flex-col sm:flex-row gap-4 justify-center">
                 <a href="#destinations"
@@ -35,6 +46,7 @@
         </div>
     </section>
 
+    {{-- DESTINATIONS SECTION --}}
     <section id="destinations" class="py-24 bg-white relative">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16 reveal">
@@ -114,6 +126,7 @@
         </div>
     </section>
 
+    {{-- ABOUT SECTION --}}
     <section id="about" class="py-24 bg-light overflow-hidden">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex flex-col lg:flex-row items-center gap-16">
@@ -122,125 +135,136 @@
                     <div class="absolute -bottom-4 -right-4 w-32 h-32 bg-primary rounded-full opacity-30 blur-xl">
                     </div>
                     <div class="grid grid-cols-2 gap-4">
-                        <img src="https://images.unsplash.com/photo-1566737236500-c8ac43014a67?q=80&w=800&auto=format&fit=crop"
+                        @php
+                            $leftImage = $aboutSection?->images->where('image_type', 'left')->first();
+                            $rightImage = $aboutSection?->images->where('image_type', 'right')->first();
+                        @endphp
+                        <img src="{{ $leftImage?->image_url ?? 'https://images.unsplash.com/photo-1566737236500-c8ac43014a67?q=80&w=800&auto=format&fit=crop' }}"
+                            alt="About Image Left"
                             class="rounded-2xl shadow-lg w-full h-64 object-cover mt-8 transform hover:-translate-y-2 transition duration-500">
-                        <img src="https://images.unsplash.com/photo-1566737236500-c8ac43014a67?q=80&w=800&auto=format&fit=crop"
+                        <img src="{{ $rightImage?->image_url ?? 'https://images.unsplash.com/photo-1566737236500-c8ac43014a67?q=80&w=800&auto=format&fit=crop' }}"
+                            alt="About Image Right"
                             class="rounded-2xl shadow-lg w-full h-64 object-cover transform hover:-translate-y-2 transition duration-500">
                     </div>
                 </div>
 
                 <div class="lg:w-1/2 reveal">
                     <h4 class="text-primary font-bold tracking-widest uppercase text-sm mb-2">Tentang Kami</h4>
-                    <h2 class="font-serif text-4xl font-bold text-gray-900 mb-6">Mewujudkan "Dreamland" di Tanah
-                        Ponorogo</h2>
+                    <h2 class="font-serif text-4xl font-bold text-gray-900 mb-6">
+                        {{ $aboutSection->title ?? 'Mewujudkan "Dreamland" di Tanah Ponorogo' }}</h2>
                     <p class="text-gray-600 text-lg mb-6 leading-relaxed">
-                        <span class="font-bold text-earth">Ponorogo Dreamland</span> lahir dari sebuah mimpi sederhana:
-                        menyediakan satu tempat di mana tradisi lokal dapat berpadu harmonis dengan kenyamanan modern.
+                        <span class="font-bold text-earth">Ponorogo Dreamland</span>
+                        {{ $aboutSection->description ?? 'lahir dari sebuah mimpi sederhana: menyediakan satu tempat di mana tradisi lokal dapat berpadu harmonis dengan kenyamanan modern.' }}
                     </p>
                     <p class="text-gray-600 mb-8 leading-relaxed">
-                        Kami percaya bahwa momen terbaik diciptakan melalui makanan yang lezat, suasana yang hangat, dan
-                        tempat yang nyaman. Baik Anda ingin menikmati hidangan di <span
-                            class="text-primary font-semibold">Dam Cokro</span> atau merayakan cinta di <span
-                            class="text-earth font-semibold">Pendopo</span>, kami hadir untuk melayani.
+                        {{ $aboutSection->extra_data['extra_description'] ?? 'Kami percaya bahwa momen terbaik diciptakan melalui makanan yang lezat, suasana yang hangat, dan tempat yang nyaman. Baik Anda ingin menikmati hidangan di Dam Cokro atau merayakan cinta di Pendopo, kami hadir untuk melayani.' }}
                     </p>
-                    <div class="flex items-center gap-4">
-                        <div class="flex -space-x-4">
-                            <img class="w-10 h-10 rounded-full border-2 border-white"
-                                src="https://randomuser.me/api/portraits/men/32.jpg" alt="">
-                            <img class="w-10 h-10 rounded-full border-2 border-white"
-                                src="https://randomuser.me/api/portraits/women/44.jpg" alt="">
-                            <img class="w-10 h-10 rounded-full border-2 border-white"
-                                src="https://randomuser.me/api/portraits/men/85.jpg" alt="">
-                        </div>
-                        <p class="text-sm text-gray-500 font-medium">Bergabung dengan 1000+ pengunjung bahagia</p>
-                    </div>
                 </div>
             </div>
         </div>
     </section>
 
+    {{-- WHY CHOOSE US SECTION --}}
     <section class="py-20 bg-primary text-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <div
-                    class="text-center p-6 border border-green-600 rounded-xl bg-green-800/30 hover:bg-green-800/50 transition reveal">
-                    <div
-                        class="w-14 h-14 bg-secondary text-primary rounded-full flex items-center justify-center mx-auto mb-4 text-2xl shadow-lg">
-                        📍</div>
-                    <h3 class="font-bold text-xl mb-2">Lokasi Strategis</h3>
-                    <p class="text-green-100 text-sm">Mudah dijangkau, tepat di jantung aktivitas dan kenyamanan.</p>
-                </div>
-                <div class="text-center p-6 border border-green-600 rounded-xl bg-green-800/30 hover:bg-green-800/50 transition reveal"
-                    style="transition-delay: 100ms;">
-                    <div
-                        class="w-14 h-14 bg-secondary text-primary rounded-full flex items-center justify-center mx-auto mb-4 text-2xl shadow-lg">
-                        ✨</div>
-                    <h3 class="font-bold text-xl mb-2">Fasilitas Lengkap</h3>
-                    <p class="text-green-100 text-sm">One-stop destination: Makan, Acara, dan Hiburan keluarga.</p>
-                </div>
-                <div class="text-center p-6 border border-green-600 rounded-xl bg-green-800/30 hover:bg-green-800/50 transition reveal"
-                    style="transition-delay: 200ms;">
-                    <div
-                        class="w-14 h-14 bg-secondary text-primary rounded-full flex items-center justify-center mx-auto mb-4 text-2xl shadow-lg">
-                        🤝</div>
-                    <h3 class="font-bold text-xl mb-2">Pelayanan Ramah</h3>
-                    <p class="text-green-100 text-sm">Keramahan khas Ponorogo dengan standar layanan profesional.</p>
-                </div>
-                <div class="text-center p-6 border border-green-600 rounded-xl bg-green-800/30 hover:bg-green-800/50 transition reveal"
-                    style="transition-delay: 300ms;">
-                    <div
-                        class="w-14 h-14 bg-secondary text-primary rounded-full flex items-center justify-center mx-auto mb-4 text-2xl shadow-lg">
-                        🏛️</div>
-                    <h3 class="font-bold text-xl mb-2">Suasana Otentik</h3>
-                    <p class="text-green-100 text-sm">Perpaduan desain modern dan sentuhan tradisional Jawa.</p>
-                </div>
+                @php
+                    $defaultFeatures = [
+                        [
+                            'icon' => '📍',
+                            'title' => 'Lokasi Strategis',
+                            'description' => 'Mudah dijangkau, tepat di jantung aktivitas dan kenyamanan.',
+                        ],
+                        [
+                            'icon' => '✨',
+                            'title' => 'Fasilitas Lengkap',
+                            'description' => 'One-stop destination: Makan, Acara, dan Hiburan keluarga.',
+                        ],
+                        [
+                            'icon' => '🤝',
+                            'title' => 'Pelayanan Ramah',
+                            'description' => 'Keramahan khas Ponorogo dengan standar layanan profesional.',
+                        ],
+                        [
+                            'icon' => '🏛️',
+                            'title' => 'Suasana Otentik',
+                            'description' => 'Perpaduan desain modern dan sentuhan tradisional Jawa.',
+                        ],
+                    ];
+                    $features = $whySection->extra_data['features'] ?? $defaultFeatures;
+                @endphp
+
+                @foreach ($features as $index => $feature)
+                    <div class="text-center p-6 border border-green-600 rounded-xl bg-green-800/30 hover:bg-green-800/50 transition reveal"
+                        style="transition-delay: {{ $index * 100 }}ms;">
+                        <div
+                            class="w-14 h-14 bg-secondary text-primary rounded-full flex items-center justify-center mx-auto mb-4 text-2xl shadow-lg">
+                            {{ $feature['icon'] }}</div>
+                        <h3 class="font-bold text-xl mb-2">{{ $feature['title'] }}</h3>
+                        <p class="text-green-100 text-sm">{{ $feature['description'] }}</p>
+                    </div>
+                @endforeach
             </div>
         </div>
     </section>
 
+    {{-- GALLERY/MOMENT SECTION --}}
     <section id="gallery" class="py-24 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-12 reveal">
-                <h2 class="font-serif text-3xl md:text-4xl text-gray-900 font-bold mb-4">Momen di Dreamland</h2>
-                <p class="text-gray-500">Lihat bagaimana pengunjung kami menikmati waktunya.</p>
+                <h2 class="font-serif text-3xl md:text-4xl text-gray-900 font-bold mb-4">
+                    {{ $momentSection->title ?? 'Momen di Dreamland' }}</h2>
+                <p class="text-gray-500">
+                    {{ $momentSection->subtitle ?? 'Lihat bagaimana pengunjung kami menikmati waktunya.' }}</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-4 grid-rows-2 gap-4 h-[600px] reveal">
-                <div class="md:col-span-2 md:row-span-2 relative group overflow-hidden rounded-2xl cursor-pointer">
-                    <img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?q=80&w=1000&auto=format&fit=crop"
-                        class="w-full h-full object-cover transition duration-700 group-hover:scale-110">
-                    <div
-                        class="absolute inset-0 bg-linear-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-6">
-                        <p class="text-white font-serif text-xl">"Wedding di Pendopo sangat magis!" - Siti A.</p>
+                @if ($momentSection && $momentSection->images->count() > 0)
+                    @foreach ($momentSection->images as $index => $image)
+                        @if ($index === 0)
+                            <div
+                                class="md:col-span-2 md:row-span-2 relative group overflow-hidden rounded-2xl cursor-pointer">
+                                <img src="{{ $image->image_url }}" alt="{{ $image->alt_text ?? 'Gallery Image' }}"
+                                    class="w-full h-full object-cover transition duration-700 group-hover:scale-110">
+                            </div>
+                        @elseif($index === 1 || $index === 2)
+                            <div
+                                class="md:col-span-1 md:row-span-1 relative group overflow-hidden rounded-2xl cursor-pointer">
+                                <img src="{{ $image->image_url }}" alt="{{ $image->alt_text ?? 'Gallery Image' }}"
+                                    class="w-full h-full object-cover transition duration-700 group-hover:scale-110">
+                            </div>
+                        @elseif($index === 3)
+                            <div
+                                class="md:col-span-2 md:row-span-1 relative group overflow-hidden rounded-2xl cursor-pointer">
+                                <img src="{{ $image->image_url }}" alt="{{ $image->alt_text ?? 'Gallery Image' }}"
+                                    class="w-full h-full object-cover transition duration-700 group-hover:scale-110">
+                            </div>
+                        @endif
+                    @endforeach
+                @else
+                    {{-- Default gallery images --}}
+                    <div class="md:col-span-2 md:row-span-2 relative group overflow-hidden rounded-2xl cursor-pointer">
+                        <img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?q=80&w=1000&auto=format&fit=crop"
+                            class="w-full h-full object-cover transition duration-700 group-hover:scale-110">
                     </div>
-                </div>
-                <div class="md:col-span-1 md:row-span-1 relative group overflow-hidden rounded-2xl cursor-pointer">
-                    <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=800&auto=format&fit=crop"
-                        class="w-full h-full object-cover transition duration-700 group-hover:scale-110">
-                    <div
-                        class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
-                        <span class="text-white font-bold">Menu Favorit</span>
+                    <div class="md:col-span-1 md:row-span-1 relative group overflow-hidden rounded-2xl cursor-pointer">
+                        <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=800&auto=format&fit=crop"
+                            class="w-full h-full object-cover transition duration-700 group-hover:scale-110">
                     </div>
-                </div>
-                <div
-                    class="md:col-span-1 md:row-span-1 relative group overflow-hidden rounded-2xl cursor-pointer bg-earth flex items-center justify-center text-center p-4">
-                    <blockquote class="text-white italic font-serif">
-                        "Tempat paling nyaman di Ponorogo saat ini. Makanannya juara!"
-                        <footer class="text-sm mt-2 text-secondary not-italic font-sans">- Budi Santoso</footer>
-                    </blockquote>
-                </div>
-                <div class="md:col-span-2 md:row-span-1 relative group overflow-hidden rounded-2xl cursor-pointer">
-                    <img src="https://images.unsplash.com/photo-1566737236500-c8ac43014a67?q=80&w=1000&auto=format&fit=crop"
-                        class="w-full h-full object-cover transition duration-700 group-hover:scale-110">
-                    <div
-                        class="absolute inset-0 bg-linear-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-6">
-                        <p class="text-white font-medium">Suasana malam yang syahdu</p>
+                    <div class="md:col-span-1 md:row-span-1 relative group overflow-hidden rounded-2xl cursor-pointer">
+                        <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=800&auto=format&fit=crop"
+                            class="w-full h-full object-cover transition duration-700 group-hover:scale-110">
                     </div>
-                </div>
+                    <div class="md:col-span-2 md:row-span-1 relative group overflow-hidden rounded-2xl cursor-pointer">
+                        <img src="https://images.unsplash.com/photo-1566737236500-c8ac43014a67?q=80&w=1000&auto=format&fit=crop"
+                            class="w-full h-full object-cover transition duration-700 group-hover:scale-110">
+                    </div>
+                @endif
             </div>
         </div>
     </section>
 
+    {{-- RESERVATION CTA SECTION --}}
     <section id="reservation" class="py-24 relative overflow-hidden">
         <div class="absolute inset-0 bg-earth">
             <div class="absolute inset-0 opacity-20"
@@ -275,6 +299,7 @@
         let currentSlide = 0;
 
         function nextSlide() {
+            if (slides.length <= 1) return;
             // Hilangkan opacity slide saat ini
             slides[currentSlide].style.opacity = '0';
             // Pindah index
@@ -284,7 +309,9 @@
         }
 
         // Ganti slide setiap 5 detik
-        setInterval(nextSlide, 5000);
+        if (slides.length > 1) {
+            setInterval(nextSlide, 5000);
+        }
 
         // SCROLL REVEAL ANIMATION (Intersection Observer)
         const revealElements = document.querySelectorAll('.reveal');

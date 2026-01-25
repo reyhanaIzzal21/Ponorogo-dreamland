@@ -41,7 +41,20 @@
 @endsection
 
 @section('content')
-    <div class="p-4 md:p-6 min-h-screen bg-gray-50" x-data="{ activeTab: 'hero' }">
+    <div class="p-4 md:p-6 min-h-screen bg-gray-50" x-data="landingPageManager()">
+
+        {{-- Success/Error Messages --}}
+        @if (session('success'))
+            <div class="mb-4 p-4 bg-green-100 border border-green-400 text-green-700 rounded-lg">
+                {{ session('success') }}
+            </div>
+        @endif
+
+        @if (session('error'))
+            <div class="mb-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg">
+                {{ session('error') }}
+            </div>
+        @endif
 
         <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
             <div>
@@ -60,15 +73,6 @@
                     </svg>
                     <span class="hidden sm:inline">Live</span> Preview
                 </a>
-                <button
-                    class="flex-1 md:flex-none justify-center px-4 py-2 bg-green-700 text-white rounded-lg hover:bg-green-800 flex items-center gap-2 text-sm font-medium shadow-lg transition">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4">
-                        </path>
-                    </svg>
-                    Simpan
-                </button>
             </div>
         </div>
 
@@ -86,4 +90,83 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('script')
+    <script>
+        function landingPageManager() {
+            return {
+                activeTab: 'hero',
+                uploading: false,
+
+                async uploadImage(sectionType, file, imageType = 'default') {
+                    if (this.uploading) return;
+                    this.uploading = true;
+
+                    const formData = new FormData();
+                    formData.append('section_type', sectionType);
+                    formData.append('image', file);
+                    formData.append('image_type', imageType);
+
+                    try {
+                        const response = await fetch('{{ route('admin.landing-page.images.store') }}', {
+                            method: 'POST',
+                            headers: {
+                                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                                'Accept': 'application/json',
+                            },
+                            body: formData
+                        });
+
+                        const data = await response.json();
+
+                        if (data.success) {
+                            // Reload page to show new image
+                            window.location.reload();
+                        } else {
+                            alert(data.message || 'Gagal mengupload gambar');
+                        }
+                    } catch (error) {
+                        console.error('Upload error:', error);
+                        alert('Terjadi kesalahan saat mengupload gambar');
+                    } finally {
+                        this.uploading = false;
+                    }
+                },
+
+                async deleteImage(imageId) {
+                    if (!confirm('Apakah Anda yakin ingin menghapus gambar ini?')) return;
+
+                    try {
+                        const response = await fetch(`{{ url('admin/landing-page/images') }}/${imageId}`, {
+                            method: 'DELETE',
+                            headers: {
+                                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                                'Accept': 'application/json',
+                            }
+                        });
+
+                        const data = await response.json();
+
+                        if (data.success) {
+                            // Reload page to reflect deletion
+                            window.location.reload();
+                        } else {
+                            alert(data.message || 'Gagal menghapus gambar');
+                        }
+                    } catch (error) {
+                        console.error('Delete error:', error);
+                        alert('Terjadi kesalahan saat menghapus gambar');
+                    }
+                },
+
+                handleFileSelect(event, sectionType, imageType = 'default') {
+                    const file = event.target.files[0];
+                    if (file) {
+                        this.uploadImage(sectionType, file, imageType);
+                    }
+                }
+            }
+        }
+    </script>
 @endsection

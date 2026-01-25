@@ -6,10 +6,14 @@ use App\Contracts\Interfaces\MenuCategoryRepositoryInterface;
 use App\Contracts\Interfaces\MenuItemRepositoryInterface;
 use App\Contracts\Interfaces\MenuPriceGroupRepositoryInterface;
 use App\Contracts\Interfaces\DestinationRepositoryInterface;
+use App\Contracts\Interfaces\LandingPageSectionRepositoryInterface;
+use App\Contracts\Interfaces\LandingPageImageRepositoryInterface;
 use App\Contracts\Repositories\MenuCategoryRepository;
 use App\Contracts\Repositories\MenuItemRepository;
 use App\Contracts\Repositories\MenuPriceGroupRepository;
 use App\Contracts\Repositories\DestinationRepository;
+use App\Contracts\Repositories\LandingPageSectionRepository;
+use App\Contracts\Repositories\LandingPageImageRepository;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
@@ -44,6 +48,17 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(
             DestinationRepositoryInterface::class,
             DestinationRepository::class
+        );
+
+        // Landing Page Repository Bindings
+        $this->app->bind(
+            LandingPageSectionRepositoryInterface::class,
+            LandingPageSectionRepository::class
+        );
+
+        $this->app->bind(
+            LandingPageImageRepositoryInterface::class,
+            LandingPageImageRepository::class
         );
     }
 
