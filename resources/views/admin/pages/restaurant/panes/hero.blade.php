@@ -12,7 +12,13 @@
                 <label class="block text-xs font-bold text-gray-500 uppercase mb-2">Main Title</label>
                 <input type="text"
                     class="input-resto w-full rounded-lg border-gray-300 shadow-sm p-3 font-serif text-xl"
-                    value="Cita Rasa Tradisional di Jantung Ponorogo">
+                    value="Cita Rasa Tradisional">
+            </div>
+            <div>
+                <label class="block text-xs font-bold text-gray-500 uppercase mb-2">Main Title <span class="text-yellow-500">(Akan tampil berwarna kuning)</span></label>
+                <input type="text"
+                    class="input-resto w-full rounded-lg border-gray-300 shadow-sm p-3 font-serif text-xl"
+                    value="di Jantung Ponorogo">
             </div>
             <div>
                 <label class="block text-xs font-bold text-gray-500 uppercase mb-2">Sub Title</label>

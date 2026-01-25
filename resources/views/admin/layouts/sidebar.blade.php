@@ -1,5 +1,5 @@
 <aside id="application-sidebar-brand"
-    class="fixed top-0 start-0 h-screen z-45 w-[270px] bg-white border-r border-gray-200 shadow-lg transform -translate-x-full xl:translate-x-0 transition-transform duration-300 ease-in-out">
+    class="fixed top-0 start-0 h-screen z-60 w-[270px] bg-white border-r border-gray-200 shadow-lg transform -translate-x-full xl:translate-x-0 transition-transform duration-300 ease-in-out">
 
     <!-- Close button for mobile -->
     <div class="absolute top-3 end-3 xl:hidden">
@@ -69,9 +69,9 @@
 
                 @php
                     $isCoursesActive =
-                        request()->routeIs('admin.restaurant.*') ||
-                        request()->routeIs('admin.pavilion.*') ||
-                        request()->routeIs('admin.pool.*');
+                        request()->routeIs('admin.restaurant') ||
+                        request()->routeIs('admin.pavilion') ||
+                        request()->routeIs('admin.pool');
                 @endphp
                 <li>
                     <button type="button" data-accordion-toggle="destinasi-accordion-content"

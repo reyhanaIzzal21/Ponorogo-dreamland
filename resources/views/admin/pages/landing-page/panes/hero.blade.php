@@ -9,7 +9,13 @@
             <label class="block text-sm font-bold text-gray-700 mb-2">Main Headline</label>
             <input type="text"
                 class="w-full border-gray-300 rounded-lg shadow-sm focus:border-green-500 focus:ring-green-500 p-3"
-                value="Ponorogo Dreamland: Destinasi Terpadu untuk Kuliner, Tradisi, dan Rekreasi.">
+                value="Ponorogo Dreamland: Destinasi Terpadu untuk">
+        </div>
+        <div>
+            <label class="block text-sm font-bold text-gray-700 mb-2">Main Headline <span class="text-yellow-500">(Akan tampil berwarna kuning)</span></label>
+            <input type="text"
+                class="w-full border-gray-300 rounded-lg shadow-sm focus:border-green-500 focus:ring-green-500 p-3"
+                value="Kuliner, Tradisi, dan Rekreasi.">
         </div>
         <div>
             <label class="block text-sm font-bold text-gray-700 mb-2">Sub Headline</label>

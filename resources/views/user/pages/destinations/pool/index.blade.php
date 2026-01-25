@@ -66,8 +66,7 @@
             </span>
 
             <h1 class="font-modern text-5xl md:text-7xl text-white font-bold mb-6 leading-tight drop-shadow-2xl">
-                The New <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent to-cyan-300">Oasis</span> in
-                Town
+                The New <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent to-cyan-300">Oasis in Town</span>
             </h1>
             <p class="font-sans text-xl text-zinc-300 mb-10 max-w-2xl mx-auto font-light">
                 Segarkan hari Anda di destinasi terbaru Ponorogo. Perpaduan kesejukan air dan estetika modern yang belum

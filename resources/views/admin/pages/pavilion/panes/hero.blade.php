@@ -9,7 +9,12 @@
             <div>
                 <label class="block text-sm font-bold text-gray-700 mb-2">Main Title</label>
                 <input type="text" class="input-pendopo w-full border-gray-300 rounded-lg shadow-sm p-3 font-serif"
-                    value="Ruang Elegan untuk Momen Istimewa Anda">
+                    value="Ruang Elegan untuk">
+            </div>
+            <div>
+                <label class="block text-sm font-bold text-gray-700 mb-2">Main Title <span class="text-yellow-500">(Akan tampil berwarna kuning)</span></label>
+                <input type="text" class="input-pendopo w-full border-gray-300 rounded-lg shadow-sm p-3 font-serif"
+                    value="Momen Istimewa Anda">
             </div>
             <div>
                 <label class="block text-sm font-bold text-gray-700 mb-2">Sub Title / Deskripsi</label>
