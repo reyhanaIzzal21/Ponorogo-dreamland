@@ -2,53 +2,50 @@
     document.addEventListener('alpine:init', () => {
         Alpine.data('destinationMaster', () => ({
             isModalOpen: false,
+            isLoading: false,
+            isSaving: false,
             modalMode: 'add', // 'add' or 'edit'
 
             // FORM MODEL
             form: {
                 id: null,
                 name: '',
-                type: 'Resto',
+                type: 'restaurant',
                 status: 'open',
-                desc: '',
-                image: ''
+                description: '',
+                cover_image: null
             },
 
-            // DUMMY DATA
-            destinations: [{
-                    id: 1,
-                    name: 'Dam Cokro Resto',
-                    type: 'F&B',
-                    status: 'open',
-                    desc: 'Restoran keluarga dengan cita rasa nusantara dan suasana alam yang asri.',
-                    image: 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?q=80&w=600',
-                    views: '12.5k',
-                    updated: '2 Jam lalu',
-                    cms_link: '/admin/cms/resto' // Link ke halaman yang kita buat sebelumnya
-                },
-                {
-                    id: 2,
-                    name: 'Pendopo Ageng',
-                    type: 'Venue',
-                    status: 'open',
-                    desc: 'Ruang serbaguna elegan untuk pernikahan, meeting, dan gathering skala besar.',
-                    image: 'https://images.unsplash.com/photo-1519225421980-715cb0202128?q=80&w=600',
-                    views: '8.2k',
-                    updated: '1 Hari lalu',
-                    cms_link: '/admin/cms/pendopo'
-                },
-                {
-                    id: 3,
-                    name: 'Kolam Renang',
-                    type: 'Recreation',
-                    status: 'soon',
-                    desc: 'Wahana rekreasi air modern untuk keluarga. (Sedang dalam pembangunan)',
-                    image: 'https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?q=80&w=600',
-                    views: '45.1k',
-                    updated: 'Baru saja',
-                    cms_link: '/admin/cms/pool'
-                }
-            ],
+            // Destinations data from server
+            @php
+                $destinationsData = $destinations->map(function ($d) {
+                    return [
+                        'id' => $d->id,
+                        'name' => $d->name,
+                        'slug' => $d->slug,
+                        'description' => $d->description,
+                        'type' => $d->type,
+                        'type_label' => $d->type_label,
+                        'status' => $d->status,
+                        'status_label' => $d->status_label,
+                        'cover_image' => $d->cover_image,
+                        'cover_image_url' => $d->cover_image_url,
+                        'sort_order' => $d->sort_order,
+                        'is_active' => $d->is_active,
+                        'can_be_reserved' => $d->canBeReserved(),
+                        'updated_at' => $d->updated_at->diffForHumans(),
+                    ];
+                });
+            @endphp
+            destinations: @json($destinationsData),
+
+            // ROUTES
+            routes: {
+                store: "{{ route('admin.destinations.store') }}",
+                show: "{{ route('admin.destinations.show', ':id') }}",
+                update: "{{ route('admin.destinations.update', ':id') }}",
+                destroy: "{{ route('admin.destinations.destroy', ':id') }}"
+            },
 
             // HELPER FUNCTIONS
             getStatusClass(status) {
@@ -75,16 +72,21 @@
                 this.modalMode = mode;
                 if (mode === 'edit' && data) {
                     this.form = {
-                        ...data
-                    }; // Copy object
+                        id: data.id,
+                        name: data.name,
+                        type: data.type,
+                        status: data.status,
+                        description: data.description || '',
+                        cover_image: null
+                    };
                 } else {
                     this.form = {
                         id: null,
                         name: '',
-                        type: 'Resto',
+                        type: 'restaurant',
                         status: 'open',
-                        desc: '',
-                        image: ''
+                        description: '',
+                        cover_image: null
                     };
                 }
                 this.isModalOpen = true;
@@ -92,6 +94,119 @@
 
             closeModal() {
                 this.isModalOpen = false;
+                this.form = {
+                    id: null,
+                    name: '',
+                    type: 'restaurant',
+                    status: 'open',
+                    description: '',
+                    cover_image: null
+                };
+            },
+
+            handleImageChange(event) {
+                const file = event.target.files[0];
+                if (file) {
+                    this.form.cover_image = file;
+                }
+            },
+
+            async saveDestination() {
+                this.isSaving = true;
+
+                const formData = new FormData();
+                formData.append('name', this.form.name);
+                formData.append('type', this.form.type);
+                formData.append('status', this.form.status);
+                formData.append('description', this.form.description || '');
+
+                if (this.form.cover_image) {
+                    formData.append('cover_image', this.form.cover_image);
+                }
+
+                try {
+                    let url, method;
+
+                    if (this.modalMode === 'add') {
+                        url = this.routes.store;
+                    } else {
+                        url = this.routes.update.replace(':id', this.form.id);
+                    }
+
+                    const response = await fetch(url, {
+                        method: 'POST',
+                        headers: {
+                            'X-CSRF-TOKEN': document.querySelector(
+                                'meta[name="csrf-token"]').content,
+                            'Accept': 'application/json'
+                        },
+                        body: formData
+                    });
+
+                    const result = await response.json();
+
+                    if (result.success) {
+                        if (this.modalMode === 'add') {
+                            this.destinations.push(result.data);
+                        } else {
+                            const index = this.destinations.findIndex(d => d.id === this.form
+                                .id);
+                            if (index !== -1) {
+                                this.destinations[index] = result.data;
+                            }
+                        }
+                        this.closeModal();
+                        this.showNotification(result.message, 'success');
+                    } else {
+                        this.showNotification(result.message || 'Terjadi kesalahan', 'error');
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    this.showNotification('Terjadi kesalahan saat menyimpan data', 'error');
+                } finally {
+                    this.isSaving = false;
+                }
+            },
+
+            async confirmDelete(dest) {
+                if (!confirm(`Apakah Anda yakin ingin menghapus "${dest.name}"?`)) {
+                    return;
+                }
+
+                try {
+                    const url = this.routes.destroy.replace(':id', dest.id);
+
+                    const response = await fetch(url, {
+                        method: 'DELETE',
+                        headers: {
+                            'X-CSRF-TOKEN': document.querySelector(
+                                'meta[name="csrf-token"]').content,
+                            'Accept': 'application/json'
+                        }
+                    });
+
+                    const result = await response.json();
+
+                    if (result.success) {
+                        this.destinations = this.destinations.filter(d => d.id !== dest.id);
+                        this.showNotification(result.message, 'success');
+                    } else {
+                        this.showNotification(result.message || 'Gagal menghapus destinasi',
+                            'error');
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    this.showNotification('Terjadi kesalahan saat menghapus data', 'error');
+                }
+            },
+
+            showNotification(message, type = 'success') {
+                // Simple alert for now, can be replaced with toast library
+                if (type === 'success') {
+                    alert('✅ ' + message);
+                } else {
+                    alert('❌ ' + message);
+                }
             }
         }))
     })

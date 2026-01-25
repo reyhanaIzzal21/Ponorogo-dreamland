@@ -1,14 +1,15 @@
 <?php
 
+use App\Http\Controllers\Admin\DestinationController;
 use App\Http\Controllers\Admin\MenuCategoryController;
 use App\Http\Controllers\Admin\MenuItemController;
 use App\Http\Controllers\Admin\MenuPriceGroupController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MenuController;
+use App\Http\Controllers\ReservationController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('user.pages.home');
-})->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/about', function () {
     return view('user.pages.about');
@@ -28,9 +29,7 @@ Route::get('/pavilion', function () {
 Route::get('/pool', function () {
     return view('user.pages.destinations.pool.index');
 })->name('pool');
-Route::get('/reservation', function () {
-    return view('user.pages.reservations.index');
-})->name('reservation');
+Route::get('/reservation', [ReservationController::class, 'index'])->name('reservation');
 Route::get('/reservation/form', function () {
     return view('user.pages.reservations.form');
 })->name('reservation.form');
@@ -72,7 +71,15 @@ Route::prefix('admin')->middleware('role:admin')->name('admin.')->group(function
         Route::post('price-groups/reorder', [MenuPriceGroupController::class, 'reorder'])->name('price-groups.reorder');
     });
 
-    Route::view('destinations', 'admin.pages.destinations.index')->name('destinations');
+    // Destination Management Routes
+    Route::prefix('destinations')->name('destinations.')->group(function () {
+        Route::get('/', [DestinationController::class, 'index'])->name('index');
+        Route::post('/', [DestinationController::class, 'store'])->name('store');
+        Route::get('/{id}', [DestinationController::class, 'show'])->name('show');
+        Route::post('/{id}', [DestinationController::class, 'update'])->name('update');
+        Route::delete('/{id}', [DestinationController::class, 'destroy'])->name('destroy');
+    });
+
     Route::view('landing-page', 'admin.pages.landing-page.index')->name('landing-page');
     Route::view('restaurant', 'admin.pages.restaurant.index')->name('restaurant');
     Route::view('pavilion', 'admin.pages.pavilion.index')->name('pavilion');

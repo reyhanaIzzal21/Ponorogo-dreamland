@@ -46,81 +46,69 @@
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
 
-                <div
-                    class="group bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition duration-300 reveal border border-gray-100">
-                    <div class="h-64 overflow-hidden relative">
-                        <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?q=80&w=1000&auto=format&fit=crop"
-                            alt="Dam Cokro Resto"
-                            class="w-full h-full object-cover transform group-hover:scale-110 transition duration-700">
-                        <div class="absolute top-4 left-4 bg-primary text-white text-xs font-bold px-3 py-1 rounded-full">
-                            Resto</div>
-                    </div>
-                    <div class="p-8">
-                        <h3 class="font-serif text-2xl font-bold text-gray-800 mb-3 group-hover:text-primary transition">
-                            Dam Cokro Resto</h3>
-                        <p class="text-gray-600 mb-6 leading-relaxed">Cita rasa autentik masakan Nusantara dengan
-                            suasana yang asri, cocok untuk makan siang keluarga.</p>
-                        <a href="#"
-                            class="inline-flex items-center text-primary font-bold hover:text-green-800 group-hover:translate-x-2 transition">
-                            Lihat Menu
-                            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="group bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition duration-300 reveal border border-gray-100"
-                    style="transition-delay: 150ms;">
-                    <div class="h-64 overflow-hidden relative">
-                        <img src="https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1000&auto=format&fit=crop"
-                            alt="Pendopo"
-                            class="w-full h-full object-cover transform group-hover:scale-110 transition duration-700">
-                        <div class="absolute top-4 left-4 bg-earth text-white text-xs font-bold px-3 py-1 rounded-full">
-                            Venue</div>
-                    </div>
-                    <div class="p-8">
-                        <h3 class="font-serif text-2xl font-bold text-gray-800 mb-3 group-hover:text-earth transition">
-                            Pendopo Ageng</h3>
-                        <p class="text-gray-600 mb-6 leading-relaxed">Ruang serbaguna dengan arsitektur Jawa elegan
-                            untuk momen spesial, pernikahan, atau gathering.</p>
-                        <a href="#"
-                            class="inline-flex items-center text-earth font-bold hover:text-brown-800 group-hover:translate-x-2 transition">
-                            Lihat Fasilitas
-                            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="group bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition duration-300 reveal border border-gray-100 relative"
-                    style="transition-delay: 300ms;">
-                    <div class="absolute inset-0 bg-gray-900/60 z-20 flex items-center justify-center backdrop-blur-[2px]">
-                        <div
-                            class="bg-secondary text-earth font-bold text-lg px-6 py-2 rounded-full shadow-lg transform -rotate-6 border-2 border-white">
-                            COMING SOON
+                @forelse($destinations as $index => $destination)
+                    @if ($destination->isOpen())
+                        {{-- Active/Open Destination Card --}}
+                        <div class="group bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition duration-300 reveal border border-gray-100"
+                            style="transition-delay: {{ $index * 150 }}ms;">
+                            <div class="h-64 overflow-hidden relative">
+                                <img src="{{ $destination->cover_image_url ?? 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?q=80&w=1000&auto=format&fit=crop' }}"
+                                    alt="{{ $destination->name }}"
+                                    class="w-full h-full object-cover transform group-hover:scale-110 transition duration-700">
+                                <div
+                                    class="absolute top-4 left-4 bg-primary text-white text-xs font-bold px-3 py-1 rounded-full">
+                                    {{ $destination->type_label }}</div>
+                            </div>
+                            <div class="p-8">
+                                <h3
+                                    class="font-serif text-2xl font-bold text-gray-800 mb-3 group-hover:text-primary transition">
+                                    {{ $destination->name }}</h3>
+                                <p class="text-gray-600 mb-6 leading-relaxed">
+                                    {{ $destination->description ?? 'Deskripsi tidak tersedia.' }}</p>
+                                <a href="{{ route('reservation') }}"
+                                    class="inline-flex items-center text-primary font-bold hover:text-green-800 group-hover:translate-x-2 transition">
+                                    Lihat Detail
+                                    <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                                    </svg>
+                                </a>
+                            </div>
                         </div>
-                    </div>
+                    @else
+                        {{-- Coming Soon / Disabled Destination Card --}}
+                        <div class="group bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition duration-300 reveal border border-gray-100 relative"
+                            style="transition-delay: {{ $index * 150 }}ms;">
+                            <div
+                                class="absolute inset-0 bg-gray-900/60 z-20 flex items-center justify-center backdrop-blur-[2px]">
+                                <div
+                                    class="bg-secondary text-earth font-bold text-lg px-6 py-2 rounded-full shadow-lg transform -rotate-6 border-2 border-white">
+                                    {{ strtoupper($destination->status_label) }}
+                                </div>
+                            </div>
 
-                    <div class="h-64 overflow-hidden relative grayscale">
-                        <img src="https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?q=80&w=1000&auto=format&fit=crop"
-                            alt="Kolam Renang" class="w-full h-full object-cover">
-                        <div
-                            class="absolute top-4 left-4 bg-accent text-white text-xs font-bold px-3 py-1 rounded-full z-10">
-                            Rekreasi</div>
+                            <div class="h-64 overflow-hidden relative grayscale">
+                                <img src="{{ $destination->cover_image_url ?? 'https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?q=80&w=1000&auto=format&fit=crop' }}"
+                                    alt="{{ $destination->name }}" class="w-full h-full object-cover">
+                                <div
+                                    class="absolute top-4 left-4 bg-accent text-white text-xs font-bold px-3 py-1 rounded-full z-10">
+                                    {{ $destination->type_label }}</div>
+                            </div>
+                            <div class="p-8 opacity-60">
+                                <h3 class="font-serif text-2xl font-bold text-gray-800 mb-3">{{ $destination->name }}</h3>
+                                <p class="text-gray-600 mb-6 leading-relaxed">
+                                    {{ $destination->description ?? 'Deskripsi tidak tersedia.' }}</p>
+                                <span class="inline-flex items-center text-gray-500 font-bold cursor-not-allowed">
+                                    Segera Hadir
+                                </span>
+                            </div>
+                        </div>
+                    @endif
+                @empty
+                    <div class="col-span-3 text-center py-12">
+                        <p class="text-gray-500">Belum ada destinasi yang tersedia.</p>
                     </div>
-                    <div class="p-8 opacity-60">
-                        <h3 class="font-serif text-2xl font-bold text-gray-800 mb-3">Kolam Renang</h3>
-                        <p class="text-gray-600 mb-6 leading-relaxed">Kesegaran baru untuk keluarga Anda. Wahana air
-                            modern yang akan segera hadir.</p>
-                        <span class="inline-flex items-center text-gray-500 font-bold cursor-not-allowed">
-                            Segera Hadir
-                        </span>
-                    </div>
-                </div>
+                @endforelse
 
             </div>
         </div>
