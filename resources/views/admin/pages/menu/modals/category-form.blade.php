@@ -1,5 +1,5 @@
 {{-- Category Form Modal --}}
-<div x-show="isCategoryModalOpen" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm"
+<div x-show="isCategoryModalOpen" class="fixed inset-0 z-80 flex items-center justify-center bg-black/50 backdrop-blur-sm"
     x-transition.opacity @click.self="closeCategoryModal()">
     <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden m-4" @click.stop>
 
