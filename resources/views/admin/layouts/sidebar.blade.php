@@ -96,7 +96,7 @@
                         class="w-full overflow-hidden transition-all duration-300 {{ $isCoursesActive ? '' : 'hidden' }}">
                         <ul class="mt-1 ml-4 pl-4 border-l-2 border-gray-200 space-y-1">
                             <li>
-                                <a class="flex items-center gap-2 py-2 px-3 rounded-lg text-sm transition-all duration-200 hover:bg-green-50 hover:text-green-600 {{ request()->routeIs('categories.*') ? 'text-green-600 bg-green-50 font-medium' : 'text-gray-500' }}"
+                                <a class="flex items-center gap-2 py-2 px-3 rounded-lg text-sm transition-all duration-200 hover:bg-green-50 hover:text-green-600 {{ request()->routeIs('admin.restaurant.index') ? 'text-green-600 bg-green-50 font-medium' : 'text-gray-500' }}"
                                     href="{{ route('admin.restaurant.index') }}">
                                     <i class="ti ti-point text-xs"></i>
                                     <span>Dam Cokro Resto</span>
