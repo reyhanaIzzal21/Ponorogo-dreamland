@@ -77,9 +77,9 @@
 
                 @php
                     $isCoursesActive =
-                        request()->routeIs('admin.restaurant') ||
-                        request()->routeIs('admin.pavilion') ||
-                        request()->routeIs('admin.pool');
+                        request()->routeIs('admin.restaurant.*') ||
+                        request()->routeIs('admin.pavilion.*') ||
+                        request()->routeIs('admin.pool.*');
                 @endphp
                 <li>
                     <button type="button" data-accordion-toggle="destinasi-accordion-content"
