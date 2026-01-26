@@ -12,6 +12,18 @@ use Illuminate\Support\Facades\DB;
 class MenuItemRepository implements MenuItemRepositoryInterface
 {
     /**
+     * Get all active menu items.
+     *
+     * @return Collection
+     */
+    public function getAllActive(): Collection
+    {
+        return MenuItem::where('is_active', true)
+            ->orderBy('name')
+            ->get();
+    }
+
+    /**
      * Get all items for a category.
      *
      * @param string $categoryId

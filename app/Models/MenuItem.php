@@ -45,6 +45,16 @@ class MenuItem extends Model
     ];
 
     /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array<int, string>
+     */
+    protected $appends = [
+        'image_url',
+        'formatted_price',
+    ];
+
+    /**
      * Get the category that owns this item.
      */
     public function category(): BelongsTo

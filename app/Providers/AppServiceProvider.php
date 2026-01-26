@@ -60,6 +60,22 @@ class AppServiceProvider extends ServiceProvider
             LandingPageImageRepositoryInterface::class,
             LandingPageImageRepository::class
         );
+
+        // Restaurant Page Repository Bindings
+        $this->app->bind(
+            \App\Contracts\Interfaces\RestaurantSectionRepositoryInterface::class,
+            \App\Contracts\Repositories\RestaurantSectionRepository::class
+        );
+
+        $this->app->bind(
+            \App\Contracts\Interfaces\RestaurantGalleryImageRepositoryInterface::class,
+            \App\Contracts\Repositories\RestaurantGalleryImageRepository::class
+        );
+
+        $this->app->bind(
+            \App\Contracts\Interfaces\RestaurantBestSellerRepositoryInterface::class,
+            \App\Contracts\Repositories\RestaurantBestSellerRepository::class
+        );
     }
 
     /**

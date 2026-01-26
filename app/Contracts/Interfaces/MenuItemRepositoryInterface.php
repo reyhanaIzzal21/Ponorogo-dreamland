@@ -9,6 +9,13 @@ use Illuminate\Database\Eloquent\Collection;
 interface MenuItemRepositoryInterface
 {
     /**
+     * Get all active menu items.
+     *
+     * @return Collection
+     */
+    public function getAllActive(): Collection;
+
+    /**
      * Get all items for a category.
      *
      * @param string $categoryId

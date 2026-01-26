@@ -52,17 +52,10 @@
                 <p class="text-gray-500 text-sm mt-1">Atur konten visual dan menu unggulan restoran.</p>
             </div>
             <div class="flex gap-3 w-full md:w-auto">
-                <button
-                    class="flex-1 md:flex-none px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 text-sm font-bold shadow-sm transition">
+                <a href="{{ route('dam-cokro-resto') }}" target="_blank"
+                    class="flex-1 md:flex-none px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 text-sm font-bold shadow-sm transition text-center">
                     👁️ Preview
-                </button>
-                <button
-                    class="flex-1 md:flex-none px-4 py-2 bg-heritage-red text-white rounded-lg hover:bg-red-800 text-sm font-bold shadow-lg transition flex items-center justify-center gap-2">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                    </svg>
-                    Publish
-                </button>
+                </a>
             </div>
         </div>
 
@@ -79,63 +72,21 @@
 
             </div>
         </div>
+
+        <!-- Toast Notification -->
+        <div x-show="showToast" x-transition:enter="transition ease-out duration-300"
+            x-transition:enter-start="opacity-0 transform translate-y-2"
+            x-transition:enter-end="opacity-100 transform translate-y-0"
+            x-transition:leave="transition ease-in duration-200"
+            x-transition:leave-start="opacity-100 transform translate-y-0"
+            x-transition:leave-end="opacity-0 transform translate-y-2"
+            class="fixed bottom-4 right-4 px-6 py-3 rounded-lg shadow-lg z-50"
+            :class="toastType === 'success' ? 'bg-green-500 text-white' : 'bg-red-500 text-white'">
+            <span x-text="toastMessage"></span>
+        </div>
     </div>
 @endsection
 
 @section('script')
-    <script>
-        document.addEventListener('alpine:init', () => {
-            Alpine.data('restaurantCMS', () => ({
-                activeTab: 'hero',
-
-                // DUMMY DATA FOR BEST SELLER DROPDOWN
-                // Dalam real app, ini di-passing dari Controller: $menus
-                menus: [{
-                        id: 1,
-                        name: 'Sate Ponorogo Premium',
-                        price: 'Rp 35.000',
-                        image: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=200'
-                    },
-                    {
-                        id: 2,
-                        name: 'Nasi Pecel Pincuk',
-                        price: 'Rp 18.000',
-                        image: 'https://images.unsplash.com/photo-1559339352-11d035aa65de?q=80&w=200'
-                    },
-                    {
-                        id: 3,
-                        name: 'Es Dawet Jabung',
-                        price: 'Rp 12.000',
-                        image: 'https://images.unsplash.com/photo-1544025162-d76690b67f14?q=80&w=200'
-                    },
-                    {
-                        id: 4,
-                        name: 'Ayam Lodho',
-                        price: 'Rp 28.000',
-                        image: 'https://images.unsplash.com/photo-1565557623262-b51c2513a641?q=80&w=200'
-                    },
-                    {
-                        id: 5,
-                        name: 'Rawon Setan',
-                        price: 'Rp 30.000',
-                        image: 'https://images.unsplash.com/photo-1626804475297-411dbe11261c?q=80&w=200'
-                    },
-                ],
-
-                // Selected IDs (Default value)
-                slot1: 1,
-                slot2: 2,
-                slot3: 3,
-
-                // Helper to get menu object by ID
-                getMenu(id) {
-                    return this.menus.find(m => m.id == id) || {
-                        name: 'Pilih Menu',
-                        price: '-',
-                        image: ''
-                    };
-                }
-            }))
-        })
-    </script>
+    @include('admin.pages.restaurant.scripts.index')
 @endsection

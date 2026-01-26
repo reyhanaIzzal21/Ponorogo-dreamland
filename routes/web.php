@@ -5,9 +5,11 @@ use App\Http\Controllers\Admin\LandingPageController;
 use App\Http\Controllers\Admin\MenuCategoryController;
 use App\Http\Controllers\Admin\MenuItemController;
 use App\Http\Controllers\Admin\MenuPriceGroupController;
+use App\Http\Controllers\Admin\RestaurantPageController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\ReservationController;
+use App\Http\Controllers\RestaurantController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -16,9 +18,7 @@ Route::get('/about', function () {
     return view('user.pages.about');
 })->name('about');
 
-Route::get('/dam-cokro-resto', function () {
-    return view('user.pages.destinations.restaurant.index');
-})->name('dam-cokro-resto');
+Route::get('/dam-cokro-resto', [RestaurantController::class, 'index'])->name('dam-cokro-resto');
 
 // User Menu Routes
 Route::get('/menu', [MenuController::class, 'index'])->name('menu');
@@ -92,7 +92,17 @@ Route::prefix('admin')->middleware('role:admin')->name('admin.')->group(function
         Route::delete('/images/{id}', [LandingPageController::class, 'destroyImage'])->name('images.destroy');
     });
 
-    Route::view('restaurant', 'admin.pages.restaurant.index')->name('restaurant');
+    // Restaurant Page Management Routes
+    Route::prefix('restaurant')->name('restaurant.')->group(function () {
+        Route::get('/', [RestaurantPageController::class, 'index'])->name('index');
+        Route::put('/hero', [RestaurantPageController::class, 'updateHero'])->name('hero.update');
+        Route::put('/filosofi', [RestaurantPageController::class, 'updateFilosofi'])->name('filosofi.update');
+        Route::put('/best-sellers', [RestaurantPageController::class, 'updateBestSellers'])->name('best-sellers.update');
+        Route::post('/gallery', [RestaurantPageController::class, 'storeGalleryImage'])->name('gallery.store');
+        Route::delete('/gallery/{id}', [RestaurantPageController::class, 'destroyGalleryImage'])->name('gallery.destroy');
+        Route::put('/social-media', [RestaurantPageController::class, 'updateSocialMedia'])->name('social-media.update');
+    });
+
     Route::view('pavilion', 'admin.pages.pavilion.index')->name('pavilion');
     Route::view('pool', 'admin.pages.pool.index')->name('pool');
     Route::view('about', 'admin.pages.about.index')->name('about');

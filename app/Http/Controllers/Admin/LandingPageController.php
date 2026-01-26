@@ -96,18 +96,18 @@ class LandingPageController extends Controller
      */
     public function updateWhy(Request $request): RedirectResponse
     {
-        $validated = $request->validate([
-            'features' => 'required|array|min:1|max:4',
-            'features.*.icon' => 'required|string|max:10',
-            'features.*.title' => 'required|string|max:255',
-            'features.*.description' => 'required|string|max:500',
-        ]);
+                $validated = $request->validate([
+                    'features' => 'required|array|min:1|max:4',
+                    'features.*.icon' => 'required|string|max:10',
+                    'features.*.title' => 'required|string|max:255',
+                    'features.*.description' => 'required|string|max:500',
+                ]);
 
-        $this->landingPageService->updateWhyChooseUsSection([
-            'extra_data' => [
-                'features' => $validated['features'],
-            ],
-        ]);
+                $this->landingPageService->updateWhyChooseUsSection([
+                    'extra_data' => [
+                        'features' => $validated['features'],
+                    ],
+                ]);
 
         return redirect()->back()->with('success', 'Section Why Choose Us berhasil diperbarui!');
     }
