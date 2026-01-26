@@ -76,6 +76,22 @@ class AppServiceProvider extends ServiceProvider
             \App\Contracts\Interfaces\RestaurantBestSellerRepositoryInterface::class,
             \App\Contracts\Repositories\RestaurantBestSellerRepository::class
         );
+
+        // Pavilion Page Repository Bindings
+        $this->app->bind(
+            \App\Contracts\Interfaces\PavilionSectionRepositoryInterface::class,
+            \App\Contracts\Repositories\PavilionSectionRepository::class
+        );
+
+        $this->app->bind(
+            \App\Contracts\Interfaces\PavilionFacilityRepositoryInterface::class,
+            \App\Contracts\Repositories\PavilionFacilityRepository::class
+        );
+
+        $this->app->bind(
+            \App\Contracts\Interfaces\PavilionLayoutRepositoryInterface::class,
+            \App\Contracts\Repositories\PavilionLayoutRepository::class
+        );
     }
 
     /**

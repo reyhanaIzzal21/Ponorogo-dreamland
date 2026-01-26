@@ -4,17 +4,44 @@
         <p class="text-gray-500 text-xs md:text-sm">Item yang didapatkan penyewa.</p>
     </div>
 
-    <div class="space-y-4 mb-8">
-        <div>
-            <label class="block text-sm font-bold text-gray-700 mb-2">Judul Utama</label>
-            <input type="text" class="input-pendopo w-full border-gray-300 rounded-lg shadow-sm p-3"
-                value="Segala yang Anda Butuhkan">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+        <!-- Left: Section Info -->
+        <div class="space-y-4">
+            <div>
+                <label class="block text-sm font-bold text-gray-700 mb-2">Judul Utama</label>
+                <input type="text" x-model="facilitiesTitle"
+                    class="input-pendopo w-full border-gray-300 rounded-lg shadow-sm p-3"
+                    placeholder="Segala yang Anda Butuhkan">
+            </div>
+            <div>
+                <label class="block text-sm font-bold text-gray-700 mb-2">Deskripsi Utama</label>
+                <textarea rows="3" x-model="facilitiesDescription"
+                    class="input-pendopo w-full border-gray-300 rounded-lg shadow-sm p-3"
+                    placeholder="Kami memahami bahwa kelancaran acara bergantung pada fasilitas pendukung."></textarea>
+            </div>
         </div>
+
+        <!-- Right: Section Image -->
         <div>
-            <label class="block text-sm font-bold text-gray-700 mb-2">Deskripsi Utama</label>
-            <textarea rows="2" class="input-pendopo w-full border-gray-300 rounded-lg shadow-sm p-3">Kami memahami bahwa kelancaran acara bergantung pada fasilitas pendukung.</textarea>
+            <label class="block text-sm font-bold text-gray-700 mb-2">Gambar Section Fasilitas</label>
+            <div
+                class="relative group rounded-xl overflow-hidden aspect-video bg-gray-100 border-2 border-dashed border-gray-300 hover:border-earth transition cursor-pointer">
+                <img :src="facilitiesImage ||
+                    'https://images.unsplash.com/photo-1505236858219-8359eb29e329?q=80&w=900&auto=format&fit=crop'"
+                    class="w-full h-full object-cover opacity-90">
+                <div
+                    class="absolute inset-0 flex flex-col items-center justify-center bg-black/40 opacity-0 group-hover:opacity-100 transition">
+                    <span class="text-white text-xs font-bold bg-black/50 px-3 py-1 rounded-full">Ganti Foto</span>
+                </div>
+                <input type="file" class="absolute inset-0 opacity-0 cursor-pointer" accept="image/*"
+                    @change="uploadFacilitiesImage($event)">
+            </div>
+            <p class="text-xs text-gray-400 mt-2">Gambar yang ditampilkan di sebelah kiri daftar fasilitas pada halaman
+                user.</p>
         </div>
     </div>
+
+    <h3 class="font-bold text-gray-700 border-b border-gray-100 pb-2 mb-4">Daftar Fasilitas</h3>
 
     <div class="space-y-4">
         <template x-for="(fac, index) in facilities" :key="index">
@@ -22,7 +49,8 @@
                 class="flex flex-col md:flex-row gap-4 p-4 border border-gray-200 rounded-xl bg-gray-50 items-start md:items-center group">
                 <div
                     class="w-12 h-12 bg-white rounded-lg border border-gray-200 flex items-center justify-center text-2xl shrink-0 cursor-pointer hover:border-earth">
-                    <span x-text="fac.icon"></span>
+                    <input type="text" x-model="fac.icon"
+                        class="w-full h-full text-center bg-transparent border-0 focus:ring-0 text-2xl" maxlength="2">
                 </div>
 
                 <div class="flex-1 w-full space-y-2 md:space-y-0 md:grid md:grid-cols-2 md:gap-4">

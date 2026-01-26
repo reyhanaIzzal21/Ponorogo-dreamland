@@ -58,21 +58,31 @@
                 <p class="text-gray-500 text-sm mt-1">Kelola spesifikasi ruang, fasilitas, dan layout acara.</p>
             </div>
             <div class="flex gap-3 w-full md:w-auto">
-                <a href="#"
+                <a href="{{ route('pavilion') }}" target="_blank"
                     class="flex-1 md:flex-none justify-center px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 flex items-center gap-2 text-sm font-medium transition">
                     Live Preview
                 </a>
-                <button
-                    class="flex-1 md:flex-none justify-center px-4 py-2 bg-earth text-white rounded-lg hover:bg-[#5D4037] flex items-center gap-2 text-sm font-medium shadow-lg transition">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <button @click="saveAll()" :disabled="saving"
+                    class="flex-1 md:flex-none justify-center px-4 py-2 bg-earth text-white rounded-lg hover:bg-[#5D4037] flex items-center gap-2 text-sm font-medium shadow-lg transition disabled:opacity-50">
+                    <svg class="w-4 h-4" :class="{ 'animate-spin': saving }" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4">
                         </path>
                     </svg>
-                    Simpan
+                    <span x-text="saving ? 'Menyimpan...' : 'Simpan'"></span>
                 </button>
             </div>
         </div>
+
+        <!-- Toast Message -->
+        <div x-show="message" x-transition :class="messageType === 'success' ? 'bg-green-500' : 'bg-red-500'"
+            class="fixed top-4 right-4 text-white px-6 py-3 rounded-lg shadow-lg z-50">
+            <span x-text="message"></span>
+        </div>
+
+        <!-- Hidden file input for layout upload -->
+        <input type="file" id="layout-upload-input" class="hidden" accept="image/*" @change="uploadLayoutImage($event)">
 
         <div class="flex flex-col lg:flex-row gap-6">
 

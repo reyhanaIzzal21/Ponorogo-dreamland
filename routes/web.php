@@ -5,9 +5,11 @@ use App\Http\Controllers\Admin\LandingPageController;
 use App\Http\Controllers\Admin\MenuCategoryController;
 use App\Http\Controllers\Admin\MenuItemController;
 use App\Http\Controllers\Admin\MenuPriceGroupController;
+use App\Http\Controllers\Admin\PavilionPageController;
 use App\Http\Controllers\Admin\RestaurantPageController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MenuController;
+use App\Http\Controllers\PavilionController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\RestaurantController;
 use Illuminate\Support\Facades\Route;
@@ -24,9 +26,7 @@ Route::get('/dam-cokro-resto', [RestaurantController::class, 'index'])->name('da
 Route::get('/menu', [MenuController::class, 'index'])->name('menu');
 Route::get('/menu/category/{categoryId}/items', [MenuController::class, 'getCategoryItems'])->name('menu.items');
 
-Route::get('/pavilion', function () {
-    return view('user.pages.destinations.pavilion.index');
-})->name('pavilion');
+Route::get('/pavilion', [PavilionController::class, 'index'])->name('pavilion');
 Route::get('/pool', function () {
     return view('user.pages.destinations.pool.index');
 })->name('pool');
@@ -103,7 +103,21 @@ Route::prefix('admin')->middleware('role:admin')->name('admin.')->group(function
         Route::put('/social-media', [RestaurantPageController::class, 'updateSocialMedia'])->name('social-media.update');
     });
 
-    Route::view('pavilion', 'admin.pages.pavilion.index')->name('pavilion');
+    // Pavilion Page Management Routes
+    Route::prefix('pavilion')->name('pavilion.')->group(function () {
+        Route::get('/', [PavilionPageController::class, 'index'])->name('index');
+        Route::post('/hero', [PavilionPageController::class, 'updateHero'])->name('hero.update');
+        Route::put('/specs', [PavilionPageController::class, 'updateSpecs'])->name('specs.update');
+        Route::put('/facilities', [PavilionPageController::class, 'updateFacilities'])->name('facilities.update');
+        Route::post('/facilities', [PavilionPageController::class, 'storeFacility'])->name('facilities.store');
+        Route::post('/facilities/image', [PavilionPageController::class, 'uploadFacilitiesImage'])->name('facilities.image');
+        Route::delete('/facilities/{id}', [PavilionPageController::class, 'destroyFacility'])->name('facilities.destroy');
+        Route::post('/layouts', [PavilionPageController::class, 'storeLayout'])->name('layouts.store');
+        Route::post('/layouts/{id}', [PavilionPageController::class, 'updateLayout'])->name('layouts.update');
+        Route::delete('/layouts/{id}', [PavilionPageController::class, 'destroyLayout'])->name('layouts.destroy');
+        Route::post('/save-all', [PavilionPageController::class, 'saveAll'])->name('save-all');
+    });
+
     Route::view('pool', 'admin.pages.pool.index')->name('pool');
     Route::view('about', 'admin.pages.about.index')->name('about');
 });

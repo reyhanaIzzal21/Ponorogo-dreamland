@@ -14,13 +14,15 @@
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6 p-4 bg-gray-50 rounded-xl">
         <div>
             <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Section Title</label>
-            <input type="text" class="input-pendopo w-full bg-white border-gray-200 rounded p-2 text-sm"
-                value="Spesifikasi Venue">
+            <input type="text" x-model="specsTitle"
+                class="input-pendopo w-full bg-white border-gray-200 rounded p-2 text-sm"
+                placeholder="Spesifikasi Venue">
         </div>
         <div>
             <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Sub-Title</label>
-            <input type="text" class="input-pendopo w-full bg-white border-gray-200 rounded p-2 text-sm"
-                value="Detail teknis untuk kebutuhan Anda">
+            <input type="text" x-model="specsSubtitle"
+                class="input-pendopo w-full bg-white border-gray-200 rounded p-2 text-sm"
+                placeholder="Detail teknis untuk kebutuhan Anda">
         </div>
     </div>
 
