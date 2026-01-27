@@ -34,7 +34,8 @@
                     </div>
                 </div>
 
-                <a href="{{ route('about') }}" class="text-gray-800 hover:text-primary font-medium transition">Tentang</a>
+                <a href="{{ route('about') }}"
+                    class="text-gray-800 hover:text-primary font-medium transition">Tentang</a>
             </div>
 
             <div class="hidden md:flex">
@@ -62,7 +63,8 @@
                 class="block px-3 py-2 rounded-md text-base font-medium text-gray-800 hover:bg-green-50 hover:text-primary">Home</a>
             <div class="pl-3 space-y-1 border-l-2 border-gray-100 ml-3">
                 <p class="px-3 py-1 text-xs text-gray-400 font-semibold uppercase">Destinasi</p>
-                <a href="{{ route('dam-cokro-resto') }}" class="block px-3 py-2 rounded-md text-sm text-gray-600 hover:text-primary">Dam
+                <a href="{{ route('dam-cokro-resto') }}"
+                    class="block px-3 py-2 rounded-md text-sm text-gray-600 hover:text-primary">Dam
                     Cokro Resto</a>
                 <a href="{{ route('pavilion') }}"
                     class="block px-3 py-2 rounded-md text-sm text-gray-600 hover:text-primary">Pendopo</a>

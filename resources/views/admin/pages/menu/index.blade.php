@@ -138,7 +138,7 @@
 
         {{-- Delete Confirmation Modal --}}
         <div x-show="isDeleteModalOpen"
-            class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm" x-transition.opacity>
+            class="fixed inset-0 z-80 flex items-center justify-center bg-black/50 backdrop-blur-sm" x-transition.opacity>
             <div class="bg-white rounded-xl shadow-2xl w-full max-w-sm p-6 m-4">
                 <h3 class="text-lg font-bold text-gray-800 mb-2">Konfirmasi Hapus</h3>
                 <p class="text-gray-600 text-sm mb-4" x-text="deleteMessage"></p>
