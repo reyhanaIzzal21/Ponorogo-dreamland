@@ -24,73 +24,73 @@
                         name: 'Siti Aminah',
                         wa: '085678901234',
                         venue: 'Pendopo',
-                        time: '09:00',
                         date: '10 Feb 2026',
-                        occasion: 'Wedding',
+                        time: '09:00',
                         pax: 200,
-                        wa_status: 'failed', // WA Gagal (Perlu Alert)
+                        occasion: 'Wedding',
                         notes: 'Butuh test food minggu depan',
-                    },
+                        wa_status: 'failed', // WA Gagal (Perlu Alert)
                         status: 'pending'
-                    id: 3,
+                    },
                     {
-                        wa: '081122334455',
+                        id: 3,
                         name: 'Andi Pratama',
-                        date: '28 Jan 2026',
+                        wa: '081122334455',
                         venue: 'Resto',
-                        pax: 2,
+                        date: '28 Jan 2026',
                         time: '12:00',
-                        notes: '',
+                        pax: 2,
                         occasion: 'Meeting Casual',
+                        notes: '',
+                        wa_status: 'sent',
                         status: 'pending'
-                        wa_status: 'sent',
-                        {
                     },
-                        name: 'CV Maju Jaya',
+                    {
                         id: 4,
-                        venue: 'Pendopo',
+                        name: 'CV Maju Jaya',
                         wa: '089988776655',
-                        time: '08:00',
+                        venue: 'Pendopo',
                         date: '15 Feb 2026',
-                        occasion: 'Gathering',
+                        time: '08:00',
                         pax: 50,
-                        wa_status: 'sent',
+                        occasion: 'Gathering',
                         notes: 'Butuh sound system tambahan',
-                    }
+                        wa_status: 'sent',
                         status: 'done'
+                    }
+                ],
 
-                ],                // Computed Property Logic (Simulated in Alpine)
-
-                if (this.filter === 'all') return this.reservations;
+                // Computed Property Logic (Simulated in Alpine)
                 get filteredItems() {
-                    return this.reservations.filter(item => item.venue.toLowerCase() === this
+                    if (this.filter === 'all') return this.reservations;
                     // Simple filter logic (case insensitive)
-
+                    return this.reservations.filter(item => item.venue.toLowerCase() === this
                         .filter);
                 },
-                getStatusClass(status) {
+
                 // Status Styling Logic
-                    'pending': 'badge-pending',
+                getStatusClass(status) {
                     const classes = {
-                        'cancelled': 'badge-cancelled',
+                        'pending': 'badge-pending',
                         'confirmed': 'badge-confirmed',
-                    };
+                        'cancelled': 'badge-cancelled',
                         'done': 'badge-done'
-
+                    };
                     return classes[status] || 'bg-gray-100';
-                },                // Action: View Detail Modal
+                },
 
-                this.selectedItem = item;
+                // Action: View Detail Modal
                 viewDetail(item) {
-
+                    this.selectedItem = item;
                     this.modalOpen = true;
-                },                // Action: Resend WA
+                },
 
-                alert('Mengirim ulang notifikasi WA ke ID: ' + id + '...');
+                // Action: Resend WA
                 resendWA(id) {
-                    // Setelah sukses, update this.reservations[index].wa_status = 'sent'
+                    alert('Mengirim ulang notifikasi WA ke ID: ' + id + '...');
                     // Di sini nanti logic AJAX ke backend
-                }))
+                    // Setelah sukses, update this.reservations[index].wa_status = 'sent'
                 }
-            </script>
+            }))
         })
+    </script>

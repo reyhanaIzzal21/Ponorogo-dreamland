@@ -131,13 +131,6 @@
                                     placeholder="0812xxxx (Wajib Aktif)" oninput="validatePhone(this)">
                                 <p class="text-xs text-zinc-400 mt-1" id="wa-hint">Gunakan format angka saja.</p>
                             </div>
-
-                            <div class="col-span-2">
-                                <label class="block text-sm font-bold text-zinc-700 mb-2">Email</label>
-                                <input type="email" id="email"
-                                    class="input-dynamic w-full bg-white border border-zinc-300 rounded-lg p-3 outline-none transition shadow-sm"
-                                    placeholder="email@contoh.com (Untuk pengiriman E-Ticket)">
-                            </div>
                         </div>
                     </div>
 
@@ -160,13 +153,8 @@
 
                                 <div>
                                     <label class="block text-sm font-bold text-zinc-700 mb-2">Jam Kedatangan</label>
-                                    <select id="time"
+                                    <input type="time" id="time" required
                                         class="input-dynamic w-full bg-white border border-zinc-300 rounded-lg p-3 outline-none transition shadow-sm">
-                                        <option value="10:00">10:00 - Pagi</option>
-                                        <option value="12:00">12:00 - Makan Siang</option>
-                                        <option value="15:00">15:00 - Sore</option>
-                                        <option value="19:00">19:00 - Makan Malam</option>
-                                    </select>
                                 </div>
 
                                 <div>
@@ -174,18 +162,12 @@
                                     <input type="number" id="pax" min="1" max="20"
                                         class="input-dynamic w-full bg-white border border-zinc-300 rounded-lg p-3 outline-none transition shadow-sm"
                                         placeholder="Max 20 orang">
-                                    <p class="text-xs text-zinc-400 mt-1">Untuk rombongan > 20, hubungi admin langsung.</p>
                                 </div>
 
                                 <div>
                                     <label class="block text-sm font-bold text-zinc-700 mb-2">Keperluan</label>
-                                    <select id="occasion"
-                                        class="input-dynamic w-full bg-white border border-zinc-300 rounded-lg p-3 outline-none transition shadow-sm">
-                                        <option value="Makan Biasa">Makan Biasa</option>
-                                        <option value="Ulang Tahun">Ulang Tahun</option>
-                                        <option value="Romantic Dinner">Romantic Dinner</option>
-                                        <option value="Meeting Casual">Meeting Casual</option>
-                                    </select>
+                                    <input type="text" id="need" required
+                                        class="input-dynamic w-full bg-white border border-zinc-300 rounded-lg p-3 outline-none transition shadow-sm" placeholder="contoh: wedding, pesta, dll.">
                                 </div>
 
                                 <div class="col-span-2">
@@ -199,13 +181,8 @@
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div class="col-span-2">
                                     <label class="block text-sm font-bold text-zinc-700 mb-2">Jenis Acara</label>
-                                    <select id="eventType"
+                                    <input type="text" id="event_type" required
                                         class="input-dynamic w-full bg-white border border-zinc-300 rounded-lg p-3 outline-none transition shadow-sm">
-                                        <option value="Pernikahan">Pernikahan / Resepsi</option>
-                                        <option value="Seminar">Seminar / Workshop</option>
-                                        <option value="Rapat Dinas">Rapat Instansi / Dinas</option>
-                                        <option value="Gathering">Family / Corporate Gathering</option>
-                                    </select>
                                 </div>
 
                                 <div>
@@ -344,7 +321,6 @@
             // Ambil Data Umum
             const name = document.getElementById('name').value;
             const wa = document.getElementById('whatsapp').value;
-            const email = document.getElementById('email').value || '-';
             const pax = document.getElementById('pax').value;
             const notes = document.getElementById('notes').value || '-';
 
