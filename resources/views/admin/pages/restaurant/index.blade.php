@@ -14,17 +14,17 @@
 
         /* Custom Resto Theme for Admin Inputs */
         .input-resto:focus {
-            --tw-ring-color: #B71C1C;
+            --tw-ring-color: #2D7D32;
             /* Heritage Red */
-            border-color: #B71C1C;
+            border-color: #2D7D32;
         }
 
         /* Active Tab State Styling */
         .tab-active {
-            background-color: #FEF2F2;
+            background-color: #f4fef2;
             /* Red-50 */
-            color: #B71C1C;
-            border-color: #B71C1C;
+            color: #2D7D32;
+            border-color: #2D7D32;
         }
 
         .tab-inactive {
@@ -45,7 +45,7 @@
         <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
             <div>
                 <div class="flex items-center gap-2">
-                    <span class="bg-red-100 text-red-800 text-xs font-bold px-2 py-1 rounded uppercase tracking-wide">Resto
+                    <span class="bg-green-100 text-primary text-xs font-bold px-2 py-1 rounded uppercase tracking-wide">Resto
                         Module</span>
                     <h1 class="text-2xl font-bold text-gray-800">Dam Cokro Manager</h1>
                 </div>

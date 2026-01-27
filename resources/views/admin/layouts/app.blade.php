@@ -19,7 +19,7 @@
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote-lite.min.css" rel="stylesheet">
 
-    <title>Admin Dashboard - LMS</title>
+    <title>Admin - @yield('title', 'Dashboard')</title>
     @yield('style')
     @stack('style')
 </head>
@@ -27,7 +27,8 @@
 <body class="bg-slate-50 font-sans antialiased">
 
     <!-- Sidebar Backdrop for Mobile -->
-    <div id="sidebar-backdrop" class="fixed inset-0 bg-black/50 z-[55] hidden xl:hidden" onclick="closeSidebarAdminDashboard()"></div>
+    <div id="sidebar-backdrop" class="fixed inset-0 bg-black/50 z-[55] hidden xl:hidden"
+        onclick="closeSidebarAdminDashboard()"></div>
 
     <!--start the project-->
     <main>

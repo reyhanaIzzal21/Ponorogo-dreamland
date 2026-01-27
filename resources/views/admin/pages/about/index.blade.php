@@ -15,18 +15,17 @@
 
         /* Custom About Theme (Slate/Corporate) */
         .input-about:focus {
-            --tw-ring-color: #475569;
+            --tw-ring-color: #2D7D32;
             /* Slate-600 */
-            border-color: #475569;
+            border-color: #2D7D32;
         }
 
         /* Tab States */
         .tab-active {
             background-color: #F1F5F9;
             /* Slate-100 */
-            color: #334155;
-            /* Slate-700 */
-            border-color: #334155;
+            color: #2D7D32;
+            border-color: #2D7D32;
         }
 
         .tab-inactive {
@@ -66,7 +65,7 @@
                     Live Preview
                 </a>
                 <button form="about-form" type="submit"
-                    class="flex-1 md:flex-none justify-center px-4 py-2 bg-slate-700 text-white rounded-lg hover:bg-slate-800 flex items-center gap-2 text-sm font-medium shadow-lg transition">
+                    class="flex-1 md:flex-none justify-center px-4 py-2 bg-primary text-white rounded-lg hover:bg-slate-800 flex items-center gap-2 text-sm font-medium shadow-lg transition">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4">

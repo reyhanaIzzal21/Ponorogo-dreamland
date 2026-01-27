@@ -6,7 +6,7 @@
         </div>
         <button @click="submitForm('filosofiForm', '{{ route('admin.restaurant.filosofi.update') }}')"
             :disabled="loading"
-            class="px-4 py-2 bg-heritage-red text-white rounded-lg hover:bg-red-800 text-sm font-bold shadow transition disabled:opacity-50">
+            class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/80 text-sm font-bold shadow transition disabled:opacity-50">
             <span x-show="!loading">💾 Simpan</span>
             <span x-show="loading">Menyimpan...</span>
         </button>
@@ -16,13 +16,13 @@
         <div class="bg-parchment p-6 rounded-2xl border border-golden-cokro">
             <div class="space-y-6">
                 <div>
-                    <label class="block text-xs font-bold text-heritage-red uppercase mb-2">Judul Filosofi</label>
+                    <label class="block text-xs font-bold text-primary uppercase mb-2">Judul Filosofi</label>
                     <input type="text" name="title"
                         class="input-resto w-full rounded-lg border-gray-300 shadow-sm p-3"
                         value="{{ $filosofiSection->title ?? 'Lebih dari Sekadar Tempat Makan' }}">
                 </div>
                 <div>
-                    <label class="block text-xs font-bold text-heritage-red uppercase mb-2">Isi Cerita</label>
+                    <label class="block text-xs font-bold text-primary uppercase mb-2">Isi Cerita</label>
                     <textarea name="description"
                         class="input-resto w-full rounded-lg border-gray-300 shadow-sm p-3 h-48 font-light leading-relaxed">{{ $filosofiSection->description ??
                             '"Dam Cokro" bukan hanya nama, tapi sebuah janji. Diambil dari semangat menjaga aliran tradisi agar tetap jernih dan menghidupi.

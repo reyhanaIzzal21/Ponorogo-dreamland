@@ -5,7 +5,7 @@
             <p class="text-xs text-gray-400">Tampilan utama saat user masuk halaman resto.</p>
         </div>
         <button @click="submitForm('heroForm', '{{ route('admin.restaurant.hero.update') }}')" :disabled="loading"
-            class="px-4 py-2 bg-heritage-red text-white rounded-lg hover:bg-red-800 text-sm font-bold shadow transition disabled:opacity-50">
+            class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-green-800 text-sm font-bold shadow transition disabled:opacity-50">
             <span x-show="!loading">💾 Simpan</span>
             <span x-show="loading">Menyimpan...</span>
         </button>
@@ -35,7 +35,7 @@
         <div>
             <label class="block text-xs font-bold text-gray-500 uppercase mb-2">Background Image</label>
             <div
-                class="relative group rounded-xl overflow-hidden aspect-video bg-gray-100 border-2 border-dashed border-gray-300 hover:border-heritage-red transition cursor-pointer">
+                class="relative group rounded-xl overflow-hidden aspect-video bg-gray-100 border-2 border-dashed border-gray-300 hover:border-primary transition cursor-pointer">
                 @php
                     $bgImage =
                         $heroSection?->getExtraValue('background_image') ??
