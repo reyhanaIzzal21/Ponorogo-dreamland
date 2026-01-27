@@ -66,7 +66,7 @@
                 <p class="text-gray-500 text-sm mt-1">Atur countdown peluncuran dan update progres pembangunan.</p>
             </div>
             <div class="flex gap-3 w-full md:w-auto">
-                <a href="#"
+                <a href="{{ route('pool') }}" target="_blank"
                     class="flex-1 md:flex-none justify-center px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 flex items-center gap-2 text-sm font-medium transition">
                     Live Preview
                 </a>
@@ -99,47 +99,7 @@
     <script>
         document.addEventListener('alpine:init', () => {
             Alpine.data('poolCMS', () => ({
-                activeTab: 'timeline', // Default tab for demo purposes
-
-                // DUMMY DATA FOR TIMELINE
-                timeline: [{
-                        title: 'Perencanaan & Desain',
-                        date: 'Selesai - Des 2025',
-                        desc: 'Finalisasi desain arsitektur 3D.',
-                        status: 'done',
-                        percent: 100
-                    },
-                    {
-                        title: 'Konstruksi Fisik',
-                        date: 'Sekarang - Jan 2026',
-                        desc: 'Pengerjaan struktur utama kolam.',
-                        status: 'progress',
-                        percent: 70
-                    },
-                    {
-                        title: 'Finishing',
-                        date: 'Estimasi: Mar 2026',
-                        desc: 'Pemasangan keramik dan lighting.',
-                        status: 'planned',
-                        percent: 0
-                    }
-                ],
-
-                addStage() {
-                    this.timeline.push({
-                        title: 'Tahap Baru',
-                        date: '...',
-                        desc: '...',
-                        status: 'planned',
-                        percent: 0
-                    });
-                },
-
-                removeStage(index) {
-                    if (confirm('Hapus tahap ini?')) {
-                        this.timeline.splice(index, 1);
-                    }
-                }
+                activeTab: 'hero', // Default tab
             }))
         })
     </script>

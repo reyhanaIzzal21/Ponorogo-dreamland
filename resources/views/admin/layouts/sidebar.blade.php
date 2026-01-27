@@ -111,7 +111,7 @@
                             </li>
                             <li>
                                 <a class="flex items-center gap-2 py-2 px-3 rounded-lg text-sm transition-all duration-200 hover:bg-green-50 hover:text-green-600 {{ request()->routeIs('courses.*') ? 'text-green-600 bg-green-50 font-medium' : 'text-gray-500' }}"
-                                    href="{{ route('admin.pool') }}">
+                                    href="{{ route('admin.pool.index') }}">
                                     <i class="ti ti-point text-xs"></i>
                                     <span>Kolam Renang</span>
                                 </a>

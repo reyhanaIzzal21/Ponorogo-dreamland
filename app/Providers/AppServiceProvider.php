@@ -8,6 +8,8 @@ use App\Contracts\Interfaces\MenuPriceGroupRepositoryInterface;
 use App\Contracts\Interfaces\DestinationRepositoryInterface;
 use App\Contracts\Interfaces\LandingPageSectionRepositoryInterface;
 use App\Contracts\Interfaces\LandingPageImageRepositoryInterface;
+use App\Contracts\Interfaces\PoolRepositoryInterface;
+use App\Contracts\Repositories\PoolRepository;
 use App\Contracts\Repositories\MenuCategoryRepository;
 use App\Contracts\Repositories\MenuItemRepository;
 use App\Contracts\Repositories\MenuPriceGroupRepository;
@@ -93,10 +95,14 @@ class AppServiceProvider extends ServiceProvider
             \App\Contracts\Repositories\PavilionLayoutRepository::class
         );
 
-        // About Page Repository Binding
         $this->app->bind(
             \App\Contracts\Interfaces\AboutPageRepositoryInterface::class,
             \App\Contracts\Repositories\AboutPageRepository::class
+        );
+
+        $this->app->bind(
+            PoolRepositoryInterface::class, 
+            PoolRepository::class
         );
     }
 

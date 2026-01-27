@@ -55,22 +55,22 @@
             style="animation-delay: -2s;"></div>
 
         <div class="absolute inset-0 z-0">
-            <img src="https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?q=80&w=2000&auto=format&fit=crop"
+            <img src="{{ isset($content->teaser_background) ? asset('storage/' . $content->teaser_background) : 'https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?q=80&w=2000&auto=format&fit=crop' }}"
                 class="w-full h-full object-cover opacity-40 mix-blend-overlay">
         </div>
 
         <div class="relative z-10 text-center px-4 max-w-5xl mx-auto">
             <span
                 class="inline-block py-2 px-6 rounded-full bg-accent/20 border border-accent text-accent font-bold tracking-widest text-sm mb-6 animate-pulse">
-                COMING SOON 2027
+                {{ $content->badge_text ?? 'COMING SOON 2026' }}
             </span>
 
             <h1 class="font-modern text-5xl md:text-7xl text-white font-bold mb-6 leading-tight drop-shadow-2xl">
-                The New <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent to-cyan-300">Oasis in Town</span>
+                {{ $content->main_headline ?? 'The New ' }} <span
+                    class="text-transparent bg-clip-text bg-gradient-to-r from-accent to-cyan-300">{{ $content->blue_headline ?? 'Oasis in Town' }}</span>
             </h1>
             <p class="font-sans text-xl text-zinc-300 mb-10 max-w-2xl mx-auto font-light">
-                Segarkan hari Anda di destinasi terbaru Ponorogo. Perpaduan kesejukan air dan estetika modern yang belum
-                pernah Anda temui sebelumnya.
+                {{ $content->sub_headline ?? 'Segarkan hari Anda di destinasi terbaru Ponorogo. Perpaduan kesejukan air dan estetika modern yang belum pernah Anda temui sebelumnya.' }}
             </p>
 
             <div class="grid grid-cols-4 gap-4 max-w-2xl mx-auto mb-12">
@@ -110,17 +110,27 @@
 
             <div class="grid grid-cols-1 md:grid-cols-4 md:grid-rows-2 gap-4 h-auto md:h-[600px] reveal">
 
+                @php
+                    $slot1 = $sneakPeeks->where('slot_number', 1)->first();
+                    $slot2 = $sneakPeeks->where('slot_number', 2)->first();
+                    $slot3 = $sneakPeeks->where('slot_number', 3)->first();
+                    $slot4 = $sneakPeeks->where('slot_number', 4)->first();
+                @endphp
+
+                {{-- SLOT 1 --}}
                 <div
                     class="md:col-span-2 md:row-span-2 glass-card rounded-2xl overflow-hidden relative group hover:border-accent/50 transition duration-500">
-                    <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=1000&auto=format&fit=crop"
+                    <img src="{{ isset($slot1->image_path) ? asset('storage/' . $slot1->image_path) : 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=1000&auto=format&fit=crop' }}"
                         class="w-full h-full object-cover opacity-60 group-hover:scale-105 transition duration-700">
                     <div class="absolute bottom-0 left-0 p-8 w-full bg-gradient-to-t from-black to-transparent">
-                        <h3 class="text-2xl font-bold text-white mb-2">Family & Kids Friendly</h3>
-                        <p class="text-zinc-300 text-sm">Wahana air yang aman dengan kedalaman bertingkat, dirancang khusus
-                            untuk keceriaan keluarga kecil Anda.</p>
+                        <h3 class="text-2xl font-bold text-white mb-2">{{ $slot1->title ?? 'Family & Kids Friendly' }}</h3>
+                        <p class="text-zinc-300 text-sm">
+                            {{ $slot1->description ?? 'Wahana air yang aman dengan kedalaman bertingkat, dirancang khusus untuk keceriaan keluarga kecil Anda.' }}
+                        </p>
                     </div>
                 </div>
 
+                {{-- SLOT 2 --}}
                 <div
                     class="md:col-span-1 md:row-span-1 glass-card rounded-2xl p-6 flex flex-col justify-between hover:bg-accent/10 transition group">
                     <div
@@ -132,30 +142,35 @@
                         </svg>
                     </div>
                     <div>
-                        <h3 class="text-xl font-bold text-white mb-1">Aesthetic Poolside</h3>
-                        <p class="text-xs text-zinc-400">Spot foto Instagramable di setiap sudut.</p>
+                        <h3 class="text-xl font-bold text-white mb-1">{{ $slot2->title ?? 'Aesthetic Poolside' }}</h3>
+                        <p class="text-xs text-zinc-400">
+                            {{ $slot2->description ?? 'Spot foto Instagramable di setiap sudut.' }}</p>
                     </div>
                 </div>
 
+                {{-- SLOT 3 --}}
                 <div class="md:col-span-1 md:row-span-1 glass-card rounded-2xl overflow-hidden relative group">
-                    <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=500&auto=format&fit=crop"
+                    <img src="{{ isset($slot3->image_path) ? asset('storage/' . $slot3->image_path) : 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=500&auto=format&fit=crop' }}"
                         class="w-full h-full object-cover opacity-70">
                     <div class="absolute inset-0 flex items-center justify-center">
                         <span
-                            class="bg-black/50 backdrop-blur-md px-4 py-2 rounded-full text-sm font-bold border border-white/20">Restaurant</span>
+                            class="bg-black/50 backdrop-blur-md px-4 py-2 rounded-full text-sm font-bold border border-white/20">{{ $slot3->title ?? 'Mini Cafe' }}</span>
                     </div>
                 </div>
 
+                {{-- SLOT 4 --}}
                 <div
                     class="md:col-span-2 md:row-span-1 glass-card rounded-2xl p-8 flex items-center gap-6 hover:border-accent/50 transition">
                     <div class="hidden md:block w-32 h-32 bg-zinc-800 rounded-xl overflow-hidden flex-shrink-0">
-                        <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=500"
+                        <img src="{{ isset($slot4->image_path) ? asset('storage/' . $slot4->image_path) : 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=500' }}"
                             class="w-full h-full object-cover">
                     </div>
                     <div>
-                        <h3 class="text-xl font-bold text-white mb-2">Fasilitas Modern & Bersih</h3>
-                        <p class="text-zinc-400 text-sm mb-4">Ruang ganti premium, shower air hangat, dan locker room dengan
-                            keamanan digital.</p>
+                        <h3 class="text-xl font-bold text-white mb-2">{{ $slot4->title ?? 'Fasilitas Modern & Bersih' }}
+                        </h3>
+                        <p class="text-zinc-400 text-sm mb-4">
+                            {{ $slot4->description ?? 'Ruang ganti premium, shower air hangat, dan locker room dengan keamanan digital.' }}
+                        </p>
                     </div>
                 </div>
             </div>
@@ -170,56 +185,82 @@
             </div>
 
             <div class="relative pl-8 border-l-2 border-zinc-800 space-y-12 reveal">
-                <div class="relative">
-                    <div
-                        class="absolute -left-[41px] bg-accent w-6 h-6 rounded-full border-4 border-zinc-900 flex items-center justify-center">
-                        <svg class="w-3 h-3 text-zinc-900 font-bold" fill="none" stroke="currentColor"
-                            viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M5 13l4 4L19 7"></path>
-                        </svg>
-                    </div>
-                    <div class="bg-zinc-800/50 p-6 rounded-xl border border-zinc-700">
-                        <h3 class="text-accent font-bold text-lg">Perencanaan & Desain</h3>
-                        <p class="text-zinc-400 text-sm mt-1">Selesai - Desember 2025</p>
-                        <p class="text-zinc-300 text-sm mt-3">Finalisasi desain arsitektur 3D dan struktur kolam renang
-                            dengan standar keamanan tinggi.</p>
-                    </div>
-                </div>
 
-                <div class="relative">
-                    <div
-                        class="absolute -left-[41px] w-6 h-6 rounded-full border-4 border-zinc-900 bg-secondary animate-pulse shadow-[0_0_15px_rgba(255,235,59,0.5)]">
-                    </div>
-                    <div
-                        class="bg-zinc-800/80 p-6 rounded-xl border border-secondary/30 shadow-[0_0_20px_rgba(255,235,59,0.05)]">
-                        <div class="flex justify-between items-start mb-2">
-                            <h3 class="text-white font-bold text-lg">Konstruksi Fisik</h3>
-                            <span class="text-xs bg-secondary text-black font-bold px-2 py-0.5 rounded">ON PROGRESS
-                                70%</span>
-                        </div>
-                        <p class="text-zinc-400 text-sm">Sekarang - Desember 2026</p>
-                        <p class="text-zinc-300 text-sm mt-3">Pengerjaan struktur utama kolam, pemasangan sistem
-                            filterisasi air modern, dan pembentukan landscape.</p>
-                        <div class="mt-4 grid grid-cols-3 gap-2">
-                            <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=200"
-                                class="rounded h-16 w-full object-cover grayscale hover:grayscale-0 transition">
-                            <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=200"
-                                class="rounded h-16 w-full object-cover grayscale hover:grayscale-0 transition">
-                            <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=200"
-                                class="rounded h-16 w-full object-cover grayscale hover:grayscale-0 transition">
-                        </div>
-                    </div>
-                </div>
+                @foreach ($timelineStages as $stage)
+                    <div class="relative">
+                        @if ($stage->status == 'done')
+                            <div
+                                class="absolute -left-[41px] bg-accent w-6 h-6 rounded-full border-4 border-zinc-900 flex items-center justify-center">
+                                <svg class="w-3 h-3 text-zinc-900 font-bold" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="4"
+                                        d="M5 13l4 4L19 7"></path>
+                                </svg>
+                            </div>
+                            <div class="bg-zinc-800/50 p-6 rounded-xl border border-zinc-700">
+                                <h3 class="text-accent font-bold text-lg">{{ $stage->title }}</h3>
+                                <p class="text-zinc-400 text-sm mt-1">{{ $stage->period }}</p>
+                                <p class="text-zinc-300 text-sm mt-3">{{ $stage->description }}</p>
+                            </div>
+                        @elseif($stage->status == 'on_progress')
+                            <div
+                                class="absolute -left-[41px] w-6 h-6 rounded-full border-4 border-zinc-900 bg-secondary animate-pulse shadow-[0_0_15px_rgba(255,235,59,0.5)]">
+                            </div>
+                            <div
+                                class="bg-zinc-800/80 p-6 rounded-xl border border-secondary/30 shadow-[0_0_20px_rgba(255,235,59,0.05)]">
+                                <div class="flex justify-between items-start mb-2">
+                                    <h3 class="text-white font-bold text-lg">{{ $stage->title }}</h3>
+                                    <span class="text-xs bg-secondary text-black font-bold px-2 py-0.5 rounded">ON PROGRESS
+                                        {{ $stage->progress_percentage }}%</span>
+                                </div>
+                                <p class="text-zinc-400 text-sm">{{ $stage->period }}</p>
+                                <p class="text-zinc-300 text-sm mt-3">{{ $stage->description }}</p>
 
-                <div class="relative">
-                    <div class="absolute -left-[41px] bg-zinc-700 w-6 h-6 rounded-full border-4 border-zinc-900"></div>
-                    <div class="opacity-50">
-                        <h3 class="text-zinc-400 font-bold text-lg">Finishing & Grand Opening</h3>
-                        <p class="text-zinc-500 text-sm mt-1">Estimasi: Maret 2027</p>
-                        <p class="text-zinc-500 text-sm mt-3">Pemasangan keramik, lighting, uji coba kualitas air, dan
-                            pembukaan resmi.</p>
+                                @if ($stage->photos->count() > 0)
+                                    <div class="mt-4 grid grid-cols-3 gap-2">
+                                        @foreach ($stage->photos as $photo)
+                                            <img src="{{ asset('storage/' . $photo->image_path) }}"
+                                                class="rounded h-16 w-full object-cover grayscale hover:grayscale-0 transition">
+                                        @endforeach
+                                    </div>
+                                @endif
+                            </div>
+                        @else
+                            <div class="absolute -left-[41px] bg-zinc-700 w-6 h-6 rounded-full border-4 border-zinc-900">
+                            </div>
+                            <div class="opacity-50">
+                                <h3 class="text-zinc-400 font-bold text-lg">{{ $stage->title }}</h3>
+                                <p class="text-zinc-500 text-sm mt-1">{{ $stage->period }}</p>
+                                <p class="text-zinc-500 text-sm mt-3">{{ $stage->description }}</p>
+                            </div>
+                        @endif
                     </div>
+                @endforeach
+
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 bg-zinc-900 relative border-t border-zinc-800">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="mb-12 text-center reveal">
+                <h2 class="font-modern text-3xl font-bold text-white">Join the Waitlist</h2>
+                <p class="text-zinc-500">Dapatkan notifikasi pertama saat kami buka dan promo spesial.</p>
+            </div>
+
+            <form id="notifyForm" class="max-w-md mx-auto reveal" onsubmit="handleNotify(event)">
+                <div class="flex gap-2">
+                    <input type="email" placeholder="Masukkan email Anda"
+                        class="flex-1 bg-zinc-800 border border-zinc-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-accent">
+                    <button type="submit"
+                        class="bg-accent text-black font-bold px-6 py-3 rounded-lg hover:bg-cyan-400 transition">Ingatkan
+                        Saya</button>
                 </div>
+            </form>
+
+            <div id="successMessage"
+                class="hidden text-center bg-green-900/30 border border-green-500/30 text-green-400 p-4 rounded-lg max-w-md mx-auto animate-pulse">
+                Terima kasih! Kami akan menghubungi Anda segera.
             </div>
         </div>
     </section>
@@ -228,9 +269,13 @@
 @section('script')
     <script>
         // 1. COUNTDOWN LOGIC
-        // Set tanggal pembukaan (Misal: 1 Bulan dari sekarang)
-        const openingDate = new Date();
-        openingDate.setDate(openingDate.getDate() + 30); // 30 hari lagi
+        // Set tanggal pembukaan
+        @if (isset($content->launch_date))
+            const openingDate = new Date("{{ $content->launch_date->format('Y-m-d') }}");
+        @else
+            const openingDate = new Date();
+            openingDate.setDate(openingDate.getDate() + 30); // Default 30 hari lagi
+        @endif
 
         function updateCountdown() {
             const now = new Date().getTime();
@@ -249,7 +294,9 @@
 
             if (distance < 0) {
                 document.getElementById("days").innerText = "00";
-                // Handle expired logic
+                document.getElementById("hours").innerText = "00";
+                document.getElementById("minutes").innerText = "00";
+                document.getElementById("seconds").innerText = "00";
             }
         }
 

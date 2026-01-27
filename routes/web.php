@@ -12,8 +12,10 @@ use App\Http\Controllers\MenuController;
 use App\Http\Controllers\PavilionController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\RestaurantController;
+use App\Http\Controllers\PoolPageController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AboutPageController;
+use App\Http\Controllers\Admin\PoolPageController as AdminPoolPageController;
 use App\Http\Controllers\AboutPageController as UserAboutPageController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -27,9 +29,7 @@ Route::get('/menu', [MenuController::class, 'index'])->name('menu');
 Route::get('/menu/category/{categoryId}/items', [MenuController::class, 'getCategoryItems'])->name('menu.items');
 
 Route::get('/pavilion', [PavilionController::class, 'index'])->name('pavilion');
-Route::get('/pool', function () {
-    return view('user.pages.destinations.pool.index');
-})->name('pool');
+Route::get('/pool', [PoolPageController::class, 'index'])->name('pool');
 Route::get('/reservation', [ReservationController::class, 'index'])->name('reservation');
 Route::get('/reservation/form', function () {
     return view('user.pages.reservations.form');
@@ -118,7 +118,16 @@ Route::prefix('admin')->middleware('role:admin')->name('admin.')->group(function
         Route::post('/save-all', [PavilionPageController::class, 'saveAll'])->name('save-all');
     });
 
-    Route::view('pool', 'admin.pages.pool.index')->name('pool');
+    Route::prefix('pool')->name('pool.')->group(function () {
+        Route::get('/', [AdminPoolPageController::class, 'index'])->name('index');
+        Route::put('/hero', [AdminPoolPageController::class, 'updateHero'])->name('hero.update');
+        Route::put('/sneak-peek/{slot}', [AdminPoolPageController::class, 'updateSneakPeek'])->name('sneak-peek.update');
+        Route::post('/timeline', [AdminPoolPageController::class, 'storeStage'])->name('timeline.store');
+        Route::put('/timeline/{id}', [AdminPoolPageController::class, 'updateStage'])->name('timeline.update');
+        Route::delete('/timeline/{id}', [AdminPoolPageController::class, 'destroyStage'])->name('timeline.destroy');
+        Route::post('/timeline/{id}/photos', [AdminPoolPageController::class, 'storeStagePhoto'])->name('timeline.photos.store');
+        Route::delete('/timeline/photos/{id}', [AdminPoolPageController::class, 'destroyStagePhoto'])->name('timeline.photos.destroy');
+    });
     Route::get('about', [AboutPageController::class, 'index'])->name('about');
     Route::put('about', [AboutPageController::class, 'update'])->name('about.update');
 });
