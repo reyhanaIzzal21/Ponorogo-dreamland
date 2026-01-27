@@ -64,7 +64,7 @@ class PavilionPageController extends Controller
         $this->pavilionService->updateHeroSection([
             'title' => $validated['title'] ?? null,
             'description' => $validated['description'] ?? null,
-            'extra_data' => !empty($extraData) ? $extraData : null,
+            'extra_data' => $extraData, // Pass array (empty or not) to ensure merging in service
         ]);
 
         return response()->json([

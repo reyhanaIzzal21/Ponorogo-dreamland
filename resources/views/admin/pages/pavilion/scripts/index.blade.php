@@ -251,6 +251,7 @@
                 const formData = new FormData();
                 formData.append('background_image', file);
                 formData.append('title', this.hero.title);
+                formData.append('highlighted_title', this.hero.highlightedTitle);
                 formData.append('description', this.hero.description);
 
                 try {
