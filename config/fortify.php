@@ -86,7 +86,7 @@ return [
     |
     */
 
-    'prefix' => '',
+    'prefix' => 'admin',
 
     'domain' => null,
 
@@ -144,11 +144,11 @@ return [
     */
 
     'features' => [
-        Features::registration(),
+        // Features::registration(),
         Features::resetPasswords(),
         Features::emailVerification(),
-        // Features::updateProfileInformation(),
-        // Features::updatePasswords(),
+        Features::updateProfileInformation(),
+        Features::updatePasswords(),
         Features::twoFactorAuthentication([
             'confirm' => true,
             'confirmPassword' => true,

@@ -18,7 +18,7 @@
             </div>
             <div>
                 <label class="block text-sm font-bold text-gray-700 mb-2">Main Headline <span
-                        class="text-blue-500">(Akan tampil Biru kuning)</span></label>
+                        class="text-blue-500">(Akan tampil berwarna biru)</span></label>
                 <input type="text" class="input-pool w-full border-gray-300 rounded-lg shadow-sm p-3 font-bold"
                     value="Oasis in Town">
             </div>
