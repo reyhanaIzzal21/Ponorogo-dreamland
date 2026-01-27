@@ -58,11 +58,27 @@ class PoolService
 
     public function createStage(array $data)
     {
+        // Enforce logic: Done = 100%, Planned = 0%
+        if (isset($data['status'])) {
+            if ($data['status'] === 'done') {
+                $data['progress_percentage'] = 100;
+            } elseif ($data['status'] === 'planned') {
+                $data['progress_percentage'] = 0;
+            }
+        }
         return $this->poolRepository->createStage($data);
     }
 
     public function updateStage(mixed $id, array $data)
     {
+        // Enforce logic: Done = 100%, Planned = 0%
+        if (isset($data['status'])) {
+            if ($data['status'] === 'done') {
+                $data['progress_percentage'] = 100;
+            } elseif ($data['status'] === 'planned') {
+                $data['progress_percentage'] = 0;
+            }
+        }
         return $this->poolRepository->updateStage($id, $data);
     }
 

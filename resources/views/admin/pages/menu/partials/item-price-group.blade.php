@@ -8,7 +8,7 @@
             </div>
 
             {{-- Actions --}}
-            <div class="absolute top-2 right-2 flex gap-1 opacity-0 group-hover:opacity-100 transition">
+            <div class="absolute top-2 right-2 flex gap-1 transition">
                 <button @click="editPriceGroup(group)" class="text-gray-400 hover:text-gray-600 p-1">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

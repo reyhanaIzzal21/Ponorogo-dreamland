@@ -23,7 +23,7 @@
                     onsubmit="return confirm('Apakah Anda yakin ingin menghapus tahap ini?');">
                     @csrf
                     @method('DELETE')
-                    <button type="submit" class="absolute top-3 right-3 text-gray-300 hover:text-red-500">
+                    <button type="submit" class="absolute top-3 right-3 text-red-500">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3H6a1 1 0 01-1-1V5h14v1a1 1 0 01-1 1h-3z">
@@ -81,44 +81,89 @@
                         <div
                             class="bg-gray-50 rounded-lg p-4 border border-dashed border-gray-300 flex flex-col justify-center">
 
-                            <div class="space-y-4">
-                                <div>
-                                    <div class="flex justify-between mb-1">
-                                        <label class="text-xs font-bold text-blue-700">Persentase
-                                            Progres</label>
-                                        <span
-                                            class="text-xs font-bold text-blue-700">{{ $stage->progress_percentage }}%</span>
+                            @if ($stage->status == 'on_progress')
+                                {{-- ON PROGRESS: Editable --}}
+                                <div class="space-y-4" x-data="{ progress: {{ $stage->progress_percentage }} }">
+                                    <div>
+                                        <div class="flex justify-between mb-1">
+                                            <label class="text-xs font-bold text-blue-700">Persentase
+                                                Progres</label>
+                                            <span class="text-xs font-bold text-blue-700"
+                                                x-text="progress + '%'">{{ $stage->progress_percentage }}%</span>
+                                        </div>
+                                        <input type="range" name="progress_percentage" min="0" max="100"
+                                            x-model="progress"
+                                            class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer">
                                     </div>
-                                    <input type="range" name="progress_percentage" min="0" max="100"
-                                        class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
-                                        value="{{ old('progress_percentage', $stage->progress_percentage) }}">
-                                </div>
 
-                                {{-- Photos Management --}}
-                                <div>
-                                    <label class="text-xs font-bold text-gray-500 mb-2 block">Foto Progres (Max
-                                        3)</label>
-                                    <div class="flex gap-2">
-                                        @foreach ($stage->photos as $photo)
-                                            <div
-                                                class="relative w-16 h-16 bg-gray-200 rounded text-xs border border-gray-300 group-photo">
-                                                <img src="{{ asset('storage/' . $photo->image_path) }}"
-                                                    class="w-full h-full object-cover rounded">
-                                                <button type="submit" form="delete-photo-{{ $photo->id }}"
-                                                    class="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs opacity-0 group-photo-hover:opacity-100">&times;</button>
-                                            </div>
-                                        @endforeach
+                                    {{-- Photos Management --}}
+                                    <div>
+                                        <label class="text-xs font-bold text-gray-500 mb-2 block">Foto Progres (Max
+                                            3)</label>
+                                        <div class="flex gap-2">
+                                            @foreach ($stage->photos as $photo)
+                                                <div
+                                                    class="relative w-16 h-16 bg-gray-200 rounded text-xs border border-gray-300 group-photo">
+                                                    <img src="{{ asset('storage/' . $photo->image_path) }}"
+                                                        class="w-full h-full object-cover rounded">
+                                                    <button type="submit" form="delete-photo-{{ $photo->id }}"
+                                                        class="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs opacity-0 group-photo-hover:opacity-100">&times;</button>
+                                                </div>
+                                            @endforeach
 
-                                        @if ($stage->photos->count() < 3)
-                                            <button type="button"
-                                                @click="$dispatch('open-modal', 'add-photo-{{ $stage->id }}')"
-                                                class="w-16 h-16 bg-white border-2 border-dashed border-blue-300 rounded flex items-center justify-center text-blue-500 cursor-pointer hover:bg-blue-50">
-                                                <span class="text-xl">+</span>
-                                            </button>
-                                        @endif
+                                            @if ($stage->photos->count() < 3)
+                                                <button type="button"
+                                                    @click="$dispatch('open-modal', 'add-photo-{{ $stage->id }}')"
+                                                    class="w-16 h-16 bg-white border-2 border-dashed border-blue-300 rounded flex items-center justify-center text-blue-500 cursor-pointer hover:bg-blue-50">
+                                                    <span class="text-xl">+</span>
+                                                </button>
+                                            @endif
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            @elseif($stage->status == 'done')
+                                {{-- DONE: Badge Only --}}
+                                <div class="text-center py-6">
+                                    <input type="hidden" name="progress_percentage" value="100">
+                                    <div
+                                        class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-100 text-green-600 mb-3">
+                                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M5 13l4 4L19 7"></path>
+                                        </svg>
+                                    </div>
+                                    <h4 class="font-bold text-gray-800">Proyek Selesai</h4>
+                                    <p class="text-xs text-gray-500 mb-4">Progress 100%</p>
+
+                                    @if ($stage->photos->count() > 0)
+                                        <div class="flex justify-center gap-2 mt-2">
+                                            @foreach ($stage->photos as $photo)
+                                                <div
+                                                    class="w-10 h-10 bg-gray-200 rounded overflow-hidden border border-gray-300">
+                                                    <img src="{{ asset('storage/' . $photo->image_path) }}"
+                                                        class="w-full h-full object-cover">
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                    @endif
+                                </div>
+                            @else
+                                {{-- PLANNED: Badge Only --}}
+                                <div class="text-center py-6">
+                                    <input type="hidden" name="progress_percentage" value="0">
+                                    <div
+                                        class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gray-100 text-gray-500 mb-3">
+                                        <svg class="w-8 h-8" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z">
+                                            </path>
+                                        </svg>
+                                    </div>
+                                    <h4 class="font-bold text-gray-800">Tahap Direncanakan</h4>
+                                    <p class="text-xs text-gray-500">Belum dimulai (0%)</p>
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </form>

@@ -25,8 +25,7 @@
                                 class="block px-4 py-3 text-sm text-gray-700 hover:bg-green-50 hover:text-primary">Dam
                                 Cokro Resto</a>
                             <a href="{{ route('pavilion') }}"
-                                class="block px-4 py-3 text-sm text-gray-700 hover:bg-green-50 hover:text-primary">Pendopo
-                                Ageng</a>
+                                class="block px-4 py-3 text-sm text-gray-700 hover:bg-green-50 hover:text-primary">Pendopo</a>
                             <a href="{{ route('pool') }}"
                                 class="block px-4 py-3 text-sm text-gray-700 hover:bg-green-50 hover:text-primary">Kolam
                                 Renang</a>
