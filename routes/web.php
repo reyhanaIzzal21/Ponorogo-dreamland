@@ -13,12 +13,12 @@ use App\Http\Controllers\PavilionController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\RestaurantController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\AboutPageController;
+use App\Http\Controllers\AboutPageController as UserAboutPageController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::get('/about', function () {
-    return view('user.pages.about');
-})->name('about');
+Route::get('/about', [UserAboutPageController::class, 'index'])->name('about');
 
 Route::get('/dam-cokro-resto', [RestaurantController::class, 'index'])->name('dam-cokro-resto');
 
@@ -119,7 +119,8 @@ Route::prefix('admin')->middleware('role:admin')->name('admin.')->group(function
     });
 
     Route::view('pool', 'admin.pages.pool.index')->name('pool');
-    Route::view('about', 'admin.pages.about.index')->name('about');
+    Route::get('about', [AboutPageController::class, 'index'])->name('about');
+    Route::put('about', [AboutPageController::class, 'update'])->name('about.update');
 });
 
 require __DIR__ . '/settings.php';

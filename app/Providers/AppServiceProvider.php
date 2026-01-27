@@ -92,6 +92,12 @@ class AppServiceProvider extends ServiceProvider
             \App\Contracts\Interfaces\PavilionLayoutRepositoryInterface::class,
             \App\Contracts\Repositories\PavilionLayoutRepository::class
         );
+
+        // About Page Repository Binding
+        $this->app->bind(
+            \App\Contracts\Interfaces\AboutPageRepositoryInterface::class,
+            \App\Contracts\Repositories\AboutPageRepository::class
+        );
     }
 
     /**

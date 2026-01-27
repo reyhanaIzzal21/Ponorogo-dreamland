@@ -13,20 +13,22 @@
             <div class="md:w-1/3">
                 <label class="block text-xs font-bold text-gray-500 mb-1">Foto (Kiri)</label>
                 <div class="aspect-[4/3] bg-gray-100 rounded-lg overflow-hidden relative group cursor-pointer">
-                    <img src="https://images.unsplash.com/photo-1528696892704-5f65b8252455?q=80&w=300"
+                    <img src="{{ $about->story_1_image ? Storage::url($about->story_1_image) : 'https://images.unsplash.com/photo-1528696892704-5f65b8252455?q=80&w=300' }}"
                         class="w-full h-full object-cover">
-                    <input type="file" class="absolute inset-0 opacity-0 cursor-pointer">
+                    <input type="file" name="story_1_image" class="absolute inset-0 opacity-0 cursor-pointer">
                 </div>
             </div>
             <div class="md:w-2/3 space-y-3">
                 <div>
                     <label class="block text-xs font-bold text-gray-500 mb-1">Judul Cerita</label>
-                    <input type="text" class="input-about w-full border-gray-300 rounded text-sm font-bold"
-                        value="Awal Mula Mimpi">
+                    <input type="text" name="story_1_title"
+                        class="input-about w-full border-gray-300 rounded text-sm font-bold"
+                        value="{{ old('story_1_title', $about->story_1_title) }}">
                 </div>
                 <div>
                     <label class="block text-xs font-bold text-gray-500 mb-1">Narasi</label>
-                    <textarea rows="3" class="input-about w-full border-gray-300 rounded text-sm text-gray-600">Berawal dari lahan kosong di jantung kota, kami melihat potensi...</textarea>
+                    <textarea rows="3" name="story_1_description"
+                        class="input-about w-full border-gray-300 rounded text-sm text-gray-600">{{ old('story_1_description', $about->story_1_description) }}</textarea>
                 </div>
             </div>
         </div>
@@ -43,20 +45,22 @@
             <div class="md:w-1/3">
                 <label class="block text-xs font-bold text-gray-500 mb-1 text-right">Foto (Kanan)</label>
                 <div class="aspect-[4/3] bg-gray-100 rounded-lg overflow-hidden relative group cursor-pointer">
-                    <img src="https://images.unsplash.com/photo-1464695110811-dcf3903dc2f4?q=80&w=300"
+                    <img src="{{ $about->story_2_image ? Storage::url($about->story_2_image) : 'https://images.unsplash.com/photo-1464695110811-dcf3903dc2f4?q=80&w=300' }}"
                         class="w-full h-full object-cover">
-                    <input type="file" class="absolute inset-0 opacity-0 cursor-pointer">
+                    <input type="file" name="story_2_image" class="absolute inset-0 opacity-0 cursor-pointer">
                 </div>
             </div>
             <div class="md:w-2/3 space-y-3">
                 <div>
                     <label class="block text-xs font-bold text-gray-500 mb-1">Judul Cerita</label>
-                    <input type="text" class="input-about w-full border-gray-300 rounded text-sm font-bold"
-                        value="Filosofi Dreamland">
+                    <input type="text" name="story_2_title"
+                        class="input-about w-full border-gray-300 rounded text-sm font-bold"
+                        value="{{ old('story_2_title', $about->story_2_title) }}">
                 </div>
                 <div>
                     <label class="block text-xs font-bold text-gray-500 mb-1">Narasi</label>
-                    <textarea rows="3" class="input-about w-full border-gray-300 rounded text-sm text-gray-600">Kami percaya setiap sudut tempat ini dirancang untuk mewujudkan mimpi...</textarea>
+                    <textarea rows="3" name="story_2_description"
+                        class="input-about w-full border-gray-300 rounded text-sm text-gray-600">{{ old('story_2_description', $about->story_2_description) }}</textarea>
                 </div>
             </div>
         </div>
@@ -70,20 +74,22 @@
             <div class="md:w-1/3">
                 <label class="block text-xs font-bold text-gray-500 mb-1">Foto (Kiri)</label>
                 <div class="aspect-[4/3] bg-gray-100 rounded-lg overflow-hidden relative group cursor-pointer">
-                    <img src="https://images.unsplash.com/photo-1581578731117-104f2a8d46a8?q=80&w=300"
+                    <img src="{{ $about->story_3_image ? Storage::url($about->story_3_image) : 'https://images.unsplash.com/photo-1581578731117-104f2a8d46a8?q=80&w=300' }}"
                         class="w-full h-full object-cover grayscale">
-                    <input type="file" class="absolute inset-0 opacity-0 cursor-pointer">
+                    <input type="file" name="story_3_image" class="absolute inset-0 opacity-0 cursor-pointer">
                 </div>
             </div>
             <div class="md:w-2/3 space-y-3">
                 <div>
                     <label class="block text-xs font-bold text-gray-500 mb-1">Judul Cerita</label>
-                    <input type="text" class="input-about w-full border-gray-300 rounded text-sm font-bold"
-                        value="Komitmen Kami">
+                    <input type="text" name="story_3_title"
+                        class="input-about w-full border-gray-300 rounded text-sm font-bold"
+                        value="{{ old('story_3_title', $about->story_3_title) }}">
                 </div>
                 <div>
                     <label class="block text-xs font-bold text-gray-500 mb-1">Narasi</label>
-                    <textarea rows="3" class="input-about w-full border-gray-300 rounded text-sm text-gray-600">Memberikan pelayanan setara hotel berbintang...</textarea>
+                    <textarea rows="3" name="story_3_description"
+                        class="input-about w-full border-gray-300 rounded text-sm text-gray-600">{{ old('story_3_description', $about->story_3_description) }}</textarea>
                 </div>
             </div>
         </div>

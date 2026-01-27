@@ -11,18 +11,22 @@
                 <h3 class="text-xs font-bold text-green-800 uppercase mb-3">Card 1: Otentik</h3>
                 <div class="flex gap-2 mb-2">
                     <input type="text" class="input-about w-16 border-gray-300 rounded text-center" value="🏛️">
-                    <input type="text" class="input-about w-full border-gray-300 rounded font-bold" value="Otentik">
+                    <input type="text" name="value_1_title"
+                        class="input-about w-full border-gray-300 rounded font-bold"
+                        value="{{ old('value_1_title', $about->value_1_title) }}">
                 </div>
-                <textarea rows="2" class="input-about w-full border-gray-300 rounded text-sm">Menjaga resep warisan leluhur dan arsitektur asli.</textarea>
+                <textarea rows="2" name="value_1_description" class="input-about w-full border-gray-300 rounded text-sm">{{ old('value_1_description', $about->value_1_description) }}</textarea>
             </div>
 
             <div class="border-l-4 border-blue-500 bg-white p-4 shadow-sm rounded-r-xl border border-gray-100">
                 <h3 class="text-xs font-bold text-blue-800 uppercase mb-3">Card 2: Inovatif</h3>
                 <div class="flex gap-2 mb-2">
                     <input type="text" class="input-about w-16 border-gray-300 rounded text-center" value="🚀">
-                    <input type="text" class="input-about w-full border-gray-300 rounded font-bold" value="Inovatif">
+                    <input type="text" name="value_2_title"
+                        class="input-about w-full border-gray-300 rounded font-bold"
+                        value="{{ old('value_2_title', $about->value_2_title) }}">
                 </div>
-                <textarea rows="2" class="input-about w-full border-gray-300 rounded text-sm">Terus berkembang dengan fasilitas modern.</textarea>
+                <textarea rows="2" name="value_2_description" class="input-about w-full border-gray-300 rounded text-sm">{{ old('value_2_description', $about->value_2_description) }}</textarea>
             </div>
         </div>
 
@@ -36,18 +40,12 @@
                     <input type="text"
                         class="bg-black/30 border-white/30 text-white w-12 rounded text-center focus:ring-0"
                         value="🤝">
-                    <input type="text"
+                    <input type="text" name="value_3_title"
                         class="bg-black/30 border-white/30 text-white w-full rounded font-bold focus:ring-0"
-                        value="Kehangatan">
+                        value="{{ old('value_3_title', $about->value_3_title) }}">
                 </div>
-                <textarea rows="3" class="bg-black/30 border-white/30 text-white w-full rounded text-sm focus:ring-0">Pelayanan yang membuat Anda merasa seperti pulang.</textarea>
-            </div>
-
-            <div class="absolute bottom-4 right-4">
-                <label class="bg-white text-xs font-bold px-3 py-1 rounded cursor-pointer hover:bg-gray-200">
-                    Ganti Background
-                    <input type="file" class="hidden">
-                </label>
+                <textarea rows="3" name="value_3_description"
+                    class="bg-black/30 border-white/30 text-white w-full rounded text-sm focus:ring-0">{{ old('value_3_description', $about->value_3_description) }}</textarea>
             </div>
         </div>
     </div>

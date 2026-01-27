@@ -40,7 +40,7 @@
 @endsection
 
 @section('content')
-    <section class="min-h-screen flex flex-col md:flex-row items-center overflow-hidden bg-zinc-50 relative">
+    <section class="min-h-screen flex flex-col md:flex-row items-center overflow-hidden bg-zinc-50 relative pt-8">
         <div
             class="absolute inset-0 opacity-40 bg-[url('https://www.transparenttextures.com/patterns/concrete-wall.png')] mix-blend-multiply pointer-events-none">
         </div>
@@ -51,14 +51,11 @@
                 Tentang Kami
             </span>
             <h1 class="font-heritage text-5xl md:text-7xl lg:text-8xl text-zinc-900 font-bold leading-[0.95] mb-8 reveal">
-                Lebih dari <br>
-                Sekadar <span
-                    class="text-transparent bg-clip-text bg-linear-to-r from-primary to-emerald-400">Destinasi.</span>
+                {{ $about->hero_title ?? 'Lebih dari Sekadar Destinasi.' }}
             </h1>
             <div class="w-24 h-2 bg-secondary mb-8 reveal"></div>
             <p class="font-modern text-lg md:text-xl text-zinc-600 leading-relaxed max-w-xl reveal">
-                Ini adalah sebuah mimpi yang menjadi nyata. Ponorogo Dreamland menyatukan cita rasa kuliner, kehangatan
-                tradisi, dan keceriaan keluarga dalam satu harmoni.
+                {{ $about->hero_subtitle ?? 'Ini adalah sebuah mimpi yang menjadi nyata. Ponorogo Dreamland menyatukan cita rasa kuliner, kehangatan tradisi, dan keceriaan keluarga dalam satu harmoni.' }}
             </p>
         </div>
 
@@ -66,7 +63,7 @@
             class="w-full md:w-[40%] h-[50vh] md:h-screen relative flex items-center justify-center order-1 md:order-2 parallax-container">
             <div class="organic-blob w-80 h-80 md:w-[500px] md:h-[500px] overflow-hidden shadow-2xl relative z-20 parallax-element"
                 data-speed="0.05">
-                <img src="https://images.unsplash.com/photo-1565557623262-b51c2513a641?q=80&w=1000&auto=format&fit=crop"
+                <img src="{{ $about->hero_blob_image ? Storage::url($about->hero_blob_image) : 'https://images.unsplash.com/photo-1565557623262-b51c2513a641?q=80&w=1000&auto=format&fit=crop' }}"
                     class="w-full h-full object-cover scale-110" alt="Ponorogo Dreamland Vibe">
             </div>
 
@@ -84,49 +81,47 @@
 
             <div class="flex flex-col md:flex-row items-center gap-12 mb-24 reveal">
                 <div class="w-full md:w-1/2">
-                    <img src="https://images.unsplash.com/photo-1565557623262-b51c2513a641?q=80&w=800&auto=format&fit=crop"
-                        class="w-full h-[400px] object-cover rounded-[3rem] rounded-tr-none shadow-xl transform hover:scale-[1.02] transition duration-500">
+                    <img src="{{ $about->story_1_image ? Storage::url($about->story_1_image) : 'https://images.unsplash.com/photo-1565557623262-b51c2513a641?q=80&w=800&auto=format&fit=crop' }}"
+                        class="w-full h-full object-cover rounded-[3rem] rounded-tr-none shadow-xl transform hover:scale-[1.02] transition duration-500">
                 </div>
                 <div class="w-full md:w-1/2 md:pl-10">
                     <span class="text-zinc-400 font-bold text-6xl opacity-20 -ml-4">01</span>
-                    <h2 class="font-heritage text-4xl font-bold text-zinc-900 mb-6 -mt-8">Awal Mula Mimpi</h2>
+                    <h2 class="font-heritage text-4xl font-bold text-zinc-900 mb-6 -mt-8">
+                        {{ $about->story_1_title ?? 'Awal Mula Mimpi' }}</h2>
                     <p class="font-modern text-lg text-zinc-600 leading-loose">
-                        Berawal dari lahan kosong di jantung kota, kami melihat potensi untuk menciptakan ruang publik yang
-                        tidak hanya komersial, tapi juga memanusiakan manusia. Kami ingin warga Ponorogo memiliki tempat di
-                        mana mereka bisa bangga akan kotanya.
+                        {{ $about->story_1_description ?? 'Berawal dari lahan kosong di jantung kota, kami melihat potensi untuk menciptakan ruang publik yang tidak hanya komersial, tapi juga memanusiakan manusia.' }}
                     </p>
                 </div>
             </div>
 
             <div class="flex flex-col md:flex-row-reverse items-center gap-12 mb-24 reveal">
                 <div class="w-full md:w-1/2">
-                    <img src="https://images.unsplash.com/photo-1464695110811-dcf3903dc2f4?q=80&w=800&auto=format&fit=crop"
+                    <img src="{{ $about->story_2_image ? Storage::url($about->story_2_image) : 'https://images.unsplash.com/photo-1464695110811-dcf3903dc2f4?q=80&w=800&auto=format&fit=crop' }}"
                         class="w-full h-[400px] object-cover rounded-[3rem] rounded-tl-none shadow-xl transform hover:scale-[1.02] transition duration-500">
                 </div>
                 <div class="w-full md:w-1/2 md:pr-10 text-right md:text-left">
                     <div class="flex flex-col md:items-end">
                         <span class="text-zinc-400 font-bold text-6xl opacity-20 -mr-4 md:mr-0 md:-ml-4">02</span>
-                        <h2 class="font-heritage text-4xl font-bold text-zinc-900 mb-6 -mt-8">Filosofi "Dreamland"</h2>
+                        <h2 class="font-heritage text-4xl font-bold text-zinc-900 mb-6 -mt-8">
+                            {{ $about->story_2_title ?? 'Filosofi "Dreamland"' }}</h2>
                     </div>
                     <p class="font-modern text-lg text-zinc-600 leading-loose">
-                        Mengapa "Dreamland"? Karena kami percaya setiap sudut tempat ini dirancang untuk mewujudkan mimpi
-                        kecil Anda: mimpi makan enak, mimpi pernikahan indah, hingga mimpi anak-anak bermain air dengan
-                        riang.
+                        {{ $about->story_2_description ?? 'Mengapa "Dreamland"? Karena kami percaya setiap sudut tempat ini dirancang untuk mewujudkan mimpi kecil Anda.' }}
                     </p>
                 </div>
             </div>
 
             <div class="flex flex-col md:flex-row items-center gap-12 reveal">
                 <div class="w-full md:w-1/2">
-                    <img src="https://images.unsplash.com/photo-1565557623262-b51c2513a641?q=80&w=800&auto=format&fit=crop"
+                    <img src="{{ $about->story_3_image ? Storage::url($about->story_3_image) : 'https://images.unsplash.com/photo-1565557623262-b51c2513a641?q=80&w=800&auto=format&fit=crop' }}"
                         class="w-full h-[400px] object-cover rounded-[3rem] rounded-br-none shadow-xl transform hover:scale-[1.02] transition duration-500 grayscale hover:grayscale-0">
                 </div>
                 <div class="w-full md:w-1/2 md:pl-10">
                     <span class="text-zinc-400 font-bold text-6xl opacity-20 -ml-4">03</span>
-                    <h2 class="font-heritage text-4xl font-bold text-zinc-900 mb-6 -mt-8">Komitmen Kami</h2>
+                    <h2 class="font-heritage text-4xl font-bold text-zinc-900 mb-6 -mt-8">
+                        {{ $about->story_3_title ?? 'Komitmen Kami' }}</h2>
                     <p class="font-modern text-lg text-zinc-600 leading-loose">
-                        Kami tidak hanya membangun gedung, kami membangun komunitas. Komitmen kami adalah memberikan
-                        pelayanan setara hotel berbintang namun dengan keramahtamahan khas warga lokal Ponorogo.
+                        {{ $about->story_3_description ?? 'Kami tidak hanya membangun gedung, kami membangun komunitas. Komitmen kami adalah memberikan pelayanan setara hotel berbintang.' }}
                     </p>
                 </div>
             </div>
@@ -153,10 +148,10 @@
                             class="w-16 h-16 bg-primary/20 text-primary rounded-2xl flex items-center justify-center text-3xl mb-6">
                             🏛️</div>
                         <div>
-                            <h3 class="font-heritage text-3xl font-bold text-zinc-800 mb-4">Otentik</h3>
+                            <h3 class="font-heritage text-3xl font-bold text-zinc-800 mb-4">
+                                {{ $about->value_1_title ?? 'Otentik' }}</h3>
                             <p class="text-zinc-500 leading-relaxed">
-                                Menjaga resep warisan leluhur dan arsitektur asli. Kami tidak mengubah tradisi, kami hanya
-                                memolesnya agar lebih bersinar.
+                                {{ $about->value_1_description ?? 'Menjaga resep warisan leluhur dan arsitektur asli.' }}
                             </p>
                         </div>
                     </div>
@@ -170,10 +165,10 @@
                             class="w-16 h-16 bg-accent/20 text-accent rounded-2xl flex items-center justify-center text-3xl shrink-0">
                             🚀</div>
                         <div>
-                            <h3 class="font-heritage text-2xl font-bold text-zinc-800 mb-2">Inovatif</h3>
+                            <h3 class="font-heritage text-2xl font-bold text-zinc-800 mb-2">
+                                {{ $about->value_2_title ?? 'Inovatif' }}</h3>
                             <p class="text-zinc-500 leading-relaxed">
-                                Terus berkembang dengan fasilitas modern seperti sistem reservasi digital dan wahana kolam
-                                renang futuristik.
+                                {{ $about->value_2_description ?? 'Terus berkembang dengan fasilitas modern seperti sistem reservasi digital.' }}
                             </p>
                         </div>
                     </div>
@@ -190,10 +185,10 @@
                             class="w-16 h-16 bg-secondary text-zinc-900 rounded-2xl flex items-center justify-center text-3xl shrink-0 shadow-[0_0_15px_rgba(255,235,59,0.5)]">
                             🤝</div>
                         <div>
-                            <h3 class="font-heritage text-2xl font-bold text-white mb-2">Kehangatan Keluarga</h3>
+                            <h3 class="font-heritage text-2xl font-bold text-white mb-2">
+                                {{ $about->value_3_title ?? 'Kehangatan Keluarga' }}</h3>
                             <p class="text-zinc-300 leading-relaxed">
-                                Pelayanan yang membuat Anda merasa seperti pulang ke rumah sendiri. Senyum kami adalah
-                                standar kami.
+                                {{ $about->value_3_description ?? 'Pelayanan yang membuat Anda merasa seperti pulang ke rumah sendiri.' }}
                             </p>
                         </div>
                     </div>
@@ -208,25 +203,29 @@
             <div
                 class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center divide-y md:divide-y-0 md:divide-x divide-green-700/50 reveal">
 
+
                 <div class="p-4">
                     <div class="text-secondary text-5xl font-bold font-modern mb-2 flex justify-center items-center">
-                        <span class="counter" data-target="3">0</span>
+                        <span class="counter" data-target="{{ $about->stat_1_value ?? 3 }}">0</span>
                     </div>
-                    <p class="uppercase tracking-widest text-sm text-green-100 font-semibold">Unit Bisnis Utama</p>
+                    <p class="uppercase tracking-widest text-sm text-green-100 font-semibold">
+                        {{ $about->stat_1_label ?? 'Unit Bisnis Utama' }}</p>
                 </div>
 
                 <div class="p-4">
                     <div class="text-secondary text-5xl font-bold font-modern mb-2 flex justify-center items-center">
-                        <span class="counter" data-target="1000">0</span>+
+                        <span class="counter" data-target="{{ $about->stat_2_value ?? 1000 }}">0</span>+
                     </div>
-                    <p class="uppercase tracking-widest text-sm text-green-100 font-semibold">Pengunjung Bahagia</p>
+                    <p class="uppercase tracking-widest text-sm text-green-100 font-semibold">
+                        {{ $about->stat_2_label ?? 'Pengunjung Bahagia' }}</p>
                 </div>
 
                 <div class="p-4">
                     <div class="text-secondary text-5xl font-bold font-modern mb-2 flex justify-center items-center">
-                        <span class="counter" data-target="100">0</span>%
+                        <span class="counter" data-target="{{ $about->stat_3_value ?? 100 }}">0</span>%
                     </div>
-                    <p class="uppercase tracking-widest text-sm text-green-100 font-semibold">Lokal Ponorogo</p>
+                    <p class="uppercase tracking-widest text-sm text-green-100 font-semibold">
+                        {{ $about->stat_3_label ?? 'Lokal Ponorogo' }}</p>
                 </div>
 
             </div>
@@ -244,15 +243,15 @@
         <div class="max-w-4xl mx-auto px-6 text-center relative z-10 reveal">
             <div class="text-6xl text-secondary opacity-50 font-serif mb-6">“</div>
             <h2 class="font-heritage text-3xl md:text-5xl text-white font-bold leading-tight mb-10">
-                Kami ingin menciptakan tempat di mana teknologi dan tradisi tidak saling bertentangan, melainkan saling
-                melengkapi untuk menciptakan kenangan.
+                {{ $about->founder_quote ?? 'Kami ingin menciptakan tempat di mana teknologi dan tradisi tidak saling bertentangan, melainkan saling melengkapi untuk menciptakan kenangan.' }}
             </h2>
 
             <div class="flex items-center justify-center gap-4">
                 <div class="w-12 h-1 bg-secondary rounded-full"></div>
                 <div class="text-left">
-                    <p class="text-white font-bold uppercase tracking-widest text-sm">Founder</p>
-                    <p class="text-zinc-300 text-xs">Ponorogo Dreamland</p>
+                    <p class="text-white font-bold uppercase tracking-widest text-sm">
+                        {{ $about->founder_job ?? 'Founder' }}</p>
+                    <p class="text-zinc-300 text-xs">{{ $about->founder_sub_job ?? 'Ponorogo Dreamland' }}</p>
                 </div>
             </div>
         </div>

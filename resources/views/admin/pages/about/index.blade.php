@@ -65,7 +65,7 @@
                     class="flex-1 md:flex-none justify-center px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 flex items-center gap-2 text-sm font-medium transition">
                     Live Preview
                 </a>
-                <button
+                <button form="about-form" type="submit"
                     class="flex-1 md:flex-none justify-center px-4 py-2 bg-slate-700 text-white rounded-lg hover:bg-slate-800 flex items-center gap-2 text-sm font-medium shadow-lg transition">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -77,17 +77,30 @@
             </div>
         </div>
 
-        <div class="flex flex-col lg:flex-row gap-6">
+        <form id="about-form" action="{{ route('admin.about.update') }}" method="POST" enctype="multipart/form-data"
+            class="flex flex-col lg:flex-row gap-6">
+            @csrf
+            @method('PUT')
 
             @include('admin.pages.about.partials.sidebar')
 
             <div class="flex-1 bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden min-h-[600px]">
+                @if ($errors->any())
+                    <div class="bg-red-50 text-red-600 p-4 border-b border-red-100">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
                 @include('admin.pages.about.panes.hero')
                 @include('admin.pages.about.panes.journey')
                 @include('admin.pages.about.panes.value')
                 @include('admin.pages.about.panes.extra')
             </div>
-        </div>
+        </form>
     </div>
 @endsection
 
@@ -95,7 +108,13 @@
     <script>
         document.addEventListener('alpine:init', () => {
             Alpine.data('aboutCMS', () => ({
-                activeTab: 'hero',
+                activeTab: new URLSearchParams(window.location.search).get('tab') || 'hero',
+                setTab(tab) {
+                    this.activeTab = tab;
+                    const url = new URL(window.location);
+                    url.searchParams.set('tab', tab);
+                    window.history.pushState({}, '', url);
+                }
             }))
         })
     </script>
