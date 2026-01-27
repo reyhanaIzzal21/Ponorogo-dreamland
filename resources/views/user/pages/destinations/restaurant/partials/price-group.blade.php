@@ -3,7 +3,7 @@
     @foreach ($category->priceGroups as $group)
         <div class="border-2 border-dashed border-zinc-300 rounded-2xl bg-[#FFF8E1] p-6 relative">
             <div
-                class="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-zinc-900 text-golden-cokro font-bold px-6 py-2 rounded-full shadow-lg border-2 border-white text-md">
+                class="text-center absolute -top-4 left-1/2 transform -translate-x-1/2 bg-zinc-900 text-golden-cokro font-bold px-6 py-2 rounded-full shadow-lg border-2 border-white text-md">
                 Serba Rp {{ $group->formatted_price }}
             </div>
 

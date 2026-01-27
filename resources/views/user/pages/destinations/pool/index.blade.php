@@ -240,30 +240,6 @@
             </div>
         </div>
     </section>
-
-    <section class="py-24 bg-zinc-900 relative border-t border-zinc-800">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="mb-12 text-center reveal">
-                <h2 class="font-modern text-3xl font-bold text-white">Join the Waitlist</h2>
-                <p class="text-zinc-500">Dapatkan notifikasi pertama saat kami buka dan promo spesial.</p>
-            </div>
-
-            <form id="notifyForm" class="max-w-md mx-auto reveal" onsubmit="handleNotify(event)">
-                <div class="flex gap-2">
-                    <input type="email" placeholder="Masukkan email Anda"
-                        class="flex-1 bg-zinc-800 border border-zinc-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-accent">
-                    <button type="submit"
-                        class="bg-accent text-black font-bold px-6 py-3 rounded-lg hover:bg-cyan-400 transition">Ingatkan
-                        Saya</button>
-                </div>
-            </form>
-
-            <div id="successMessage"
-                class="hidden text-center bg-green-900/30 border border-green-500/30 text-green-400 p-4 rounded-lg max-w-md mx-auto animate-pulse">
-                Terima kasih! Kami akan menghubungi Anda segera.
-            </div>
-        </div>
-    </section>
 @endsection
 
 @section('script')
