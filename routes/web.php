@@ -133,6 +133,10 @@ Route::prefix('admin')->middleware('role:admin')->name('admin.')->group(function
     });
     Route::get('about', [AboutPageController::class, 'index'])->name('about');
     Route::put('about', [AboutPageController::class, 'update'])->name('about.update');
+
+    Route::get('/reservation', function () {
+        return view('admin.pages.reservations.index');
+    })->name('reservation');
 });
 
 require __DIR__ . '/settings.php';
