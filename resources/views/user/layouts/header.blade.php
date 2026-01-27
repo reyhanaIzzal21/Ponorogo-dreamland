@@ -36,6 +36,8 @@
 
                 <a href="{{ route('about') }}"
                     class="text-gray-800 hover:text-primary font-medium transition">Tentang</a>
+                <a href="{{ route('contact') }}"
+                    class="text-gray-800 hover:text-primary font-medium transition">Kontak</a>
             </div>
 
             <div class="hidden md:flex">
@@ -73,6 +75,10 @@
             </div>
             <a href="{{ route('about') }}"
                 class="block px-3 py-2 rounded-md text-base font-medium text-gray-800 hover:bg-green-50 hover:text-primary">Tentang</a>
+            
+            <a href="{{ route('contact') }}"
+                class="block px-3 py-2 rounded-md text-base font-medium text-gray-800 hover:bg-green-50 hover:text-primary">Kontak</a>
+            
             <a href="{{ route('reservation') }}"
                 class="block w-full text-center mt-4 bg-primary text-white px-4 py-3 rounded-lg font-bold">Reservasi
                 Sekarang</a>

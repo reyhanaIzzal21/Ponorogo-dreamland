@@ -34,6 +34,9 @@ Route::get('/reservation', [ReservationController::class, 'index'])->name('reser
 Route::get('/reservation/form', function () {
     return view('user.pages.reservations.form');
 })->name('reservation.form');
+Route::get('/contact', function () {
+    return view('user.pages.contact');
+})->name('contact');
 
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
