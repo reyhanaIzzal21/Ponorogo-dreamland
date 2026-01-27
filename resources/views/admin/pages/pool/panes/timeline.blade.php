@@ -139,91 +139,14 @@
                      I'll make the "+" button trigger a hidden file input or a small modal.
                      For simplicity, let's use a hidden form with file input triggered by JS/Alpine.
                 -->
-                <div x-data="{ open: false }"
-                    x-on:open-modal.window="if ($event.detail === 'add-photo-{{ $stage->id }}') open = true">
-                    <div x-show="open" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
-                        x-transition.opacity>
-                        <div class="bg-white p-6 rounded-lg shadow-xl w-96 relative" @click.away="open = false">
-                            <h3 class="text-lg font-bold mb-4">Upload Foto Progres</h3>
-                            <form action="{{ route('admin.pool.timeline.photos.store', $stage->id) }}" method="POST"
-                                enctype="multipart/form-data">
-                                @csrf
-                                <input type="file" name="image"
-                                    class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 mb-4">
-                                <div class="flex justify-end gap-2">
-                                    <button type="button" @click="open = false"
-                                        class="px-4 py-2 text-gray-500 hover:bg-gray-100 rounded">Batal</button>
-                                    <button type="submit"
-                                        class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Upload</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
+                @include('admin.pages.pool.modals.add-photo')
 
             </div>
         @endforeach
     </div>
 
     {{-- Add Stage Modal --}}
-    <div x-data="{ open: false }" x-on:open-modal.window="if ($event.detail === 'add-stage-modal') open = true">
-        <div x-show="open" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
-            x-transition.opacity style="display: none;">
-            <div class="bg-white p-6 rounded-xl shadow-xl w-full max-w-lg relative" @click.away="open = false">
-                <div class="flex justify-between items-center mb-6">
-                    <h3 class="text-xl font-bold text-gray-800">Tambah Tahap Baru</h3>
-                    <button @click="open = false" class="text-gray-400 hover:text-gray-600">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M6 18L18 6M6 6l12 12"></path>
-                        </svg>
-                    </button>
-                </div>
-
-                <form action="{{ route('admin.pool.timeline.store') }}" method="POST">
-                    @csrf
-                    <div class="space-y-4">
-                        <div>
-                            <label class="block text-sm font-bold text-gray-700 mb-1">Judul Tahap</label>
-                            <input type="text" name="title"
-                                class="input-pool w-full border-gray-300 rounded-lg p-2.5" required
-                                placeholder="Contoh: Perencanaan">
-                        </div>
-                        <div class="flex gap-4">
-                            <div class="w-1/2">
-                                <label class="block text-sm font-bold text-gray-700 mb-1">Periode</label>
-                                <input type="text" name="period"
-                                    class="input-pool w-full border-gray-300 rounded-lg p-2.5"
-                                    placeholder="Jan - Feb 2026">
-                            </div>
-                            <div class="w-1/2">
-                                <label class="block text-sm font-bold text-gray-700 mb-1">Status</label>
-                                <select name="status" class="input-pool w-full border-gray-300 rounded-lg p-2.5">
-                                    <option value="planned">📅 Planned</option>
-                                    <option value="on_progress">🚧 On Progress</option>
-                                    <option value="done">✅ Done</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-bold text-gray-700 mb-1">Persentase Awal</label>
-                            <input type="number" name="progress_percentage" min="0" max="100"
-                                value="0" class="input-pool w-full border-gray-300 rounded-lg p-2.5">
-                        </div>
-                        <div>
-                            <label class="block text-sm font-bold text-gray-700 mb-1">Deskripsi</label>
-                            <textarea name="description" rows="3" class="input-pool w-full border-gray-300 rounded-lg p-2.5"
-                                placeholder="Detail kegiatan..."></textarea>
-                        </div>
-                        <div class="flex justify-end pt-4">
-                            <button type="submit"
-                                class="bg-blue-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-blue-700 transition">Simpan</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
+    @include('admin.pages.pool.modals.add-stage')
 </div>
 <style>
     .group-photo:hover .group-photo-hover\:opacity-100 {
