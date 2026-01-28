@@ -59,6 +59,60 @@ class ReservationRepository implements ReservationRepositoryInterface
             ->paginate($perPage);
     }
 
+    public function getFiltered(array $filters, int $perPage = 10): LengthAwarePaginator
+    {
+        return $this->buildFilteredQuery($filters)->paginate($perPage);
+    }
+
+    public function getFilteredForExport(array $filters): Collection
+    {
+        return $this->buildFilteredQuery($filters)->get();
+    }
+
+    private function buildFilteredQuery(array $filters): \Illuminate\Database\Eloquent\Builder
+    {
+        $query = Reservation::with('destination')->latest();
+
+        if (!empty($filters['search'])) {
+            $searchTerm = $filters['search'];
+            $query->where(function ($q) use ($searchTerm) {
+                $q->where('user_name', 'like', "%{$searchTerm}%")
+                    ->orWhere('user_whatsapp', 'like', "%{$searchTerm}%");
+            });
+        }
+
+        if (!empty($filters['date'])) {
+            $query->whereDate('reservation_date', $filters['date']);
+        }
+
+        if (!empty($filters['type']) && $filters['type'] !== 'all') {
+            $type = $filters['type'];
+
+            // detect UUID-ish (simple check: contains dash and length >= 8)
+            if (preg_match('/[0-9a-fA-F\-]{8,}/', $type)) {
+                $query->where('destination_id', $type);
+            } else {
+                // Map legacy frontend type names to destination.type
+                $typeMap = [
+                    'resto' => 'restaurant',
+                    'pendopo' => 'venue',
+                ];
+                $destinationType = $typeMap[$type] ?? $type;
+
+                $query->whereHas('destination', function ($q) use ($destinationType) {
+                    $q->where('type', $destinationType);
+                });
+            }
+        }
+
+        // Status filter (optional)
+        if (!empty($filters['status']) && $filters['status'] !== 'all') {
+            $query->where('status', $filters['status']);
+        }
+
+        return $query;
+    }
+
     public function getByDateRange(string $startDate, string $endDate): Collection
     {
         return Reservation::with('destination')

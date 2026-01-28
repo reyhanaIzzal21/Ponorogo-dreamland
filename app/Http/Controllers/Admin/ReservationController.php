@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\View\View;
 use App\Services\ReservationService;
 use App\Models\Reservation;
+use App\Models\Destination;
 
 class ReservationController extends Controller
 {
@@ -16,20 +17,27 @@ class ReservationController extends Controller
         protected ReservationService $reservationService
     ) {}
 
-    public function index(Request $request): View
+    public function index(Request $request): mixed
     {
-        $query = $request->input('search');
-        $date = $request->input('date');
+        $filters = $request->only(['search', 'date', 'type', 'status']);
+        $perPage = 10;
+        $reservations = $this->reservationRepository->getFiltered($filters, $perPage);
 
-        if ($query) {
-            $reservations = $this->reservationRepository->search($query);
-        } elseif ($date) {
-            $reservations = $this->reservationRepository->filterByDate($date);
-        } else {
-            $reservations = $this->reservationRepository->paginate(10);
+        $waFailedCount = Reservation::where('wa_sent', false)->count();
+
+        // ambil daftar destination untuk dropdown filter
+        $destinations = Destination::orderBy('name')->get();
+
+        if ($request->ajax()) {
+            $tableHtml = view('admin.pages.reservations.partials.table', compact('reservations'))->render();
+            $paginationHtml = (string) $reservations->links();
+            return response()->json([
+                'table' => $tableHtml,
+                'pagination' => $paginationHtml,
+            ]);
         }
 
-        return view('admin.pages.reservations.index', compact('reservations'));
+        return view('admin.pages.reservations.index', compact('reservations', 'waFailedCount', 'destinations'));
     }
 
     public function show($id): View
@@ -70,36 +78,37 @@ class ReservationController extends Controller
         return redirect()->back()->with('success', 'Status reservasi berhasil diperbarui.');
     }
 
-    // Basic Excel Export Implementation (can be enhanced with Maatwebsite/Excel if available, 
-    // but using simple CSV/HTML table download method for now to avoid dependency issues if not installed)
-    public function export()
+    public function export(Request $request)
     {
-        $reservations = $this->reservationRepository->all();
+        $filters = $request->only(['search', 'date', 'type', 'status']);
+        $reservations = $this->reservationRepository->getFilteredForExport($filters);
 
-        $filename = "reservations-" . date('Y-m-d') . ".csv";
+        $filename = "reservations-" . date('Y-m-d-H-i') . ".csv";
 
-        $handle = fopen('php://output', 'w');
+        // Streamed response (lebih aman daripada echo+exit)
+        $columns = ['ID', 'Destination', 'Name', 'WhatsApp', 'Date', 'People', 'Notes', 'Created At'];
 
-        header('Content-Type: text/csv');
-        header('Content-Disposition: attachment; filename="' . $filename . '"');
+        return response()->streamDownload(function () use ($reservations, $columns) {
+            $handle = fopen('php://output', 'w');
+            fputcsv($handle, $columns);
 
-        fputcsv($handle, ['ID', 'Destination', 'Name', 'WhatsApp', 'Date', 'People', 'Notes', 'Status', 'Created At']);
+            foreach ($reservations as $reservation) {
+                fputcsv($handle, [
+                    $reservation->id,
+                    optional($reservation->destination)->name,
+                    $reservation->user_name,
+                    $reservation->user_whatsapp,
+                    $reservation->reservation_date->format('Y-m-d'),
+                    $reservation->number_of_people,
+                    $reservation->notes,
+                    $reservation->created_at->format('Y-m-d H:i:s'),
+                ]);
+            }
 
-        foreach ($reservations as $reservation) {
-            fputcsv($handle, [
-                $reservation->id,
-                $reservation->destination->name,
-                $reservation->user_name,
-                $reservation->user_whatsapp,
-                $reservation->reservation_date->format('Y-m-d'),
-                $reservation->number_of_people,
-                $reservation->notes,
-                $reservation->status,
-                $reservation->created_at->format('Y-m-d H:i:s'),
-            ]);
-        }
-
-        fclose($handle);
-        exit;
+            fclose($handle);
+        }, $filename, [
+            'Content-Type' => 'text/csv',
+            'Content-Disposition' => "attachment; filename=\"$filename\"",
+        ]);
     }
 }

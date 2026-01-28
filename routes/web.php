@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AboutPageController;
 use App\Http\Controllers\Admin\PoolPageController as AdminPoolPageController;
 use App\Http\Controllers\AboutPageController as UserAboutPageController;
-use App\Http\Controllers\Admin\ReservationController as AdminReservationCOntroller;
+use App\Http\Controllers\Admin\ReservationController as AdminReservationController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -138,12 +138,13 @@ Route::prefix('admin')->middleware('role:admin')->name('admin.')->group(function
     Route::put('about', [AboutPageController::class, 'update'])->name('about.update');
 
     // Reservation Admin Routes
+    Route::get('/reservation/export', [AdminReservationController::class, 'export'])
+        ->name('reservation.export_fallback');
     Route::prefix('reservation')->name('reservation.')->group(function () {
-        Route::get('/', [AdminReservationCOntroller::class, 'index'])->name('index');
-        Route::get('/{id}', [AdminReservationCOntroller::class, 'show'])->name('show');
-        Route::put('/{id}', [AdminReservationCOntroller::class, 'update'])->name('update');
-        Route::post('/{id}/resend', [AdminReservationCOntroller::class, 'resendWhatsApp'])->name('resend');
-        Route::get('/export', [AdminReservationCOntroller::class, 'export'])->name('export');
+        Route::get('/', [AdminReservationController::class, 'index'])->name('index');
+        Route::get('/{id}', [AdminReservationController::class, 'show'])->name('show');
+        Route::put('/{id}', [AdminReservationController::class, 'update'])->name('update');
+        Route::post('/{id}/resend', [AdminReservationController::class, 'resendWhatsApp'])->name('resend');
     });
 });
 

@@ -15,5 +15,7 @@ interface ReservationRepositoryInterface
     public function delete($id);
     public function search(string $query, int $perPage = 10): LengthAwarePaginator;
     public function filterByDate(string $date, int $perPage = 10): LengthAwarePaginator;
+    public function getFiltered(array $filters, int $perPage = 10): LengthAwarePaginator;
+    public function getFilteredForExport(array $filters): Collection;
     public function getByDateRange(string $startDate, string $endDate): Collection;
 }
