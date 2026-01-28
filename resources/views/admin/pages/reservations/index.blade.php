@@ -39,8 +39,8 @@
             <div class="flex gap-3 w-full md:w-auto">
                 <div class="flex gap-3 w-full md:w-auto">
                     {{-- Form Removed, handled by Alpine --}}
-                    <a :href="exportUrl" class="flex-1 md:flex-none px-4 py-2 bg-emerald-600 text-white rounded-lg ...">
-                        <!-- ikon + teks -->
+                    <a :href="exportUrl"
+                        class="flex-1 md:flex-none px-4 py-2 bg-emerald-600 text-white rounded-lg text-center">
                         Export Excel
                     </a>
                 </div>
@@ -79,29 +79,28 @@
 
             {{-- Filters & Search --}}
             <div class="p-4 border-b border-gray-100 flex flex-col md:flex-row gap-4 justify-between">
-                <div class="relative w-full md:w-64">
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-2 ">
-                        <select x-model="filter"
-                            class="pl-4 pr-4 py-2 border border-gray-300 rounded-lg text-sm focus:ring-indigo-500 focus:border-indigo-500">
-                            <option value="all">Semua</option>
-                            @foreach ($destinations as $destination)
-                                <option value="{{ $destination->id }}">{{ $destination->name }}</option>
-                            @endforeach
-                        </select>
-                        <div class="relative flex-1 md:flex-none">
-                            <input type="date" x-model="date"
-                                class="pl-4 pr-4 py-2 border border-gray-300 rounded-lg text-sm focus:ring-indigo-500 focus:border-indigo-500">
-                        </div>
-                        <div class="relative md:w-64">
-                            <input type="text" x-model="search" placeholder="Cari nama atau no WA..."
-                                class="pl-9 pr-4 py-1.5 border border-gray-300 rounded-lg text-sm focus:ring-indigo-500 focus:border-indigo-500">
+                <div class="relative grid grid-cols-1 md:grid-cols-3 gap-2">
+                    <select x-model="filter"
+                        class="pl-4 pr-4 py-2 border border-gray-300 rounded-lg text-sm focus:ring-indigo-500 focus:border-indigo-500">
+                        <option value="all">Semua</option>
+                        @foreach ($destinations as $destination)
+                            <option value="{{ $destination->id }}">{{ $destination->name }}</option>
+                        @endforeach
+                    </select>
+                    {{-- filter by date --}}
+                    <div class="relative flex-1 md:flex-none">
+                        <input type="date" x-model="date"
+                            class="pl-4 pr-4 py-2 border border-gray-300 rounded-lg text-sm focus:ring-indigo-500 focus:border-indigo-500 w-full">
+                    </div>
+                    <div class="relative">
+                        <input type="text" x-model="search" placeholder="Cari nama atau no WA..."
+                            class="pl-9 pr-4 py-1.5 border border-gray-300 rounded-lg text-sm focus:ring-indigo-500 focus:border-indigo-500 w-full">
 
-                            <svg class="w-4 h-4 text-gray-400 absolute left-3 top-2" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                            </svg>
-                        </div>
+                        <svg class="w-4 h-4 text-gray-400 absolute left-3 top-2" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
                     </div>
                 </div>
             </div>
