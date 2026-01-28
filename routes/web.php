@@ -18,6 +18,8 @@ use App\Http\Controllers\Admin\AboutPageController;
 use App\Http\Controllers\Admin\PoolPageController as AdminPoolPageController;
 use App\Http\Controllers\AboutPageController as UserAboutPageController;
 use App\Http\Controllers\Admin\ReservationController as AdminReservationController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\Admin\ContactController as AdminContactController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -37,9 +39,7 @@ Route::get('/reservation/form', function () {
 })->name('reservation.form');
 Route::post('/reservation', [ReservationController::class, 'store'])->name('reservation.store');
 Route::get('/reservation/{id}/finish', [ReservationController::class, 'finish'])->name('reservation.finish');
-Route::get('/contact', function () {
-    return view('user.pages.contact');
-})->name('contact');
+Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
@@ -146,6 +146,10 @@ Route::prefix('admin')->middleware('role:admin')->name('admin.')->group(function
         Route::put('/{id}', [AdminReservationController::class, 'update'])->name('update');
         Route::post('/{id}/resend', [AdminReservationController::class, 'resendWhatsApp'])->name('resend');
     });
+
+    // contacts
+    Route::get('/contacts', [AdminContactController::class, 'index'])->name('contacts');
+    Route::post('/contacts', [AdminContactController::class, 'update'])->name('contacts.update');
 });
 
 require __DIR__ . '/settings.php';

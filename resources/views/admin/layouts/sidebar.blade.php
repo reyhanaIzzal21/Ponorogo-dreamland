@@ -14,7 +14,7 @@
     <div class="p-5 border-b border-gray-100">
         <a href="{{ route('home') }}" class="flex items-center gap-3">
             <div
-                class="w-10 h-10 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center shadow-lg shadow-green-500/30">
+                class="w-10 h-10 bg-gradient-to-br from-primary to-green-600 rounded-xl flex items-center justify-center shadow-lg shadow-primary/30">
                 <i class="ti ti-dashboard text-white text-xl"></i>
             </div>
             <div>
@@ -35,7 +35,7 @@
                 </li>
 
                 <li>
-                    <a class="flex items-center gap-3 py-2.5 px-3 rounded-lg w-full transition-all duration-200 hover:bg-green-50 hover:text-green-600 {{ request()->routeIs('admin.dashboard') ? 'bg-green-500 text-white shadow-md shadow-green-500/30' : 'text-gray-600' }}"
+                    <a class="flex items-center gap-3 py-2.5 px-3 rounded-lg w-full transition-all duration-200 hover:bg-green-50 hover:text-green-600 {{ request()->routeIs('admin.dashboard') ? 'bg-primary text-white shadow-md shadow-primary/30' : 'text-gray-600' }}"
                         href="{{ route('admin.dashboard') }}">
                         <i class="ti ti-layout-dashboard text-xl"></i>
                         <span class="font-medium">Dashboard</span>
@@ -48,7 +48,7 @@
                 </li>
 
                 <li>
-                    <a class="flex items-center gap-3 py-2.5 px-3 rounded-lg w-full transition-all duration-200 hover:bg-green-50 hover:text-green-600 {{ request()->routeIs('admin.destinations.*') ? 'bg-green-500 text-white shadow-md shadow-green-500/30' : 'text-gray-600' }}"
+                    <a class="flex items-center gap-3 py-2.5 px-3 rounded-lg w-full transition-all duration-200 hover:bg-green-50 hover:text-green-600 {{ request()->routeIs('admin.destinations.*') ? 'bg-primary text-white shadow-md shadow-primary/30' : 'text-gray-600' }}"
                         href="{{ route('admin.destinations.index') }}">
                         <i class="ti ti-map-pins text-xl"></i>
                         <span class="font-medium">Destinasi</span>
@@ -56,7 +56,7 @@
                 </li>
 
                 <li>
-                    <a class="flex items-center gap-3 py-2.5 px-3 rounded-lg w-full transition-all duration-200 hover:bg-green-50 hover:text-green-600 {{ request()->routeIs('admin.reservation.*') ? 'bg-green-500 text-white shadow-md shadow-green-500/30' : 'text-gray-600' }}"
+                    <a class="flex items-center gap-3 py-2.5 px-3 rounded-lg w-full transition-all duration-200 hover:bg-green-50 hover:text-green-600 {{ request()->routeIs('admin.reservation.*') ? 'bg-primary text-white shadow-md shadow-primary/30' : 'text-gray-600' }}"
                         href="{{ route('admin.reservation.index') }}">
                         <i class="ti ti-calendar text-xl"></i>
                         <span class="font-medium">Reservasi</span>
@@ -64,7 +64,7 @@
                 </li>
 
                 <li>
-                    <a class="flex items-center gap-3 py-2.5 px-3 rounded-lg w-full transition-all duration-200 hover:bg-green-50 hover:text-green-600 {{ request()->routeIs('admin.menu.index') ? 'bg-green-500 text-white shadow-md shadow-green-500/30' : 'text-gray-600' }}"
+                    <a class="flex items-center gap-3 py-2.5 px-3 rounded-lg w-full transition-all duration-200 hover:bg-green-50 hover:text-green-600 {{ request()->routeIs('admin.menu.index') ? 'bg-primary text-white shadow-md shadow-primary/30' : 'text-gray-600' }}"
                         href="{{ route('admin.menu.index') }}">
                         <i class="ti ti-chef-hat text-xl"></i>
                         <span class="font-medium">Menu</span>
@@ -76,7 +76,7 @@
                     <span>CMS</span>
                 </li>
                 <li>
-                    <a class="flex items-center gap-3 py-2.5 px-3 rounded-lg w-full transition-all duration-200 hover:bg-green-50 hover:text-green-600 {{ request()->routeIs('admin.landing-page.*') ? 'bg-green-500 text-white shadow-md shadow-green-500/30' : 'text-gray-600' }}"
+                    <a class="flex items-center gap-3 py-2.5 px-3 rounded-lg w-full transition-all duration-200 hover:bg-green-50 hover:text-green-600 {{ request()->routeIs('admin.landing-page.*') ? 'bg-primary text-white shadow-md shadow-primary/30' : 'text-gray-600' }}"
                         href="{{ route('admin.landing-page.index') }}">
                         <i class="ti ti-home text-xl"></i>
                         <span class="font-medium">Landing Page</span>
@@ -129,10 +129,17 @@
                 </li>
 
                 <li>
-                    <a class="flex items-center gap-3 py-2.5 px-3 rounded-lg w-full transition-all duration-200 hover:bg-green-50 hover:text-green-600 {{ request()->routeIs('admin.about') ? 'bg-green-500 text-white shadow-md shadow-green-500/30' : 'text-gray-600' }}"
+                    <a class="flex items-center gap-3 py-2.5 px-3 rounded-lg w-full transition-all duration-200 hover:bg-green-50 hover:text-green-600 {{ request()->routeIs('admin.about') ? 'bg-primary text-white shadow-md shadow-primary/30' : 'text-gray-600' }}"
                         href="{{ route('admin.about') }}">
                         <i class="ti ti-layout-dashboard text-xl"></i>
-                        <span class="font-medium">About</span>
+                        <span class="font-medium">Tentang</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="flex items-center gap-3 py-2.5 px-3 rounded-lg w-full transition-all duration-200 hover:bg-green-50 hover:text-green-600 {{ request()->routeIs('admin.contacts') ? 'bg-primary text-white shadow-md shadow-primary/30' : 'text-gray-600' }}"
+                        href="{{ route('admin.contacts') }}">
+                        <i class="ti ti-phone text-xl"></i>
+                        <span class="font-medium">Kontak</span>
                     </a>
                 </li>
             </ul>

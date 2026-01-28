@@ -9,6 +9,7 @@ use App\Contracts\Interfaces\DestinationRepositoryInterface;
 use App\Contracts\Interfaces\LandingPageSectionRepositoryInterface;
 use App\Contracts\Interfaces\LandingPageImageRepositoryInterface;
 use App\Contracts\Interfaces\PoolRepositoryInterface;
+use App\Contracts\Interfaces\ContactRepositoryInterface;
 use App\Contracts\Repositories\PoolRepository;
 use App\Contracts\Repositories\MenuCategoryRepository;
 use App\Contracts\Repositories\MenuItemRepository;
@@ -16,6 +17,7 @@ use App\Contracts\Repositories\MenuPriceGroupRepository;
 use App\Contracts\Repositories\DestinationRepository;
 use App\Contracts\Repositories\LandingPageSectionRepository;
 use App\Contracts\Repositories\LandingPageImageRepository;
+use App\Contracts\Repositories\ContactRepository;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
@@ -108,6 +110,11 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(
             \App\Contracts\Interfaces\ReservationRepositoryInterface::class,
             \App\Contracts\Repositories\ReservationRepository::class
+        );
+
+        $this->app->bind(
+            ContactRepositoryInterface::class,
+            ContactRepository::class
         );
     }
 

@@ -36,7 +36,7 @@ class ReservationController extends Controller
             return response()->json([
                 'table' => $tableHtml,
                 'pagination' => $paginationHtml,
-                'total' => $reservations->total(), // optional: supaya frontend bisa update counter
+                'total' => $reservations->total(), // frontend bisa update counter
             ]);
         }
 
