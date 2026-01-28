@@ -32,10 +32,11 @@ class ReservationController extends Controller
 
         if ($request->ajax()) {
             $tableHtml = view('admin.pages.reservations.partials.table', compact('reservations'))->render();
-            $paginationHtml = (string) $reservations->links();
+            $paginationHtml = (string) $reservations->appends($filters)->links();
             return response()->json([
                 'table' => $tableHtml,
                 'pagination' => $paginationHtml,
+                'total' => $reservations->total(), // optional: supaya frontend bisa update counter
             ]);
         }
 

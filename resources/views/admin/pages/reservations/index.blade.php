@@ -54,7 +54,7 @@
                 </div>
                 <div>
                     <p class="text-xs text-gray-500 uppercase font-bold">Total Reservasi</p>
-                    <h4 class="text-xl font-bold text-gray-800">{{ $reservations->total() }}</h4>
+                    <h4 class="text-xl font-bold text-gray-800" data-reservations-total>{{ $reservations->total() }}</h4>
                 </div>
             </div>
             <div

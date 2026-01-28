@@ -16,10 +16,31 @@
                     this.filter = urlParams.get('type') || 'all';
                     this.status = urlParams.get('status') || 'all';
 
-                    this.$watch('search', (val) => this.debouncedFetch());
+                    this.$watch('search', () => this.debouncedFetch());
                     this.$watch('date', () => this.fetchReservations());
                     this.$watch('filter', () => this.fetchReservations());
                     this.$watch('status', () => this.fetchReservations());
+
+                    // Delegated click handler untuk pagination links (AJAX)
+                    document.addEventListener('click', (e) => {
+                        const a = e.target.closest('#reservations-pagination a');
+                        if (a) {
+                            e.preventDefault();
+                            const href = a.href;
+                            // sinkronkan input berdasarkan href query params
+                            try {
+                                const u = new URL(href, window.location.origin);
+                                const p = u.searchParams;
+                                this.search = p.get('search') || '';
+                                this.date = p.get('date') || '';
+                                this.filter = p.get('type') || 'all';
+                                this.status = p.get('status') || 'all';
+                            } catch (err) {
+                                // ignore invalid URL parse
+                            }
+                            this.fetchByUrl(href);
+                        }
+                    });
                 },
 
                 debouncedFetch() {
@@ -29,9 +50,8 @@
                     }, 500);
                 },
 
-                // ---------- SAFER exportUrl: build from current path ----------
+                // build the export url relative to current path
                 get exportUrl() {
-                    // base path e.g. "/admin/reservation" (no trailing slash)
                     const basePath = window.location.pathname.replace(/\/$/, '');
                     const params = new URLSearchParams({
                         search: this.search || '',
@@ -43,8 +63,8 @@
                     return `${basePath}/export${params ? ('?' + params) : ''}`;
                 },
 
+                // generic fetch with current filters (page reset to 1)
                 async fetchReservations() {
-                    this.isLoading = true;
                     const params = new URLSearchParams({
                         search: this.search || '',
                         date: this.date || '',
@@ -52,17 +72,26 @@
                         status: this.status || 'all'
                     });
 
-                    const newUrl = `${window.location.pathname}?${params.toString()}`;
-                    window.history.replaceState({}, '', newUrl);
+                    const url = `{{ route('admin.reservation.index') }}?${params.toString()}`;
+
+                    // update browser URL (ke page 1)
+                    window.history.replaceState({}, '',
+                        `${window.location.pathname}?${params.toString()}`);
+
+                    await this.fetchByUrl(url);
+                },
+
+                // fetch by any URL (used by pagination click as well)
+                async fetchByUrl(url) {
+                    this.isLoading = true;
 
                     try {
-                        const response = await fetch(
-                            `{{ route('admin.reservation.index') }}?${params.toString()}`, {
-                                headers: {
-                                    'X-Requested-With': 'XMLHttpRequest',
-                                    'Accept': 'application/json'
-                                }
-                            });
+                        const response = await fetch(url, {
+                            headers: {
+                                'X-Requested-With': 'XMLHttpRequest',
+                                'Accept': 'application/json'
+                            }
+                        });
 
                         if (!response.ok) throw new Error('Network response was not ok');
 
@@ -73,6 +102,20 @@
 
                         if (tableBody && json.table) tableBody.innerHTML = json.table;
                         if (pagination && json.pagination) pagination.innerHTML = json.pagination;
+
+                        // update total counter card if provided
+                        if (json.total !== undefined) {
+                            const totalNode = document.querySelector('[data-reservations-total]');
+                            if (totalNode) totalNode.textContent = json.total;
+                        }
+
+                        // update browser URL to the requested URL
+                        try {
+                            const u = new URL(url, window.location.origin);
+                            window.history.replaceState({}, '', u.pathname + u.search);
+                        } catch (err) {
+                            // ignore
+                        }
 
                     } catch (error) {
                         console.error('Error fetching reservations:', error);

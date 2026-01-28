@@ -61,7 +61,9 @@ class ReservationRepository implements ReservationRepositoryInterface
 
     public function getFiltered(array $filters, int $perPage = 10): LengthAwarePaginator
     {
-        return $this->buildFilteredQuery($filters)->paginate($perPage)->withQueryString();;
+        $paginator = $this->buildFilteredQuery($filters)->paginate($perPage);
+        $paginator->appends($filters);
+        return $paginator;
     }
 
     public function getFilteredForExport(array $filters): Collection
