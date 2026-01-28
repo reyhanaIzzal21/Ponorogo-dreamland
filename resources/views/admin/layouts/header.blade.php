@@ -10,7 +10,8 @@
         </div>
 
         <!-- Right Side - User Profile -->
-        <div class="flex items-center gap-3" data-dropdown-toggle onclick="toggleDropdownAdminDashboard('profile-dropdown')">
+        <div class="flex items-center gap-3" data-dropdown-toggle
+            onclick="toggleDropdownAdminDashboard('profile-dropdown')">
             <div class="hidden sm:block text-right">
                 <p class="text-sm font-semibold text-gray-800">{{ Auth::user()->name }}</p>
                 <span
@@ -22,7 +23,7 @@
             <!-- Profile Dropdown -->
             <div class="relative">
                 <img class="w-10 h-10 rounded-full object-cover ring-2 ring-gray-100"
-                    src="{{ asset('assets/images/profile/user-1.jpg') }}" alt="User avatar">
+                    src="{{ asset('assets/images/logo.jpeg') }}" alt="User avatar">
 
                 <div id="profile-dropdown" data-dropdown-menu
                     class="absolute right-0 top-full mt-2 w-[200px] bg-white shadow-xl rounded-xl border border-gray-100 py-2 hidden opacity-0 transition-opacity duration-200 z-50">

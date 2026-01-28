@@ -131,7 +131,7 @@
                 <li>
                     <a class="flex items-center gap-3 py-2.5 px-3 rounded-lg w-full transition-all duration-200 hover:bg-green-50 hover:text-green-600 {{ request()->routeIs('admin.about') ? 'bg-primary text-white shadow-md shadow-primary/30' : 'text-gray-600' }}"
                         href="{{ route('admin.about') }}">
-                        <i class="ti ti-layout-dashboard text-xl"></i>
+                        <i class="ti ti-file-description text-xl"></i>
                         <span class="font-medium">Tentang</span>
                     </a>
                 </li>
@@ -140,6 +140,18 @@
                         href="{{ route('admin.contacts') }}">
                         <i class="ti ti-phone text-xl"></i>
                         <span class="font-medium">Kontak</span>
+                    </a>
+                </li>
+
+                {{-- PROFILE --}}
+                <li class="text-xs font-semibold text-gray-400 uppercase tracking-wider px-3 pb-2 pt-6">
+                    <span>PROFILE</span>
+                </li>
+                <li>
+                    <a class="flex items-center gap-3 py-2.5 px-3 rounded-lg w-full transition-all duration-200 hover:bg-green-50 hover:text-green-600 {{ request()->routeIs('admin.profile') ? 'bg-primary text-white shadow-md shadow-primary/30' : 'text-gray-600' }}"
+                        href="{{ route('admin.profile') }}">
+                        <i class="ti ti-user text-xl"></i>
+                        <span class="font-medium">Profil</span>
                     </a>
                 </li>
             </ul>

@@ -41,9 +41,9 @@ Route::post('/reservation', [ReservationController::class, 'store'])->name('rese
 Route::get('/reservation/{id}/finish', [ReservationController::class, 'finish'])->name('reservation.finish');
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 
-Route::view('dashboard', 'dashboard')
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
+// Route::view('dashboard', 'dashboard')
+//     ->middleware(['auth', 'verified'])
+//     ->name('dashboard');
 
 Route::prefix('admin')->middleware('role:admin')->name('admin.')->group(function () {
     Route::view('dashboard', 'admin.pages.dashboard')->name('dashboard');
@@ -150,6 +150,11 @@ Route::prefix('admin')->middleware('role:admin')->name('admin.')->group(function
     // contacts
     Route::get('/contacts', [AdminContactController::class, 'index'])->name('contacts');
     Route::post('/contacts', [AdminContactController::class, 'update'])->name('contacts.update');
+
+    // profile
+    Route::get('/profile', function () {
+        return view('admin.pages.profiles.profile');
+    })->name('profile');
 });
 
 require __DIR__ . '/settings.php';
