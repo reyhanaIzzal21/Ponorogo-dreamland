@@ -51,7 +51,8 @@
                 @forelse($destinations as $destination)
                     @if ($destination->canBeReserved())
                         {{-- Active/Reservable Destination Card --}}
-                        <a href="{{ route('reservation.form') }}" class="group block h-full">
+                        <a href="{{ route('reservation.form', ['destination_id' => $destination->id]) }}"
+                            class="group block h-full">
                             <div
                                 class="booking-card bg-white rounded-2xl overflow-hidden shadow-lg border border-zinc-100 h-full flex flex-col relative">
                                 <div class="h-64 overflow-hidden relative">

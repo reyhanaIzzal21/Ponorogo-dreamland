@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AboutPageController;
 use App\Http\Controllers\Admin\PoolPageController as AdminPoolPageController;
 use App\Http\Controllers\AboutPageController as UserAboutPageController;
+use App\Http\Controllers\Admin\ReservationController as AdminReservationCOntroller;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -34,6 +35,7 @@ Route::get('/reservation', [ReservationController::class, 'index'])->name('reser
 Route::get('/reservation/form', function () {
     return view('user.pages.reservations.form');
 })->name('reservation.form');
+Route::post('/reservation', [ReservationController::class, 'store'])->name('reservation.store');
 Route::get('/contact', function () {
     return view('user.pages.contact');
 })->name('contact');
@@ -134,9 +136,12 @@ Route::prefix('admin')->middleware('role:admin')->name('admin.')->group(function
     Route::get('about', [AboutPageController::class, 'index'])->name('about');
     Route::put('about', [AboutPageController::class, 'update'])->name('about.update');
 
-    Route::get('/reservation', function () {
-        return view('admin.pages.reservations.index');
-    })->name('reservation');
+    // Reservation Admin Routes
+    Route::prefix('reservation')->name('reservation.')->group(function () {
+        Route::get('/', [AdminReservationCOntroller::class, 'index'])->name('index');
+        Route::put('/{id}', [AdminReservationCOntroller::class, 'update'])->name('update');
+        Route::get('/export', [AdminReservationCOntroller::class, 'export'])->name('export');
+    });
 });
 
 require __DIR__ . '/settings.php';

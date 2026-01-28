@@ -101,8 +101,13 @@ class AppServiceProvider extends ServiceProvider
         );
 
         $this->app->bind(
-            PoolRepositoryInterface::class, 
+            PoolRepositoryInterface::class,
             PoolRepository::class
+        );
+
+        $this->app->bind(
+            \App\Contracts\Interfaces\ReservationRepositoryInterface::class,
+            \App\Contracts\Repositories\ReservationRepository::class
         );
     }
 

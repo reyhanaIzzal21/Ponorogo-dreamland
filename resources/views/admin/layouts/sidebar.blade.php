@@ -57,7 +57,7 @@
 
                 <li>
                     <a class="flex items-center gap-3 py-2.5 px-3 rounded-lg w-full transition-all duration-200 hover:bg-green-50 hover:text-green-600 {{ request()->routeIs('admin.reservation.*') ? 'bg-green-500 text-white shadow-md shadow-green-500/30' : 'text-gray-600' }}"
-                        href="{{ route('admin.reservation') }}">
+                        href="{{ route('admin.reservation.index') }}">
                         <i class="ti ti-map-pins text-xl"></i>
                         <span class="font-medium">Reservasi</span>
                     </a>
