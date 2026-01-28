@@ -218,24 +218,24 @@
                     {{ $momentSection->subtitle ?? 'Lihat bagaimana pengunjung kami menikmati waktunya.' }}</p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-4 grid-rows-2 gap-4 h-[600px] reveal">
+            <div class="grid grid-cols-1 gap-4 md:grid-cols-4 md:grid-rows-2 md:h-[600px] reveal">
                 @if ($momentSection && $momentSection->images->count() > 0)
                     @foreach ($momentSection->images as $index => $image)
                         @if ($index === 0)
                             <div
-                                class="md:col-span-2 md:row-span-2 relative group overflow-hidden rounded-2xl cursor-pointer">
+                                class="h-64 md:h-auto md:col-span-2 md:row-span-2 relative group overflow-hidden rounded-2xl cursor-pointer">
                                 <img src="{{ $image->image_url }}" alt="{{ $image->alt_text ?? 'Gallery Image' }}"
                                     class="w-full h-full object-cover transition duration-700 group-hover:scale-110">
                             </div>
                         @elseif($index === 1 || $index === 2)
                             <div
-                                class="md:col-span-1 md:row-span-1 relative group overflow-hidden rounded-2xl cursor-pointer">
+                                class="h-48 md:h-auto md:col-span-1 md:row-span-1 relative group overflow-hidden rounded-2xl cursor-pointer">
                                 <img src="{{ $image->image_url }}" alt="{{ $image->alt_text ?? 'Gallery Image' }}"
                                     class="w-full h-full object-cover transition duration-700 group-hover:scale-110">
                             </div>
                         @elseif($index === 3)
                             <div
-                                class="md:col-span-2 md:row-span-1 relative group overflow-hidden rounded-2xl cursor-pointer">
+                                class="h-48 md:h-auto md:col-span-2 md:row-span-1 relative group overflow-hidden rounded-2xl cursor-pointer">
                                 <img src="{{ $image->image_url }}" alt="{{ $image->alt_text ?? 'Gallery Image' }}"
                                     class="w-full h-full object-cover transition duration-700 group-hover:scale-110">
                             </div>
@@ -277,14 +277,10 @@
             <p class="text-white/80 text-xl mb-10">Entah itu makan siang santai atau resepsi pernikahan impian, kami
                 siap menyambut Anda.</p>
 
-            <div class="bg-white p-2 rounded-full inline-flex flex-col sm:flex-row gap-2 shadow-2xl">
-                <input type="text" placeholder="Tanggal Rencana?"
-                    class="px-6 py-3 rounded-full outline-none text-gray-700 focus:ring-2 focus:ring-primary w-full sm:w-64">
-                <button
-                    class="bg-primary hover:bg-green-800 text-white font-bold px-8 py-3 rounded-full transition shadow-md w-full sm:w-auto">
-                    Pesan Tempat Sekarang
-                </button>
-            </div>
+            <button
+                class="bg-primary hover:bg-green-800 text-white font-bold px-8 py-3 rounded-full transition shadow-md w-full sm:w-auto">
+                Pesan Tempat Sekarang
+            </button>
             <p class="mt-4 text-white/60 text-sm">Atau hubungi kami via WhatsApp untuk respon cepat. <br>
                 <a href="https://wa.me/628123456789" class="text-md text-white underline font-bold">Contact Us</a>
             </p>

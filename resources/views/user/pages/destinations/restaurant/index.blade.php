@@ -175,7 +175,7 @@
                 <div class="lg:w-1/2 relative fade-up" style="transition-delay: 200ms;">
                     <div class="absolute -top-4 -left-4 w-24 h-24 border-t-4 border-l-4 border-golden-cokro"></div>
                     <div class="absolute -bottom-4 -right-4 w-24 h-24 border-b-4 border-r-4 border-golden-cokro"></div>
-                    <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?q=80&w=1000&auto=format&fit=crop"
+                    <img src="{{ asset('assets/images/damcokro.jpeg?q=80&w=1000&auto=format&fit=crop') }}"
                         class="w-full h-[500px] object-cover rounded-lg shadow-2xl filter sepia-[.3] grayscale-[.5] hover:grayscale-0 transition duration-700">
                 </div>
             </div>
