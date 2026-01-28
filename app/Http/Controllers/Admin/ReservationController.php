@@ -9,6 +9,8 @@ use Illuminate\View\View;
 use App\Services\ReservationService;
 use App\Models\Reservation;
 use App\Models\Destination;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\ReservationExport;
 
 class ReservationController extends Controller
 {
@@ -81,34 +83,46 @@ class ReservationController extends Controller
     public function export(Request $request)
     {
         $filters = $request->only(['search', 'date', 'type', 'status']);
+        $timestamp = date('Y-m-d-H-i');
+        $xlsxFilename = "reservations-{$timestamp}.xlsx";
+
+        // Jika package maatwebsite/excel tersedia => pakai XLSX dengan styling yang bagus
+        if (class_exists(\Maatwebsite\Excel\Excel::class)) {
+            // resolve repository agar export class bisa menggunakannya
+            $repo = app(ReservationRepositoryInterface::class);
+            return Excel::download(new ReservationExport($filters, $repo), $xlsxFilename);
+        }
+
+        // Fallback: CSV yang diformat rapi (Excel-friendly, include BOM)
         $reservations = $this->reservationRepository->getFilteredForExport($filters);
-
-        $filename = "reservations-" . date('Y-m-d-H-i') . ".csv";
-
-        // Streamed response (lebih aman daripada echo+exit)
-        $columns = ['ID', 'Destination', 'Name', 'WhatsApp', 'Date', 'People', 'Notes', 'Created At'];
+        $csvFilename = "reservations-{$timestamp}.csv";
+        $columns = ['Name', 'Destination', 'WhatsApp', 'Reservation Date', 'People', 'Needs', 'Notes'];
 
         return response()->streamDownload(function () use ($reservations, $columns) {
             $handle = fopen('php://output', 'w');
+
+            // Write UTF-8 BOM so Excel opens CSV with correct encoding
+            fprintf($handle, chr(0xEF) . chr(0xBB) . chr(0xBF));
+
+            // Header
             fputcsv($handle, $columns);
 
-            foreach ($reservations as $reservation) {
+            foreach ($reservations as $r) {
                 fputcsv($handle, [
-                    $reservation->id,
-                    optional($reservation->destination)->name,
-                    $reservation->user_name,
-                    $reservation->user_whatsapp,
-                    $reservation->reservation_date->format('Y-m-d'),
-                    $reservation->number_of_people,
-                    $reservation->notes,
-                    $reservation->created_at->format('Y-m-d H:i:s'),
+                    $r->user_name,
+                    optional($r->destination)->name,
+                    $r->user_whatsapp,
+                    $r->reservation_date ? $r->reservation_date->format('Y-m-d') : '',
+                    $r->number_of_people,
+                    $r->needs,
+                    $r->notes,
                 ]);
             }
 
             fclose($handle);
-        }, $filename, [
-            'Content-Type' => 'text/csv',
-            'Content-Disposition' => "attachment; filename=\"$filename\"",
+        }, $csvFilename, [
+            'Content-Type' => 'text/csv; charset=UTF-8',
+            'Content-Disposition' => "attachment; filename=\"{$csvFilename}\"",
         ]);
     }
 }

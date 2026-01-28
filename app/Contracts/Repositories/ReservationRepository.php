@@ -16,7 +16,7 @@ class ReservationRepository implements ReservationRepositoryInterface
 
     public function paginate(int $perPage = 10): LengthAwarePaginator
     {
-        return Reservation::with('destination')->latest()->paginate($perPage);
+        return Reservation::with('destination')->latest()->paginate($perPage)->withQueryString();;
     }
 
     public function create(array $data)
@@ -48,7 +48,7 @@ class ReservationRepository implements ReservationRepositoryInterface
             ->where('user_name', 'like', "%{$query}%")
             ->orWhere('user_whatsapp', 'like', "%{$query}%")
             ->latest()
-            ->paginate($perPage);
+            ->paginate($perPage)->withQueryString();;
     }
 
     public function filterByDate(string $date, int $perPage = 10): LengthAwarePaginator
@@ -56,12 +56,12 @@ class ReservationRepository implements ReservationRepositoryInterface
         return Reservation::with('destination')
             ->whereDate('reservation_date', $date)
             ->latest()
-            ->paginate($perPage);
+            ->paginate($perPage)->withQueryString();;
     }
 
     public function getFiltered(array $filters, int $perPage = 10): LengthAwarePaginator
     {
-        return $this->buildFilteredQuery($filters)->paginate($perPage);
+        return $this->buildFilteredQuery($filters)->paginate($perPage)->withQueryString();;
     }
 
     public function getFilteredForExport(array $filters): Collection
