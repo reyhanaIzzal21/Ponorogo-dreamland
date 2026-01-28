@@ -18,9 +18,18 @@ return new class extends Migration
             $table->string('user_whatsapp');
             $table->date('reservation_date');
             $table->integer('number_of_people');
+            $table->string('needs');
             $table->text('notes')->nullable();
-            $table->enum('status', ['pending', 'confirmed', 'cancelled', 'completed'])->default('pending');
             $table->timestamps();
+
+            // WA tracking
+            $table->boolean('wa_sent')->default(false);
+            $table->timestamp('wa_sent_at')->nullable();
+            $table->text('wa_error')->nullable();
+
+            // wa_sent	Apakah WA sukses dikirim
+            // wa_sent_at	Kapan WA dikirim
+            // wa_error	Pesan error kalau gagal
         });
     }
 

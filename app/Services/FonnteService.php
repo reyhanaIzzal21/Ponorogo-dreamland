@@ -16,6 +16,32 @@ class FonnteService
     }
 
     /**
+     * Validate token / get device profile
+     *
+     * @return array|null
+     */
+    public function getDeviceProfile(): ?array
+    {
+        try {
+            // Note: Fonnte docs use Authorization: TOKEN (no Bearer)
+            $response = Http::withHeaders([
+                'Authorization' => $this->token,
+                'Accept' => 'application/json',
+            ])->post("{$this->baseUrl}/device");
+
+            if ($response->ok()) {
+                return $response->json();
+            }
+
+            Log::error('Fonnte device API Error: ' . $response->body());
+            return $response->json();
+        } catch (\Exception $e) {
+            Log::error('Fonnte getDeviceProfile Error: ' . $e->getMessage());
+            return null;
+        }
+    }
+
+    /**
      * Send WhatsApp message
      *
      * @param string $target Target phone number
@@ -26,21 +52,32 @@ class FonnteService
     {
         try {
             $response = Http::withHeaders([
+                // IMPORTANT: use token only, per Fonnte docs.
                 'Authorization' => $this->token,
+                'Accept' => 'application/json',
             ])->post("{$this->baseUrl}/send", [
                 'target' => $target,
                 'message' => $message,
             ]);
 
-            if ($response->successful()) {
+            // Always return JSON when API responds (even jika status=false)
+            if ($response->successful() || $response->status() === 200) {
                 return $response->json();
             }
 
-            Log::error('Fonnte API Error: ' . $response->body());
-            return null;
+            // non-200
+            Log::error('Fonnte API Error (non-200): ' . $response->status() . ' - ' . $response->body());
+            return [
+                'status' => false,
+                'reason' => 'non-200 response: ' . $response->status(),
+                'body' => $response->body()
+            ];
         } catch (\Exception $e) {
             Log::error('Fonnte Service Error: ' . $e->getMessage());
-            return null;
+            return [
+                'status' => false,
+                'reason' => 'exception: ' . $e->getMessage()
+            ];
         }
     }
 }

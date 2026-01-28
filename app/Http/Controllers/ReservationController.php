@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Services\DestinationService;
 use Illuminate\View\View;
+use App\Models\Reservation;
+use App\Http\Requests\ReservationRequest;
+
 
 class ReservationController extends Controller
 {
@@ -32,23 +35,22 @@ class ReservationController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(\Illuminate\Http\Request $request)
+    public function store(ReservationRequest $request)
     {
-        $validated = $request->validate([
-            'destination_id' => 'required|uuid|exists:destinations,id',
-            'user_name' => 'required|string|max:255',
-            'user_whatsapp' => 'required|string|max:20',
-            'reservation_date' => 'required|date|after_or_equal:today',
-            'number_of_people' => 'required|integer|min:1',
-            'notes' => 'nullable|string',
-        ]);
+        $validated = $request->validated();
 
         try {
-            $this->reservationService->createReservation($validated);
+            $reservation = $this->reservationService->createReservation($validated);
 
-            return redirect()->back()->with('success', 'Reservasi berhasil dibuat! Silakan cek WhatsApp Anda untuk konfirmasi.');
+            return redirect()->route('reservation.finish', $reservation->id);
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Gagal membuat reservasi: ' . $e->getMessage())->withInput();
         }
+    }
+
+    public function finish($id): View
+    {
+        $reservation = Reservation::findOrFail($id);
+        return view('user.pages.reservations.finish', compact('reservation'));
     }
 }

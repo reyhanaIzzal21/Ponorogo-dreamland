@@ -6,6 +6,7 @@ use App\Contracts\Interfaces\ReservationRepositoryInterface;
 use App\Models\Destination;
 use App\Models\Reservation;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Exception;
 
 class ReservationService
@@ -25,21 +26,46 @@ class ReservationService
     public function createReservation(array $data): Reservation
     {
         return DB::transaction(function () use ($data) {
-            // Validate Destination Status
             $destination = Destination::findOrFail($data['destination_id']);
 
             if (!$destination->isOpen()) {
                 throw new Exception("Destination is not open for reservation.");
             }
 
-            // Create Reservation
+            if (!empty($data['user_whatsapp'])) {
+                $data['user_whatsapp'] = $this->formatPhoneIntl($data['user_whatsapp']);
+            }
+
             $reservation = $this->reservationRepository->create($data);
 
-            // Send WhatsApp Notification
             $this->sendWhatsAppNotification($reservation);
 
             return $reservation;
         });
+    }
+
+    /**
+     * Format phone to international digits (Indonesia default)
+     *
+     * @param string $phone
+     * @return string
+     */
+    private function formatPhoneIntl(string $phone): string
+    {
+        $p = preg_replace('/[^\d\+]/', '', $phone);
+
+        if (str_starts_with($p, '+')) {
+            $p = ltrim($p, '+');
+        }
+
+        if (str_starts_with($p, '0')) {
+            $p = '62' . ltrim($p, '0');
+        }
+
+        if (preg_match('/^8\d{5,}$/', $p)) {
+            $p = '62' . $p;
+        }
+        return $p;
     }
 
     /**
@@ -48,18 +74,46 @@ class ReservationService
      * @param Reservation $reservation
      * @return void
      */
-    protected function sendWhatsAppNotification(Reservation $reservation): void
+    public function sendWhatsAppNotification(Reservation $reservation): void
     {
-        $adminPhone = '088991162533'; // Default admin phone as per request
-        // Ideally this should be in config, but hardcoded per user example for now.
-        // Or we can use the user's phone for confirmation and admin's phone for alert.
+        $userMessage = "Halo {$reservation->user_name},\n\n";
+        $userMessage .= "Terima kasih telah melakukan reservasi di *Ponorogo Dreamland*.\n\n";
+        $userMessage .= "*Detail Reservasi*\n";
+        $userMessage .= "ID: #" . substr($reservation->id, 0, 8) . "\n";
+        $userMessage .= "• Destination : {$reservation->destination->name}\n";
+        $userMessage .= "• Tanggal     : {$reservation->reservation_date->format('d F Y')}\n";
+        $userMessage .= "• Jumlah Orang: {$reservation->number_of_people}\n";
+        $userMessage .= "• Keperluan   : {$reservation->needs}\n";
 
-        // User Notification
-        $userMessage = "Halo {$reservation->user_name},\n\nTerima kasih telah melakukan reservasi di Ponorogo Dreamland.\n\nDetail Reservasi:\nDestination: {$reservation->destination->name}\nTanggal: {$reservation->reservation_date->format('d F Y')}\nJumlah Orang: {$reservation->number_of_people}\nStatus: PENDING\n\nMohon tunggu konfirmasi selanjutnya dari admin kami.";
+        // Tambahkan notes bila ada
+        if (!empty($reservation->notes)) {
+            $userMessage .= "• Catatan     : {$reservation->notes}\n";
+        }
 
-        $this->fonnteService->sendMessage($reservation->user_whatsapp, $userMessage);
+        $userMessage .= "\nTim kami akan memproses dan mengonfirmasi reservasi ini dalam maksimal 1x24 jam kerja.\n";
+        $userMessage .= "Jika ingin mengubah atau membatalkan reservasi, silakan balas pesan ini atau hubungi admin.\n\n";
+        $userMessage .= "Salam,\nTim Ponorogo Dreamland";
 
-        // We can also notify admin here if needed, but user requirement specifically mentioned 
-        // "sistem akan mengirim pesan otomatis dari no admin ... ke nomor user yang melakukan reservasi"
+        $response = $this->fonnteService->sendMessage($reservation->user_whatsapp, $userMessage);
+
+        if ($response && is_array($response) && isset($response['status']) && $response['status'] == true) {
+            $reservation->update([
+                'wa_sent' => true,
+                'wa_sent_at' => now(),
+                'wa_error' => null
+            ]);
+            Log::info("WA sent successfully for reservation {$reservation->id}", ['response' => $response]);
+        } else {
+            $errorMsg = 'No response from provider';
+            if (is_array($response)) {
+                $errorMsg = json_encode($response);
+            }
+            $reservation->update([
+                'wa_sent' => false,
+                'wa_error' => $errorMsg
+            ]);
+
+            Log::error("Failed to send WA for reservation {$reservation->id}", ['response' => $response]);
+        }
     }
 }

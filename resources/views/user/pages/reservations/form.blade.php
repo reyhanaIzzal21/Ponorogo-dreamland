@@ -160,6 +160,13 @@
                             </div>
 
                             <div class="col-span-2">
+                                <label class="block text-sm font-bold text-zinc-700 mb-2">Kebutuhan</label>
+                                <input type="text" name="needs" value="{{ old('needs') }}" required
+                                    class="input-dynamic w-full bg-white border border-zinc-300 rounded-lg p-3 outline-none transition shadow-sm"
+                                    placeholder="Contoh: Ulang tahun, request kursi bayi, dll.">
+                            </div>
+
+                            <div class="col-span-2">
                                 <label class="block text-sm font-bold text-zinc-700 mb-2">Catatan Tambahan</label>
                                 <textarea name="notes"
                                     class="input-dynamic w-full bg-white border border-zinc-300 rounded-lg p-3 outline-none transition shadow-sm h-24"

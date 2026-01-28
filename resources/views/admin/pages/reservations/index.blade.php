@@ -75,6 +75,7 @@
             {{-- Filters & Search --}}
             <div class="p-4 border-b border-gray-100 flex flex-col md:flex-row gap-4 justify-between">
                 <div class="flex gap-2 text-sm">
+                    {{-- tambah filter bedasarkan jenis destinasi seperti  restaurant, vanue, atau recreation  --}}
                     <a href="{{ route('admin.reservation.index') }}"
                         class="px-3 py-1.5 rounded-lg font-bold transition {{ !request('status') ? 'bg-gray-800 text-white' : 'bg-gray-100 text-gray-600' }}">Semua</a>
                 </div>
@@ -99,7 +100,9 @@
                             <th class="p-4 font-bold">Tamu & Kontak</th>
                             <th class="p-4 font-bold">Venue & Waktu</th>
                             <th class="p-4 font-bold">Detail</th>
-                            <th class="p-4 font-bold text-center">Status</th>
+                            <th class="p-4 font-bold">Kebutuhan</th>
+                            <th class="p-4 font-bold text-center">Catatan</th>
+                            <th class="p-4 font-bold text-center">Status Pesan</th>
                             <th class="p-4 font-bold text-right">Aksi</th>
                         </tr>
                     </thead>
@@ -129,38 +132,51 @@
                                 <td class="p-4">
                                     <p class="text-gray-800"><span class="font-bold">{{ $item->number_of_people }}</span>
                                         Org</p>
-                                    <p class="text-gray-500 text-xs italic truncate w-32">{{ $item->notes }}</p>
+                                    <p class="text-gray-500 text-xs italic truncate w-32">{{ $item->needs }}</p>
                                 </td>
 
                                 <td class="p-4 text-center">
-                                    <span
-                                        class="px-2 py-1 rounded border text-xs font-bold uppercase badge-{{ $item->status }}">
-                                        {{ $item->status }}
+                                    <span class="text-gray-800 text-xs italic truncate w-32">
+                                        {{ $item->notes }}
+                                    </span>
+                                </td>
+                                <td class="p-4 text-center">
+                                    <span class="text-gray-800 text-xs italic truncate w-32">
+                                        {{ $item->needs }}
                                     </span>
                                 </td>
 
+                                {{-- ini adalah status pesan whatsaap --}}
+                                <td class="p-4 text-center">
+                                    @if ($item->wa_sent)
+                                        <span class="text-green-600 font-bold">Terkirim</span>
+                                        <p class="text-gray-500 text-xs mt-1">
+                                            {{ $item->wa_sent_at->format('d M Y H:i') }}
+                                        </p>
+                                    @else
+                                        <form action="{{ route('admin.reservation.resend', $item->id) }}" method="POST">
+                                            @csrf
+                                            <button type="submit" class="text-red-600 font-bold hover:underline"
+                                                title="Klik untuk kirim ulang">
+                                                Kirim Ulang
+                                            </button>
+                                        </form>
+                                        <p class="text-gray-500 text-xs mt-1">
+                                            {{ Str::limit($item->wa_error, 20) }}
+                                        </p>
+                                    @endif
+                                </td>
+
                                 <td class="p-4 text-right">
-                                    <form action="{{ route('admin.reservation.update', $item->id) }}" method="POST"
-                                        class="inline-block">
-                                        @csrf
-                                        @method('PUT')
-                                        <select name="status" onchange="this.form.submit()"
-                                            class="text-xs border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-                                            <option value="pending" {{ $item->status == 'pending' ? 'selected' : '' }}>
-                                                Pending</option>
-                                            <option value="confirmed" {{ $item->status == 'confirmed' ? 'selected' : '' }}>
-                                                Confirmed</option>
-                                            <option value="completed" {{ $item->status == 'completed' ? 'selected' : '' }}>
-                                                Completed</option>
-                                            <option value="cancelled" {{ $item->status == 'cancelled' ? 'selected' : '' }}>
-                                                Cancelled</option>
-                                        </select>
-                                    </form>
+                                    <a href="{{ route('admin.reservation.show', $item->id) }}"
+                                        class="inline-block px-3 py-1 bg-indigo-50 text-indigo-600 rounded-lg text-xs font-bold hover:bg-indigo-100 transition">
+                                        Detail
+                                    </a>
                                 </td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="5" class="p-8 text-center text-gray-500">
+                                <td colspan="7" class="p-8 text-center text-gray-500">
                                     Tidak ada data reservasi ditemukan.
                                 </td>
                             </tr>

@@ -23,27 +23,22 @@ class Reservation extends Model
         'user_whatsapp',
         'reservation_date',
         'number_of_people',
+        'needs',
         'notes',
-        'status',
+        'wa_sent',
+        'wa_sent_at',
+        'wa_error',
     ];
 
     protected $casts = [
         'reservation_date' => 'date',
         'number_of_people' => 'integer',
+        'wa_sent' => 'boolean',
+        'wa_sent_at' => 'datetime',
     ];
 
     public function destination(): BelongsTo
     {
         return $this->belongsTo(Destination::class);
-    }
-
-    public function scopePending(Builder $query): Builder
-    {
-        return $query->where('status', self::STATUS_PENDING);
-    }
-
-    public function scopeConfirmed(Builder $query): Builder
-    {
-        return $query->where('status', self::STATUS_CONFIRMED);
     }
 }

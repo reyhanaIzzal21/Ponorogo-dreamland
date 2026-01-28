@@ -36,6 +36,7 @@ Route::get('/reservation/form', function () {
     return view('user.pages.reservations.form');
 })->name('reservation.form');
 Route::post('/reservation', [ReservationController::class, 'store'])->name('reservation.store');
+Route::get('/reservation/{id}/finish', [ReservationController::class, 'finish'])->name('reservation.finish');
 Route::get('/contact', function () {
     return view('user.pages.contact');
 })->name('contact');
@@ -139,7 +140,9 @@ Route::prefix('admin')->middleware('role:admin')->name('admin.')->group(function
     // Reservation Admin Routes
     Route::prefix('reservation')->name('reservation.')->group(function () {
         Route::get('/', [AdminReservationCOntroller::class, 'index'])->name('index');
+        Route::get('/{id}', [AdminReservationCOntroller::class, 'show'])->name('show');
         Route::put('/{id}', [AdminReservationCOntroller::class, 'update'])->name('update');
+        Route::post('/{id}/resend', [AdminReservationCOntroller::class, 'resendWhatsApp'])->name('resend');
         Route::get('/export', [AdminReservationCOntroller::class, 'export'])->name('export');
     });
 });
