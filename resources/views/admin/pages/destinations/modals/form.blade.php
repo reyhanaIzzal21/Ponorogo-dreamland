@@ -15,7 +15,7 @@
                     <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Nama Destinasi <span
                             class="text-red-500">*</span></label>
                     <input type="text" x-model="form.name" required
-                        class="w-full border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 text-sm p-2.5"
+                        class="w-full border-gray-300 rounded-lg focus:ring-primary focus:border-primary text-sm p-2.5"
                         placeholder="Contoh: Dam Cokro Resto">
                 </div>
 
@@ -24,7 +24,7 @@
                         <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Tipe Bisnis <span
                                 class="text-red-500">*</span></label>
                         <select x-model="form.type" required
-                            class="w-full border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 text-sm p-2.5">
+                            class="w-full border-gray-300 rounded-lg focus:ring-primary focus:border-primary text-sm p-2.5">
                             <option value="restaurant">F&B (Resto)</option>
                             <option value="venue">Venue (Gedung)</option>
                             <option value="recreation">Recreation (Wisata)</option>
@@ -34,7 +34,7 @@
                         <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Status Operasional <span
                                 class="text-red-500">*</span></label>
                         <select x-model="form.status" required
-                            class="w-full border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 text-sm p-2.5">
+                            class="w-full border-gray-300 rounded-lg focus:ring-primary focus:border-primary text-sm p-2.5">
                             <option value="open">🟢 Open</option>
                             <option value="closed">🔴 Closed</option>
                             <option value="soon">🚧 Coming Soon</option>
@@ -46,7 +46,7 @@
                 <div>
                     <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Deskripsi Singkat</label>
                     <textarea x-model="form.description" rows="3"
-                        class="w-full border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 text-sm p-2.5"
+                        class="w-full border-gray-300 rounded-lg focus:ring-primary focus:border-primary text-sm p-2.5"
                         placeholder="Deskripsi singkat tentang destinasi ini..."></textarea>
                 </div>
 
@@ -63,7 +63,7 @@
                 <button type="button" @click="closeModal()"
                     class="px-4 py-2 text-gray-600 text-sm font-bold hover:bg-gray-200 rounded-lg transition">Batal</button>
                 <button type="submit" :disabled="isSaving"
-                    class="px-4 py-2 bg-indigo-600 text-white text-sm font-bold rounded-lg hover:bg-indigo-700 shadow-md transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2">
+                    class="px-4 py-2 bg-primary text-white text-sm font-bold rounded-lg hover:bg-primary/80 shadow-md transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2">
                     <svg x-show="isSaving" class="animate-spin h-4 w-4" xmlns="http://www.w3.org/2000/svg"
                         fill="none" viewBox="0 0 24 24">
                         <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"

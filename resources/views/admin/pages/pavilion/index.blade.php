@@ -14,17 +14,17 @@
 
         /* Custom Pendopo Theme (Earth Colors) */
         .input-pendopo:focus {
-            --tw-ring-color: #795548;
+            --tw-ring-color: #2D7D32;
             /* Earth Brown */
-            border-color: #795548;
+            border-color: #2D7D32;
         }
 
         /* Tab States */
         .tab-active {
-            background-color: #fdf5f2;
+            background-color: #e8ffdf;
             /* Orange/Brown-50 */
-            color: #795548;
-            border-color: #795548;
+            color: #2D7D32;
+            border-color: #2D7D32;
         }
 
         .tab-inactive {
@@ -38,7 +38,7 @@
         }
 
         .edit-card:hover {
-            border-color: #795548;
+            border-color: #2D7D32;
             transform: translateY(-2px);
         }
     </style>
@@ -51,7 +51,7 @@
             <div>
                 <div class="flex items-center gap-2">
                     <span
-                        class="bg-orange-100 text-orange-800 text-xs font-bold px-2 py-1 rounded uppercase tracking-wide">Venue
+                        class="bg-primary/10 text-primary text-xs font-bold px-2 py-1 rounded uppercase tracking-wide">Venue
                         Module</span>
                     <h1 class="text-xl md:text-2xl font-bold text-gray-800">Pendopo Manager</h1>
                 </div>
@@ -63,7 +63,7 @@
                     Live Preview
                 </a>
                 <button @click="saveAll()" :disabled="saving"
-                    class="flex-1 md:flex-none justify-center px-4 py-2 bg-earth text-white rounded-lg hover:bg-[#5D4037] flex items-center gap-2 text-sm font-medium shadow-lg transition disabled:opacity-50">
+                    class="flex-1 md:flex-none justify-center px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 flex items-center gap-2 text-sm font-medium shadow-lg transition disabled:opacity-50">
                     <svg class="w-4 h-4" :class="{ 'animate-spin': saving }" fill="none" stroke="currentColor"
                         viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
