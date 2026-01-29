@@ -45,9 +45,9 @@
                 {{ $heroDescription }}
             </p>
 
-            <a href="#reservation"
+            <a href="{{ route('menu') }}"
                 class="group relative inline-flex items-center justify-center px-8 py-4 text-base font-bold text-forest-green transition-all duration-200 bg-golden-cokro font-modern rounded-full hover:bg-[#ffcf40] hover:scale-105 shadow-[0_0_20px_rgba(251,192,45,0.4)] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-golden-cokro">
-                <span>Pesan Meja Sekarang</span>
+                <span>Lihat Menu</span>
                 <svg class="w-5 h-5 ml-2 -mr-1 transition-transform group-hover:translate-x-1" fill="none"
                     stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6">

@@ -24,7 +24,7 @@
 
         <div class="relative z-10 text-center px-4 max-w-4xl mx-auto reveal active">
             <span
-                class="inline-block py-1 px-3 rounded-full bg-secondary/90 text-earth text-sm font-bold tracking-wider mb-4 uppercase shadow-lg">Welcome
+                class="inline-block mt-12 py-1 px-3 rounded-full bg-secondary/90 text-earth text-sm font-bold tracking-wider mb-4 uppercase shadow-lg">Welcome
                 to Ponorogo</span>
             <h1 class="font-serif text-4xl md:text-6xl lg:text-7xl text-white font-bold leading-tight mb-6 text-shadow">
                 {{ $heroSection->title ?? 'Destinasi Terpadu untuk' }} <br /><span
@@ -38,7 +38,7 @@
                     class="bg-secondary text-earth font-bold px-8 py-4 rounded-full shadow-[0_0_20px_rgba(255,235,59,0.5)] hover:bg-yellow-300 transition transform hover:scale-105">
                     Eksplor Sekarang
                 </a>
-                <a href="#reservation"
+                <a href="{{ route('reservation') }}"
                     class="border-2 border-white text-white font-bold px-8 py-4 rounded-full hover:bg-white hover:text-primary transition">
                     Reservasi Tempat
                 </a>
@@ -277,12 +277,12 @@
             <p class="text-white/80 text-xl mb-10">Entah itu makan siang santai atau resepsi pernikahan impian, kami
                 siap menyambut Anda.</p>
 
-            <button
+            <a href="{{ route('reservation') }}"
                 class="bg-primary hover:bg-green-800 text-white font-bold px-8 py-3 rounded-full transition shadow-md w-full sm:w-auto">
                 Pesan Tempat Sekarang
-            </button>
+            </a>
             <p class="mt-4 text-white/60 text-sm">Atau hubungi kami via WhatsApp untuk respon cepat. <br>
-                <a href="https://wa.me/628123456789" class="text-md text-white underline font-bold">Contact Us</a>
+                <a href="https://wa.me/6282252222650" class="text-md text-white underline font-bold">Contact Us</a>
             </p>
         </div>
     </section>

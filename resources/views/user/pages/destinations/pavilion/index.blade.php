@@ -249,7 +249,7 @@
 
             <div class="bg-white/10 backdrop-blur-sm p-8 rounded-2xl border border-white/20 inline-block w-full max-w-lg">
                 <div class="flex flex-col gap-4">
-                    <a href="https://wa.me/628123456789"
+                    <a href="https://wa.me/6282252222650"
                         class="bg-secondary hover:bg-yellow-300 text-earth font-bold py-4 px-6 rounded-lg w-full flex items-center justify-center gap-2 transition shadow-lg">
                         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                             <path

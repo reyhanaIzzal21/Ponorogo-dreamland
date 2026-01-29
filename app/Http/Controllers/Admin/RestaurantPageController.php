@@ -43,30 +43,31 @@ class RestaurantPageController extends Controller
             'title' => 'nullable|string|max:255',
             'subtitle' => 'nullable|string|max:255',
             'description' => 'nullable|string|max:1000',
-            'background_image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
+            'extra_data' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
         ]);
 
-        // Handle background image upload
-        if ($request->hasFile('background_image')) {
-            $imageUrl = $this->restaurantService->uploadHeroBackground($request->file('background_image'));
+        $imagePath = null;
+
+        // Handle background image upload using service (which also deletes old image)
+        if ($request->hasFile('extra_data')) {
+            $imagePath = $this->restaurantService->uploadHeroBackground($request->file('extra_data'));
         }
 
-        // Prepare extra_data
-        $extraData = [];
-        if (isset($imageUrl)) {
-            $extraData['background_image'] = $imageUrl;
-        }
+        // Update text content (extra_data already updated by uploadHeroBackground if image was uploaded)
+        $heroSection = $this->restaurantService->getHeroSection();
+        $extraData = $heroSection ? ($heroSection->extra_data ?? []) : [];
 
         $this->restaurantService->updateHeroSection([
             'title' => $validated['title'] ?? null,
             'subtitle' => $validated['subtitle'] ?? null,
             'description' => $validated['description'] ?? null,
-            'extra_data' => !empty($extraData) ? $extraData : null,
+            'extra_data' => $extraData,
         ]);
 
         return response()->json([
             'success' => true,
             'message' => 'Hero section berhasil diperbarui!',
+            'image_url' => $imagePath ? asset('storage/' . $imagePath) : null,
         ]);
     }
 

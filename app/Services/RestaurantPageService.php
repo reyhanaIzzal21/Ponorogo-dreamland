@@ -144,9 +144,9 @@ class RestaurantPageService
      * Upload hero background image.
      *
      * @param UploadedFile $file
-     * @return string|null The new image URL
+     * @return string The new image path (relative)
      */
-    public function uploadHeroBackground(UploadedFile $file): ?string
+    public function uploadHeroBackground(UploadedFile $file): string
     {
         $section = $this->getHeroSection();
 
@@ -162,7 +162,7 @@ class RestaurantPageService
         $filename = 'hero_' . Str::uuid() . '.' . $file->getClientOriginalExtension();
         $path = $file->storeAs('restaurant', $filename, 'public');
 
-        // Update section
+        // Update section with new background_image path
         $extraData = $section ? ($section->extra_data ?? []) : [];
         $extraData['background_image'] = $path;
 
@@ -176,7 +176,7 @@ class RestaurantPageService
         }
 
         $this->clearCache();
-        return Storage::disk('public')->url($path);
+        return $path;
     }
 
     // ==================== BEST SELLERS OPERATIONS ====================

@@ -56,7 +56,7 @@
                     </svg>
                     <span class="text-white text-xs font-bold">Ganti Background</span>
                 </div>
-                <input type="file" name="background_image" accept="image/*"
+                <input type="file" name="extra_data" accept="image/*"
                     class="absolute inset-0 opacity-0 cursor-pointer"
                     onchange="document.getElementById('heroPreview').src = URL.createObjectURL(this.files[0])">
             </div>
