@@ -6,13 +6,15 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Menu\StoreItemRequest;
 use App\Http\Requests\Admin\Menu\UpdateItemRequest;
 use App\Services\MenuService;
+use App\Contracts\Interfaces\ActivityLogRepositoryInterface;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class MenuItemController extends Controller
 {
     public function __construct(
-        protected MenuService $menuService
+        protected MenuService $menuService,
+        protected ActivityLogRepositoryInterface $activityLog
     ) {}
 
     /**
@@ -53,6 +55,9 @@ class MenuItemController extends Controller
 
         // Let Service handle file upload and slug generation
         $item = $this->menuService->createMenuItem($validated, $image, $packageContents);
+
+        // Log activity
+        $this->activityLog->log('create', 'MenuItem', $item->id, "Tambah Menu Baru \"{$item->name}\"");
 
         return response()->json([
             'success' => true,
@@ -105,6 +110,9 @@ class MenuItemController extends Controller
             ], 400);
         }
 
+        // Log activity
+        $this->activityLog->log('update', 'MenuItem', $id, "Update Menu Item");
+
         return response()->json([
             'success' => true,
             'message' => 'Menu item berhasil diupdate',
@@ -125,6 +133,9 @@ class MenuItemController extends Controller
                 'message' => 'Gagal menghapus menu item',
             ], 400);
         }
+
+        // Log activity
+        $this->activityLog->log('delete', 'MenuItem', $id, "Hapus Menu Item");
 
         return response()->json([
             'success' => true,

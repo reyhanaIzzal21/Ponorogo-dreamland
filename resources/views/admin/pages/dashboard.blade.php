@@ -42,20 +42,31 @@
             </div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
 
+            {{-- Total Visitors KPI --}}
             <div class="stat-card bg-white p-6 rounded-2xl border border-gray-200 shadow-sm relative overflow-hidden">
                 <div class="flex justify-between items-start">
                     <div>
                         <p class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">Total Visitors</p>
-                        <h3 class="text-2xl font-bold text-gray-800">1,248</h3>
-                        <p class="text-xs text-green-500 font-bold mt-2 flex items-center gap-1">
-                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
-                            </svg>
-                            +12.5% Hari Ini
-                        </p>
+                        <h3 class="text-2xl font-bold text-gray-800">{{ number_format($kpi['total_visitors']) }}</h3>
+                        @if ($kpi['visitor_change'] >= 0)
+                            <p class="text-xs text-green-500 font-bold mt-2 flex items-center gap-1">
+                                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                                </svg>
+                                +{{ $kpi['visitor_change'] }}% Hari Ini
+                            </p>
+                        @else
+                            <p class="text-xs text-red-500 font-bold mt-2 flex items-center gap-1">
+                                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M13 17h8m0 0v-8m0 8l-8-8-4 4-6-6"></path>
+                                </svg>
+                                {{ $kpi['visitor_change'] }}% Hari Ini
+                            </p>
+                        @endif
                     </div>
                     <div class="p-3 bg-indigo-50 rounded-xl text-indigo-600">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -69,29 +80,12 @@
                 </div>
             </div>
 
-            <div class="stat-card bg-white p-6 rounded-2xl border border-gray-200 shadow-sm relative overflow-hidden">
-                <div class="flex justify-between items-start">
-                    <div>
-                        <p class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">Need Confirmation</p>
-                        <h3 class="text-2xl font-bold text-gray-800">8</h3>
-                        <p class="text-xs text-yellow-600 font-bold mt-2 flex items-center gap-1">
-                            Reservasi Baru
-                        </p>
-                    </div>
-                    <div class="p-3 bg-yellow-50 rounded-xl text-yellow-600 animate-pulse">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                        </svg>
-                    </div>
-                </div>
-            </div>
-
+            {{-- WhatsApp Failed KPI --}}
             <div class="stat-card bg-white p-6 rounded-2xl border border-gray-200 shadow-sm relative overflow-hidden">
                 <div class="flex justify-between items-start">
                     <div>
                         <p class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">WhatsApp Failed</p>
-                        <h3 class="text-2xl font-bold text-red-600">3</h3>
+                        <h3 class="text-2xl font-bold text-red-600">{{ number_format($kpi['wa_failed']) }}</h3>
                         <p class="text-xs text-gray-400 mt-2">Pesan gagal terkirim</p>
                     </div>
                     <div class="p-3 bg-red-50 rounded-xl text-red-600">
@@ -104,11 +98,12 @@
                 </div>
             </div>
 
+            {{-- Active Menu KPI --}}
             <div class="stat-card bg-white p-6 rounded-2xl border border-gray-200 shadow-sm relative overflow-hidden">
                 <div class="flex justify-between items-start">
                     <div>
                         <p class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">Active Menu</p>
-                        <h3 class="text-2xl font-bold text-gray-800">42</h3>
+                        <h3 class="text-2xl font-bold text-gray-800">{{ number_format($kpi['active_menu']) }}</h3>
                         <p class="text-xs text-gray-400 mt-2">Item di Dam Cokro</p>
                     </div>
                     <div class="p-3 bg-green-50 rounded-xl text-green-600">
@@ -125,21 +120,18 @@
 
         <div class="flex flex-col lg:flex-row gap-6 mb-8">
 
+            {{-- Traffic & Reservation Analytics Chart --}}
             <div class="w-full lg:w-[70%] bg-white p-6 rounded-2xl border border-gray-200 shadow-sm">
                 <div class="flex justify-between items-center mb-6">
                     <div>
                         <h2 class="text-lg font-bold text-gray-800">Analitik Trafik & Reservasi</h2>
                         <p class="text-xs text-gray-500">Perbandingan pengunjung website vs konversi reservasi (7 Hari).</p>
                     </div>
-                    <select
-                        class="text-xs border-gray-300 rounded-lg text-gray-600 focus:ring-indigo-500 focus:border-indigo-500">
-                        <option>7 Hari Terakhir</option>
-                        <option>30 Hari Terakhir</option>
-                    </select>
                 </div>
                 <div id="trafficChart" class="w-full h-80"></div>
             </div>
 
+            {{-- Booking Distribution Chart --}}
             <div class="w-full lg:w-[30%] bg-white p-6 rounded-2xl border border-gray-200 shadow-sm flex flex-col">
                 <h2 class="text-lg font-bold text-gray-800 mb-2">Distribusi Booking</h2>
                 <p class="text-xs text-gray-500 mb-6">Persentase pilihan venue.</p>
@@ -149,11 +141,11 @@
                 <div class="mt-4 grid grid-cols-2 gap-2 text-center">
                     <div class="p-2 bg-green-50 rounded-lg">
                         <span class="block text-xs text-gray-500">Resto</span>
-                        <span class="block font-bold text-green-700">65%</span>
+                        <span class="block font-bold text-green-700">{{ $distribution['resto']['percentage'] }}%</span>
                     </div>
                     <div class="p-2 bg-orange-50 rounded-lg">
                         <span class="block text-xs text-gray-500">Pendopo</span>
-                        <span class="block font-bold text-orange-700">35%</span>
+                        <span class="block font-bold text-orange-700">{{ $distribution['pendopo']['percentage'] }}%</span>
                     </div>
                 </div>
             </div>
@@ -162,10 +154,12 @@
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
+            {{-- Recent Reservations Table --}}
             <div class="lg:col-span-2 bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
                 <div class="p-6 border-b border-gray-100 flex justify-between items-center">
                     <h2 class="text-lg font-bold text-gray-800">Reservasi Terbaru</h2>
-                    <a href="/admin/reservations" class="text-xs font-bold text-indigo-600 hover:underline">Lihat Semua
+                    <a href="{{ route('admin.reservation.index') }}"
+                        class="text-xs font-bold text-indigo-600 hover:underline">Lihat Semua
                         →</a>
                 </div>
                 <div class="overflow-x-auto">
@@ -179,77 +173,70 @@
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-gray-100 text-sm">
-                            <tr class="hover:bg-gray-50 transition">
-                                <td class="px-6 py-3">
-                                    <p class="font-bold text-gray-800">Budi Santoso</p>
-                                    <span
-                                        class="text-[10px] bg-green-100 text-green-700 px-1.5 py-0.5 rounded font-bold">RESTO</span>
-                                </td>
-                                <td class="px-6 py-3 text-gray-500">
-                                    29 Jan, 19:00
-                                </td>
-                                <td class="px-6 py-3 text-center">
-                                    <span
-                                        class="inline-flex items-center gap-1 text-xs font-bold text-red-500 bg-red-50 px-2 py-1 rounded-full border border-red-100">
-                                        ⚠ Failed
-                                    </span>
-                                </td>
-                                <td class="px-6 py-3 text-right">
-                                    <button
-                                        class="text-xs bg-indigo-600 text-white px-3 py-1.5 rounded hover:bg-indigo-700 transition">
-                                        Resend WA
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr class="hover:bg-gray-50 transition">
-                                <td class="px-6 py-3">
-                                    <p class="font-bold text-gray-800">Siti Aminah</p>
-                                    <span
-                                        class="text-[10px] bg-orange-100 text-orange-700 px-1.5 py-0.5 rounded font-bold">PENDOPO</span>
-                                </td>
-                                <td class="px-6 py-3 text-gray-500">
-                                    10 Feb, 09:00
-                                </td>
-                                <td class="px-6 py-3 text-center">
-                                    <span
-                                        class="inline-flex items-center gap-1 text-xs font-bold text-green-600 bg-green-50 px-2 py-1 rounded-full border border-green-100">
-                                        ✓ Sent
-                                    </span>
-                                </td>
-                                <td class="px-6 py-3 text-right">
-                                    <button
-                                        class="text-xs text-gray-500 hover:text-indigo-600 border border-gray-200 px-3 py-1.5 rounded hover:bg-gray-50 transition">
-                                        Detail
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr class="hover:bg-gray-50 transition">
-                                <td class="px-6 py-3">
-                                    <p class="font-bold text-gray-800">Andi P.</p>
-                                    <span
-                                        class="text-[10px] bg-green-100 text-green-700 px-1.5 py-0.5 rounded font-bold">RESTO</span>
-                                </td>
-                                <td class="px-6 py-3 text-gray-500">
-                                    29 Jan, 12:00
-                                </td>
-                                <td class="px-6 py-3 text-center">
-                                    <span
-                                        class="inline-flex items-center gap-1 text-xs font-bold text-green-600 bg-green-50 px-2 py-1 rounded-full border border-green-100">
-                                        ✓ Sent
-                                    </span>
-                                </td>
-                                <td class="px-6 py-3 text-right">
-                                    <button
-                                        class="text-xs text-gray-500 hover:text-indigo-600 border border-gray-200 px-3 py-1.5 rounded hover:bg-gray-50 transition">
-                                        Detail
-                                    </button>
-                                </td>
-                            </tr>
+                            @forelse($recentReservations as $reservation)
+                                <tr class="hover:bg-gray-50 transition">
+                                    <td class="px-6 py-3">
+                                        <p class="font-bold text-gray-800">{{ $reservation->user_name }}</p>
+                                        @if ($reservation->destination)
+                                            @if ($reservation->destination->type === 'restaurant')
+                                                <span
+                                                    class="text-[10px] bg-green-100 text-green-700 px-1.5 py-0.5 rounded font-bold">RESTO</span>
+                                            @elseif($reservation->destination->type === 'venue')
+                                                <span
+                                                    class="text-[10px] bg-orange-100 text-orange-700 px-1.5 py-0.5 rounded font-bold">PENDOPO</span>
+                                            @else
+                                                <span
+                                                    class="text-[10px] bg-blue-100 text-blue-700 px-1.5 py-0.5 rounded font-bold">{{ strtoupper($reservation->destination->type) }}</span>
+                                            @endif
+                                        @endif
+                                    </td>
+                                    <td class="px-6 py-3 text-gray-500">
+                                        {{ $reservation->reservation_date->format('d M, H:i') }}
+                                    </td>
+                                    <td class="px-6 py-3 text-center">
+                                        @if ($reservation->wa_sent)
+                                            <span
+                                                class="inline-flex items-center gap-1 text-xs font-bold text-green-600 bg-green-50 px-2 py-1 rounded-full border border-green-100">
+                                                ✓ Sent
+                                            </span>
+                                        @else
+                                            <span
+                                                class="inline-flex items-center gap-1 text-xs font-bold text-red-500 bg-red-50 px-2 py-1 rounded-full border border-red-100">
+                                                ⚠ Failed
+                                            </span>
+                                        @endif
+                                    </td>
+                                    <td class="px-6 py-3 text-right">
+                                        @if (!$reservation->wa_sent)
+                                            <form action="{{ route('admin.reservation.resend', $reservation->id) }}"
+                                                method="POST" class="inline">
+                                                @csrf
+                                                <button type="submit"
+                                                    class="text-xs bg-indigo-600 text-white px-3 py-1.5 rounded hover:bg-indigo-700 transition">
+                                                    Resend WA
+                                                </button>
+                                            </form>
+                                        @else
+                                            <a href="{{ route('admin.reservation.show', $reservation->id) }}"
+                                                class="text-xs text-gray-500 hover:text-indigo-600 border border-gray-200 px-3 py-1.5 rounded hover:bg-gray-50 transition">
+                                                Detail
+                                            </a>
+                                        @endif
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="4" class="px-6 py-8 text-center text-gray-500">
+                                        Belum ada reservasi.
+                                    </td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>
             </div>
 
+            {{-- Activity Log Timeline --}}
             <div class="lg:col-span-1 bg-white rounded-2xl border border-gray-200 shadow-sm p-6">
                 <div class="border-b border-gray-100 pb-4 mb-4">
                     <h2 class="text-lg font-bold text-gray-800">Aktivitas Terakhir</h2>
@@ -257,24 +244,31 @@
                 </div>
 
                 <div class="space-y-6 relative border-l-2 border-gray-100 ml-2">
-                    <div class="pl-6 relative">
-                        <div class="absolute -left-[9px] top-1 w-4 h-4 bg-blue-500 rounded-full border-2 border-white">
+                    @forelse($recentActivities as $activity)
+                        <div class="pl-6 relative">
+                            @php
+                                $colorClass = match ($activity->action) {
+                                    'create' => 'bg-blue-500',
+                                    'update' => 'bg-yellow-500',
+                                    'delete' => 'bg-red-500',
+                                    default => 'bg-gray-300',
+                                };
+                            @endphp
+                            <div
+                                class="absolute -left-[9px] top-1 w-4 h-4 {{ $colorClass }} rounded-full border-2 border-white">
+                            </div>
+                            <p class="text-sm font-bold text-gray-800">{{ $activity->description }}</p>
+                            <p class="text-xs text-gray-500 mt-0.5">
+                                {{ $activity->user?->name ?? 'System' }} • {{ $activity->created_at->diffForHumans() }}
+                            </p>
                         </div>
-                        <p class="text-sm font-bold text-gray-800">Update Hero Landing Page</p>
-                        <p class="text-xs text-gray-500 mt-0.5">Admin Utomo • 10 Menit lalu</p>
-                    </div>
-                    <div class="pl-6 relative">
-                        <div class="absolute -left-[9px] top-1 w-4 h-4 bg-yellow-500 rounded-full border-2 border-white">
+                    @empty
+                        <div class="pl-6 relative">
+                            <div class="absolute -left-[9px] top-1 w-4 h-4 bg-gray-300 rounded-full border-2 border-white">
+                            </div>
+                            <p class="text-sm text-gray-500">Belum ada aktivitas tercatat.</p>
                         </div>
-                        <p class="text-sm font-bold text-gray-800">Tambah Menu Baru "Sate"</p>
-                        <p class="text-xs text-gray-500 mt-0.5">Admin Resto • 2 Jam lalu</p>
-                    </div>
-                    <div class="pl-6 relative">
-                        <div class="absolute -left-[9px] top-1 w-4 h-4 bg-gray-300 rounded-full border-2 border-white">
-                        </div>
-                        <p class="text-sm font-bold text-gray-800">Ganti Password</p>
-                        <p class="text-xs text-gray-500 mt-0.5">System • 1 Hari lalu</p>
-                    </div>
+                    @endforelse
                 </div>
             </div>
 
@@ -289,10 +283,10 @@
         var trafficOptions = {
             series: [{
                 name: 'Website Visitors',
-                data: [120, 200, 150, 80, 70, 110, 150]
+                data: @json($trafficData['visitors'])
             }, {
                 name: 'Reservations',
-                data: [12, 25, 18, 9, 8, 15, 20]
+                data: @json($trafficData['reservations'])
             }],
             chart: {
                 type: 'area',
@@ -311,7 +305,7 @@
                 width: 2
             },
             xaxis: {
-                categories: ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'],
+                categories: @json($trafficData['labels']),
                 axisBorder: {
                     show: false
                 },
@@ -347,7 +341,7 @@
 
         // 2. PIE CHART: Distribution
         var distOptions = {
-            series: [65, 35], // Resto vs Pendopo
+            series: [{{ $distribution['resto']['percentage'] }}, {{ $distribution['pendopo']['percentage'] }}],
             labels: ['Dam Cokro Resto', 'Pendopo Ageng'],
             chart: {
                 type: 'donut',
@@ -365,9 +359,7 @@
                                 show: true,
                                 label: 'Total',
                                 formatter: function(w) {
-                                    return w.globals.seriesTotals.reduce((a, b) => {
-                                        return a + b
-                                    }, 0)
+                                    return {{ $distribution['total'] }};
                                 }
                             }
                         }

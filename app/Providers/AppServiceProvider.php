@@ -116,6 +116,18 @@ class AppServiceProvider extends ServiceProvider
             ContactRepositoryInterface::class,
             ContactRepository::class
         );
+
+        // Visitor Log Repository Binding
+        $this->app->bind(
+            \App\Contracts\Interfaces\VisitorLogRepositoryInterface::class,
+            \App\Contracts\Repositories\VisitorLogRepository::class
+        );
+
+        // Activity Log Repository Binding
+        $this->app->bind(
+            \App\Contracts\Interfaces\ActivityLogRepositoryInterface::class,
+            \App\Contracts\Repositories\ActivityLogRepository::class
+        );
     }
 
     /**

@@ -20,33 +20,32 @@ use App\Http\Controllers\AboutPageController as UserAboutPageController;
 use App\Http\Controllers\Admin\ReservationController as AdminReservationController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\Admin\ContactController as AdminContactController;
+use App\Http\Controllers\Admin\DashboardController;
 
-Route::get('/', [HomeController::class, 'index'])->name('home');
-
-Route::get('/about', [UserAboutPageController::class, 'index'])->name('about');
-
-Route::get('/dam-cokro-resto', [RestaurantController::class, 'index'])->name('dam-cokro-resto');
-
-// User Menu Routes
-Route::get('/menu', [MenuController::class, 'index'])->name('menu');
-Route::get('/menu/category/{categoryId}/items', [MenuController::class, 'getCategoryItems'])->name('menu.items');
-
-Route::get('/pavilion', [PavilionController::class, 'index'])->name('pavilion');
-Route::get('/pool', [PoolPageController::class, 'index'])->name('pool');
-Route::get('/reservation', [ReservationController::class, 'index'])->name('reservation');
-Route::get('/reservation/form', function () {
-    return view('user.pages.reservations.form');
-})->name('reservation.form');
-Route::post('/reservation', [ReservationController::class, 'store'])->name('reservation.store');
-Route::get('/reservation/{id}/finish', [ReservationController::class, 'finish'])->name('reservation.finish');
-Route::get('/contact', [ContactController::class, 'index'])->name('contact');
+// Public routes with visitor tracking
+Route::middleware('track.visitor')->group(function () {
+    Route::get('/', [HomeController::class, 'index'])->name('home');
+    Route::get('/about', [UserAboutPageController::class, 'index'])->name('about');
+    Route::get('/dam-cokro-resto', [RestaurantController::class, 'index'])->name('dam-cokro-resto');
+    Route::get('/menu', [MenuController::class, 'index'])->name('menu');
+    Route::get('/menu/category/{categoryId}/items', [MenuController::class, 'getCategoryItems'])->name('menu.items');
+    Route::get('/pavilion', [PavilionController::class, 'index'])->name('pavilion');
+    Route::get('/pool', [PoolPageController::class, 'index'])->name('pool');
+    Route::get('/reservation', [ReservationController::class, 'index'])->name('reservation');
+    Route::get('/reservation/form', function () {
+        return view('user.pages.reservations.form');
+    })->name('reservation.form');
+    Route::post('/reservation', [ReservationController::class, 'store'])->name('reservation.store');
+    Route::get('/reservation/{id}/finish', [ReservationController::class, 'finish'])->name('reservation.finish');
+    Route::get('/contact', [ContactController::class, 'index'])->name('contact');
+});
 
 // Route::view('dashboard', 'dashboard')
 //     ->middleware(['auth', 'verified'])
 //     ->name('dashboard');
 
 Route::prefix('admin')->middleware('role:admin')->name('admin.')->group(function () {
-    Route::view('dashboard', 'admin.pages.dashboard')->name('dashboard');
+    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     // Menu Management Routes
     Route::prefix('menu')->name('menu.')->group(function () {

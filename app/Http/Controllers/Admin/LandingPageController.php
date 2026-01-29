@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\LandingPageSection;
 use App\Services\LandingPageService;
+use App\Contracts\Interfaces\ActivityLogRepositoryInterface;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -13,7 +14,8 @@ use Illuminate\View\View;
 class LandingPageController extends Controller
 {
     public function __construct(
-        protected LandingPageService $landingPageService
+        protected LandingPageService $landingPageService,
+        protected ActivityLogRepositoryInterface $activityLog
     ) {}
 
     /**
@@ -60,6 +62,9 @@ class LandingPageController extends Controller
             ],
         ]);
 
+        // Log activity
+        $this->activityLog->log('update', 'LandingPage', 'hero', 'Update Hero Landing Page');
+
         return redirect()->back()->with('success', 'Hero section berhasil diperbarui!');
     }
 
@@ -96,18 +101,18 @@ class LandingPageController extends Controller
      */
     public function updateWhy(Request $request): RedirectResponse
     {
-                $validated = $request->validate([
-                    'features' => 'required|array|min:1|max:4',
-                    'features.*.icon' => 'required|string|max:10',
-                    'features.*.title' => 'required|string|max:255',
-                    'features.*.description' => 'required|string|max:500',
-                ]);
+        $validated = $request->validate([
+            'features' => 'required|array|min:1|max:4',
+            'features.*.icon' => 'required|string|max:10',
+            'features.*.title' => 'required|string|max:255',
+            'features.*.description' => 'required|string|max:500',
+        ]);
 
-                $this->landingPageService->updateWhyChooseUsSection([
-                    'extra_data' => [
-                        'features' => $validated['features'],
-                    ],
-                ]);
+        $this->landingPageService->updateWhyChooseUsSection([
+            'extra_data' => [
+                'features' => $validated['features'],
+            ],
+        ]);
 
         return redirect()->back()->with('success', 'Section Why Choose Us berhasil diperbarui!');
     }
