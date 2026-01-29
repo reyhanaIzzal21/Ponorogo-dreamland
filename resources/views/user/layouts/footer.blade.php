@@ -14,10 +14,12 @@
             <div>
                 <h4 class="text-lg font-bold mb-4 text-secondary">Navigasi</h4>
                 <ul class="space-y-2 text-gray-400 text-sm">
-                    <li><a href="#home" class="hover:text-primary transition">Beranda</a></li>
-                    <li><a href="#dam-cokro" class="hover:text-primary transition">Dam Cokro Resto</a></li>
-                    <li><a href="#pendopo" class="hover:text-primary transition">Pendopo Ageng</a></li>
-                    <li><a href="#about" class="hover:text-primary transition">Tentang Kami</a></li>
+                    <li><a href="{{ route('home') }}" class="hover:text-primary transition">Beranda</a></li>
+                    <li><a href="{{ route('dam-cokro-resto') }}" class="hover:text-primary transition">Dam Cokro Resto</a></li>
+                    <li><a href="{{ route('pavilion') }}" class="hover:text-primary transition">Pendopo Ageng</a></li>
+                    <li><a href="{{ route('pool') }}" class="hover:text-primary transition">Kolam Renang</a></li>
+                    <li><a href="{{ route('about') }}" class="hover:text-primary transition">Tentang Kami</a></li>
+                    <li><a href="{{ route('contact') }}" class="hover:text-primary transition">Kontak</a></li>
                 </ul>
             </div>
 
@@ -26,15 +28,11 @@
                 <ul class="space-y-3 text-gray-400 text-sm">
                     <li class="flex items-start gap-3">
                         <span class="text-primary mt-1">📞</span>
-                        <span>+62 812-3456-7890</span>
-                    </li>
-                    <li class="flex items-start gap-3">
-                        <span class="text-primary mt-1">📧</span>
-                        <span>halo@ponorogodreamland.com</span>
+                        <a href="https://wa.me/6282252222650" target="_blank">+62 822-5222-2650</a>
                     </li>
                     <li class="flex items-start gap-3">
                         <span class="text-primary mt-1">📍</span>
-                        <span>Jl. Raya Ponorogo No. 123,<br>Ponorogo, Jawa Timur</span>
+                        <a href="https://maps.app.goo.gl/xYXZHmf8xv2EWqwT9" target="_blank">Jl. Tribusono No.54, Sambirejo, Cokromenggalan, Kec. Ponorogo, Kabupaten Ponorogo, Jawa Timur 63411</a>
                     </li>
                 </ul>
             </div>
@@ -42,17 +40,9 @@
             <div>
                 <h4 class="text-lg font-bold mb-4 text-secondary">Jam Operasional</h4>
                 <ul class="space-y-2 text-gray-400 text-sm mb-6">
-                    <li class="flex justify-between"><span>Restoran</span> <span>10:00 - 22:00</span></li>
+                    <li class="flex justify-between"><span>Restoran</span> <span>9:00 - 21:00</span></li>
                     <li class="flex justify-between"><span>Pendopo</span> <span>By Request</span></li>
                 </ul>
-                <div class="flex gap-4">
-                    <a href="#"
-                        class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-primary transition text-white">IG</a>
-                    <a href="#"
-                        class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-primary transition text-white">FB</a>
-                    <a href="#"
-                        class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-primary transition text-white">TK</a>
-                </div>
             </div>
         </div>
 

@@ -261,11 +261,6 @@
                     </a>
                 </div>
             </div>
-
-            <p class="mt-6 text-sm text-zinc-300">
-                Alamat: Ponorogo Dreamland, Jl. Raya Ponorogo No. 123.<br>
-                Buka untuk survey lokasi setiap hari: 09.00 - 17.00 WIB
-            </p>
         </div>
     </section>
 @endsection
