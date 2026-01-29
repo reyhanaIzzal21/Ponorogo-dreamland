@@ -133,7 +133,7 @@
     <div class="fixed bottom-6 right-6 md:hidden z-50">
         <a href="{{ route('reservation.form') }}"
             class="bg-golden-cokro text-zinc-900 font-bold px-6 py-3 rounded-full shadow-2xl border-2 border-white flex items-center gap-2 animate-bounce">
-            <span>Pesan Sekarang</span>
+            <span>Reservasi Sekarang</span>
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
             </svg>
