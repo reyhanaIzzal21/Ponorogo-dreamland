@@ -1,5 +1,7 @@
 @extends('user.layouts.app')
 
+@section('title', 'kontak')
+
 @section('style')
     <style>
         /* Social Card Gradients & Hover Effects */

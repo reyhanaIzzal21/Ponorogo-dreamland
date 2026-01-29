@@ -1,5 +1,7 @@
 @extends('user.layouts.app')
 
+@section('title', 'Kolam Renang')
+
 @section('style')
     <style>
         /* 1. CUSTOM ANIMATIONS FOR "WATER" VIBE */

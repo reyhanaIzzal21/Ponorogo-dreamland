@@ -1,5 +1,7 @@
 @extends('user.layouts.app')
 
+@section('title', 'Buku Menu')
+
 @section('style')
     <style>
         /* Hide Scrollbar for Horizontal Nav */

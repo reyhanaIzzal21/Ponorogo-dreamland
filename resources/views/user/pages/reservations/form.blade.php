@@ -1,5 +1,7 @@
 @extends('user.layouts.app')
 
+@section('title', 'Form Reservasi')
+
 @php
     $destinationId = request('destination_id');
     $destination = \App\Models\Destination::find($destinationId);
@@ -186,4 +188,3 @@
         </div>
     </div>
 @endsection
-

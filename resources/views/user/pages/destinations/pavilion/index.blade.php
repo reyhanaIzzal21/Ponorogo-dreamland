@@ -1,5 +1,7 @@
 @extends('user.layouts.app')
 
+@section('title', 'Pendopo Pringgondani')
+
 @section('style')
     <style>
         /* Custom Pattern untuk Background Section Spesifikasi */

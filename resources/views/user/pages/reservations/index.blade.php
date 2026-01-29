@@ -1,5 +1,7 @@
 @extends('user.layouts.app')
 
+@section('title', 'Reservasi Tempat')
+
 @section('style')
     <style>
         /* Custom Hover Effect untuk Card yang Aktif */

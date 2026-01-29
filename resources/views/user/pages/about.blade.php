@@ -1,5 +1,7 @@
 @extends('user.layouts.app')
 
+@section('title', 'Tentang')
+
 @section('style')
     <style>
         /* 1. ORGANIC SHAPE GENERATOR (CSS Pure) */

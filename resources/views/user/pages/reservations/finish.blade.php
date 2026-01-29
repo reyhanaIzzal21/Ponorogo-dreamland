@@ -1,5 +1,7 @@
 @extends('user.layouts.app')
 
+@section('title', 'Reservasi Berhasil')
+
 @section('style')
     <style>
         /* Ticket Scallop Effect (Lubang sobekan tiket) */
