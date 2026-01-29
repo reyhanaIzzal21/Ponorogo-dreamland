@@ -152,9 +152,9 @@ Route::prefix('admin')->middleware('role:admin')->name('admin.')->group(function
     Route::post('/contacts', [AdminContactController::class, 'update'])->name('contacts.update');
 
     // profile
-    Route::get('/profile', function () {
-        return view('admin.pages.profiles.profile');
-    })->name('profile');
+    Route::get('/profile', [App\Http\Controllers\Admin\AdminProfileController::class, 'index'])->name('profile');
+    Route::put('/profile', [App\Http\Controllers\Admin\AdminProfileController::class, 'updateProfile'])->name('profile.update');
+    Route::put('/profile/password', [App\Http\Controllers\Admin\AdminProfileController::class, 'updatePassword'])->name('profile.password');
 });
 
 require __DIR__ . '/settings.php';
