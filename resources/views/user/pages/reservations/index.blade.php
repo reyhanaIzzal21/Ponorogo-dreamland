@@ -141,7 +141,7 @@
 
             <div class="mt-12 text-center reveal">
                 <p class="text-zinc-400 text-sm">
-                    Butuh bantuan langsung? <a href="#" class="text-primary font-bold hover:underline">Chat WhatsApp
+                    Butuh bantuan langsung? <a href="https://wa.me/6282252222650" class="text-primary font-bold hover:underline">Chat WhatsApp
                         Admin</a>
                 </p>
             </div>
