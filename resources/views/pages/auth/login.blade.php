@@ -75,9 +75,12 @@
 
                         <div class="space-y-1">
                             <label class="block text-sm font-bold text-zinc-700 mb-1">Email Address</label>
-                            <flux:input name="email"  :value="old('email')" type="email" required autofocus
+                            <input type="email" name="email" value="{{ old('email') }}" required autofocus
                                 autocomplete="email" placeholder="name@gmail.com"
-                                class="w-full bg-zinc-50 border-zinc-300 focus:ring-primary focus:border-primary rounded-lg" />
+                                class="admin-input w-full bg-zinc-50 border text-zinc-900 text-sm rounded-lg block p-2.5 @error('email') border-red-500 @else border-zinc-300 @enderror focus:ring-primary focus:border-primary" />
+                            @error('email')
+                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
                         </div>
 
                         <div class="space-y-1" x-data="{ show: false }">
@@ -94,7 +97,7 @@
                             <div class="relative">
                                 <input :type="show ? 'text' : 'password'" name="password" required
                                     autocomplete="current-password" placeholder="••••••••"
-                                    class="admin-input w-full bg-zinc-50 border border-zinc-300 text-zinc-900 text-sm rounded-lg block p-2.5 pr-10">
+                                    class="admin-input w-full bg-zinc-50 border text-zinc-900 text-sm rounded-lg block p-2.5 pr-10 @error('password') border-red-500 @else border-zinc-300 @enderror">
                                 <button type="button" @click="show = !show"
                                     class="absolute inset-y-0 right-0 pr-3 flex items-center text-zinc-400 hover:text-zinc-600 focus:outline-none">
                                     <svg x-show="show" class="w-5 h-5" fill="none" stroke="currentColor"
@@ -113,6 +116,9 @@
                                     </svg>
                                 </button>
                             </div>
+                            @error('password')
+                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
                         </div>
 
                         <button type="submit"
