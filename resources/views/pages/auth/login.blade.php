@@ -86,12 +86,12 @@
                         <div class="space-y-1" x-data="{ show: false }">
                             <div class="flex justify-between items-center mb-1">
                                 <label class="block text-sm font-bold text-zinc-700">Password</label>
-                                @if (Route::has('password.request'))
+                                {{-- @if (Route::has('password.request'))
                                     <a href="{{ route('password.request') }}"
                                         class="text-xs text-primary hover:text-indigo-800 font-bold" wire:navigate>
                                         Lupa Password?
                                     </a>
-                                @endif
+                                @endif --}}
                             </div>
 
                             <div class="relative">
@@ -130,7 +130,7 @@
                             </svg>
                             Masuk
                         </button>
-                    </form>                    
+                    </form>
                 </div>
             </div>
         </div>
