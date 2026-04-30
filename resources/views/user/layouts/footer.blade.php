@@ -15,7 +15,8 @@
                 <h4 class="text-lg font-bold mb-4 text-secondary">Navigasi</h4>
                 <ul class="space-y-2 text-gray-400 text-sm">
                     <li><a href="{{ route('home') }}" class="hover:text-primary transition">Beranda</a></li>
-                    <li><a href="{{ route('dam-cokro-resto') }}" class="hover:text-primary transition">Dam Cokro Resto</a></li>
+                    <li><a href="{{ route('dam-cokro-resto') }}" class="hover:text-primary transition">Dam Cokro
+                            Resto</a></li>
                     <li><a href="{{ route('pavilion') }}" class="hover:text-primary transition">Pendopo Ageng</a></li>
                     <li><a href="{{ route('pool') }}" class="hover:text-primary transition">Kolam Renang</a></li>
                     <li><a href="{{ route('about') }}" class="hover:text-primary transition">Tentang Kami</a></li>
@@ -32,7 +33,8 @@
                     </li>
                     <li class="flex items-start gap-3">
                         <span class="text-primary mt-1">📍</span>
-                        <a href="https://maps.app.goo.gl/xYXZHmf8xv2EWqwT9" target="_blank">Jl. Tribusono No.54, Sambirejo, Cokromenggalan, Kec. Ponorogo, Kabupaten Ponorogo, Jawa Timur 63411</a>
+                        <a href="https://maps.app.goo.gl/xYXZHmf8xv2EWqwT9" target="_blank">Jl. Tribusono No.54,
+                            Sambirejo, Cokromenggalan, Kec. Ponorogo, Kabupaten Ponorogo, Jawa Timur 63411</a>
                     </li>
                 </ul>
             </div>
@@ -47,7 +49,7 @@
         </div>
 
         <div class="border-t border-gray-800 pt-8 text-center text-gray-500 text-sm">
-            &copy; 2026 Ponorogo Dreamland. All rights reserved. Designed with ❤️.
+            &copy; Tugas Akhir | Kelompok 14 RPL SMK PGRI 2 PONOROGO. All rights reserved.
         </div>
     </div>
 </footer>

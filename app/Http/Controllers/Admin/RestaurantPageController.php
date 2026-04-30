@@ -43,7 +43,7 @@ class RestaurantPageController extends Controller
             'title' => 'nullable|string|max:255',
             'subtitle' => 'nullable|string|max:255',
             'description' => 'nullable|string|max:1000',
-            'extra_data' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
+            'extra_data' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:4048',
         ]);
 
         $imagePath = null;
@@ -121,7 +121,7 @@ class RestaurantPageController extends Controller
     public function storeGalleryImage(Request $request): JsonResponse
     {
         $validated = $request->validate([
-            'image' => 'required|image|mimes:jpeg,png,jpg,webp|max:2048',
+            'image' => 'required|image|mimes:jpeg,png,jpg,webp|max:4048',
             'alt_text' => 'nullable|string|max:255',
         ]);
 

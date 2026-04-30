@@ -168,7 +168,7 @@ class PavilionPageController extends Controller
     public function uploadFacilitiesImage(Request $request): JsonResponse
     {
         $request->validate([
-            'image' => 'required|image|mimes:jpeg,png,jpg,webp|max:2048',
+            'image' => 'required|image|mimes:jpeg,png,jpg,webp|max:6048',
         ]);
 
         $imageUrl = $this->pavilionService->uploadFacilitiesImage($request->file('image'));
@@ -210,7 +210,7 @@ class PavilionPageController extends Controller
     {
         $validated = $request->validate([
             'title' => 'required|string|max:100',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:6048',
         ]);
 
         $file = $request->hasFile('image') ? $request->file('image') : null;

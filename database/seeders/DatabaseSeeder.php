@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Destination;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -24,7 +25,12 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
-        // Jalankan RolePermissionSeeder
         $this->call(RolePermissionSeeder::class);
+        $this->call(MenuSeeder::class);
+        $this->call(ContactSeeder::class);
+        $this->call(DestinationSeeder::class);
+        $this->call(LandingPageSeeder::class);
+        $this->call(PavilionSeeder::class);
+        $this->call(RestaurantSeeder::class);
     }
 }

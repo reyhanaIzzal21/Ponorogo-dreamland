@@ -148,7 +148,7 @@ class LandingPageController extends Controller
     {
         $validated = $request->validate([
             'section_type' => 'required|in:hero,about,why_choose_us,moment',
-            'image' => 'required|image|mimes:jpeg,png,jpg,webp|max:2048',
+            'image' => 'required|image|mimes:jpeg,png,jpg,webp|max:4048',
             'image_type' => 'nullable|string|max:50',
             'alt_text' => 'nullable|string|max:255',
         ]);

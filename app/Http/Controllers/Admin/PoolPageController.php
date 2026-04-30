@@ -70,7 +70,7 @@ class PoolPageController extends Controller
 
     public function storeStagePhoto(Request $request, $id)
     {
-        $request->validate(['image' => 'required|image|max:2048']);
+        $request->validate(['image' => 'required|image']);
         $this->poolService->addStagePhoto($id, $request->file('image'));
         return redirect()->back()->with('success', 'Photo added to stage.');
     }
